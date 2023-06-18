@@ -2,11 +2,24 @@ import Farm from '@/assets/animations/farm.json'
 import { Icons } from '@/components/icons/Icons'
 import { Text } from '@/components/shared/Text'
 import { View } from '@/components/shared/View'
+import { useAuth } from '@/hooks/useAuth'
+import { Theme } from '@/styles/theme'
+import { useTheme } from '@shopify/restyle'
 import LottieView from 'lottie-react-native'
+import { useState } from 'react'
 
 import { Button } from './components/Button'
-import { ButtonSecondary } from './components/ButtonSecondary'
 export const Dashboard = () => {
+  const {
+    promptSingInWithGoogle,
+    promptSingInWithFacebook,
+    promptSingInWithApple,
+  } = useAuth()
+  const { colors } = useTheme<Theme>()
+  const [isLoadingFacebook, setIsLoadingFacebook] = useState<boolean>(false)
+  const [isLoadingGoogle, setIsLoadingGoogle] = useState<boolean>(false)
+  const [isLoadingApple, setIsLoadingApple] = useState<boolean>(false)
+
   return (
     <View
       bg="mainBackground"
@@ -20,16 +33,59 @@ export const Dashboard = () => {
         source={Farm}
         autoPlay
         loop
+        resizeMode="contain"
         style={{ position: 'relative' }}
       />
-      <Text variant="header" textAlign="center" selectable>
+      <Text variant="header" textAlign="center">
         Nós amamos ajudar você a plantar melhor
       </Text>
       <View gap="l">
-        <Button icon={<Icons.facebookIcon />} title="Continuar com Facebook" />
-        <Button icon={<Icons.appleIcon />} title="Continuar com Apple" />
-        <Button icon={<Icons.googleIcon />} title="Continuar com Google" />
-        <ButtonSecondary title="Outras opções" />
+        <Button
+          accessible
+          accessibilityLabel="Entrar na aplicação"
+          accessibilityHint="Cadastrar utilizando o facebook"
+          onPress={async () => {
+            setIsLoadingFacebook(true)
+            promptSingInWithFacebook().finally(() =>
+              setIsLoadingFacebook(false),
+            )
+          }}
+          icon={<Icons.facebookIcon />}
+          title="Continuar com Facebook"
+          isLoading={isLoadingFacebook}
+        />
+        <Button
+          accessible
+          accessibilityLabel="Entrar na aplicação"
+          accessibilityHint="Cadastrar utilizando o apple"
+          onPress={async () => {
+            setIsLoadingApple(true)
+            promptSingInWithApple().finally(() => setIsLoadingApple(false))
+          }}
+          icon={<Icons.appleIcon color={colors.textPrimary} />}
+          title="Continuar com Apple"
+          isLoading={isLoadingApple}
+        />
+        <Button
+          accessible
+          accessibilityLabel="Entrar na aplicação"
+          accessibilityHint="Cadastrar utilizando o google"
+          onPress={async () => {
+            setIsLoadingGoogle(true)
+            promptSingInWithGoogle().finally(() => setIsLoadingGoogle(false))
+          }}
+          icon={<Icons.googleIcon />}
+          title="Continuar com Google"
+          isLoading={isLoadingGoogle}
+        />
+        <Button
+          accessible
+          accessibilityLabel="Entrar na aplicação"
+          accessibilityHint="Cadastrar utilizando o email"
+          onPress={() => {}}
+          icon={<Icons.email color={colors.textPrimary} />}
+          title="Continuar com email"
+        />
       </View>
     </View>
   )

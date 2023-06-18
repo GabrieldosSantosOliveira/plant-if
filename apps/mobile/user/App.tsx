@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { Loading } from '@/components/Loading'
 import { StatusBar } from '@/components/StatusBar'
+import { AuthProvider } from '@/contexts/AuthContext'
 import { ColorModeProvider } from '@/contexts/ColorModeContext'
 import { HttpServiceProvider } from '@/contexts/HttpServiceContext'
 import { StorageProvider } from '@/contexts/StorageContext'
@@ -32,8 +33,10 @@ export default function App() {
       <SafeAreaView style={{ flex: 1 }}>
         <ColorModeProvider>
           <HttpServiceProvider>
-            <StatusBar />
-            {isFontsLoaded ? <Dashboard /> : <Loading />}
+            <AuthProvider>
+              <StatusBar />
+              {isFontsLoaded ? <Dashboard /> : <Loading />}
+            </AuthProvider>
           </HttpServiceProvider>
         </ColorModeProvider>
       </SafeAreaView>

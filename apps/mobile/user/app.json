@@ -1,21 +1,29 @@
 {
   "expo": {
-    "name": "user",
+    "name": "PlantIf",
     "slug": "user",
+    "scheme": "fb3380127005587923",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
-    "plugins": ["@react-native-google-signin/google-signin"],
+    "plugins": ["@react-native-google-signin/google-signin",
+     [
+      "react-native-fbsdk-next",
+      {
+        "appID": "3406302206319081",
+        "clientToken": "ea9953f16cd3b61013f0458ddad5ed5a",
+        "displayName": "PlantIf",
+        "scheme": "fb3406302206319081"
+      }
+    ]],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#FAFFFA"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.gabriel85.user",
@@ -28,7 +36,6 @@
       },
       "package": "com.gabriel85.user",
       "googleServicesFile": "./google-services.json"
-
     },
     "extra": {
       "eas": {

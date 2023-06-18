@@ -2,7 +2,6 @@
   "extends": "@rocketseat/eslint-config/react",
   "plugins": ["eslint-plugin-import-helpers"],
   "rules": {
-    "prettier/prettier": "error",
     "import-helpers/order-imports": [
       "warn",
       {

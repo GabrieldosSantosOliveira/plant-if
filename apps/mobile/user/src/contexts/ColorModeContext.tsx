@@ -33,12 +33,12 @@ export const ColorModeProvider: FC<ColorModeProviderProps> = ({ children }) => {
   const changeColorModeToAutomatic = async () => {
     setColorMode('automatic')
     setTheme(colorScheme || 'dark')
-    await storage.setItem<ColorModeType>(keys.colorMode, 'automatic')
+    await storage.setItem<ColorModeType>(keys.COLOR_MODE, 'automatic')
   }
   const changeColorModeToDark = async () => {
     setTheme('dark')
     setColorMode('dark')
-    await storage.setItem<ColorModeType>(keys.colorMode, 'dark')
+    await storage.setItem<ColorModeType>(keys.COLOR_MODE, 'dark')
   }
   const changeColorModeToLight = async () => {
     setTheme('light')
