@@ -1,8 +1,16 @@
 import { HttpResponse } from '@/interfaces/http/http-response'
 
+import { ServerError } from '../errors/server-error'
 import { HttpStatusCode } from './http-status-code'
 
 export class ResponseEntity {
+  static customError(statusCode: HttpStatusCode, body: any): HttpResponse {
+    return {
+      statusCode,
+      body,
+    }
+  }
+
   static badRequest(body: any): HttpResponse {
     return {
       body,
@@ -19,7 +27,9 @@ export class ResponseEntity {
 
   static serverError(): HttpResponse {
     return {
-      body: new Error(),
+      body: {
+        message: new ServerError().message,
+      },
       statusCode: HttpStatusCode.SERVER_ERROR,
     }
   }

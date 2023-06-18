@@ -1,7 +1,11 @@
 {
+  "env": {
+    "jest": true
+  },
   "extends": ["@rocketseat/eslint-config/node"],
   "plugins": ["eslint-plugin-import-helpers"],
   "rules": {
+    "no-useless-constructor": "off",
     "prettier/prettier": "error",
     "import-helpers/order-imports": [
       "warn",

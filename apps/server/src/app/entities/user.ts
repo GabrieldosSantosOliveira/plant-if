@@ -1,13 +1,12 @@
 import { randomUUID } from 'node:crypto'
 
 import { Replace } from '../helpers/replace'
-import { Image } from './image'
 export interface UserProps {
   id: string
   email: string
   firstName: string
   lastName: string
-  image?: Image
+  image?: string
   createdAt: Date
   updatedAt: Date
 }
@@ -53,6 +52,14 @@ export class User {
 
   public set lastName(lastName: string) {
     this.props.lastName = lastName
+  }
+
+  public get image() {
+    return this.props.image
+  }
+
+  public set image(image: string | undefined) {
+    this.props.image = image
   }
 
   public get createdAt() {

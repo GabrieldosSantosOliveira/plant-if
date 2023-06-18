@@ -7,7 +7,7 @@ import { User } from './user'
 export interface ProjectProps {
   id: string
   students: User[]
-  teacher: User[]
+  teachers: User[]
   codeShareForTeachers: string
   codeShareForStudents: string
   title: string
@@ -61,12 +61,12 @@ export class Project {
     this.props.students = students
   }
 
-  public get teacher() {
-    return this.props.teacher
+  public get teachers() {
+    return this.props.teachers
   }
 
-  public set teacher(teacher: User[]) {
-    this.props.teacher = teacher
+  public set teachers(teachers: User[]) {
+    this.props.teachers = teachers
   }
 
   public get codeShareForTeachers() {
