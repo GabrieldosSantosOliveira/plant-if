@@ -1,4 +1,4 @@
-package com.gabriel85.user;
+package com.projecthotel;
 
 import android.app.Application;
 import android.content.res.Configuration;

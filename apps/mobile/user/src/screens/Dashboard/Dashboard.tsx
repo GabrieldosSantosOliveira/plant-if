@@ -10,15 +10,10 @@ import { useState } from 'react'
 
 import { Button } from './components/Button'
 export const Dashboard = () => {
-  const {
-    promptSingInWithGoogle,
-    promptSingInWithFacebook,
-    promptSingInWithApple,
-  } = useAuth()
+  const { promptSingInWithGoogle, promptSingInWithFacebook } = useAuth()
   const { colors } = useTheme<Theme>()
   const [isLoadingFacebook, setIsLoadingFacebook] = useState<boolean>(false)
   const [isLoadingGoogle, setIsLoadingGoogle] = useState<boolean>(false)
-  const [isLoadingApple, setIsLoadingApple] = useState<boolean>(false)
 
   return (
     <View
@@ -54,18 +49,7 @@ export const Dashboard = () => {
           title="Continuar com Facebook"
           isLoading={isLoadingFacebook}
         />
-        <Button
-          accessible
-          accessibilityLabel="Entrar na aplicação"
-          accessibilityHint="Cadastrar utilizando o apple"
-          onPress={async () => {
-            setIsLoadingApple(true)
-            promptSingInWithApple().finally(() => setIsLoadingApple(false))
-          }}
-          icon={<Icons.appleIcon color={colors.textPrimary} />}
-          title="Continuar com Apple"
-          isLoading={isLoadingApple}
-        />
+
         <Button
           accessible
           accessibilityLabel="Entrar na aplicação"

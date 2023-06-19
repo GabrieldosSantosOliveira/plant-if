@@ -113,9 +113,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.gabriel85.user'
+    namespace 'com.projecthotel'
     defaultConfig {
-        applicationId 'com.gabriel85.user'
+        applicationId 'com.projecthotel'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

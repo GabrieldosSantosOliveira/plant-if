@@ -34,7 +34,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FAFFFA"
       },
-      "package": "com.gabriel85.user",
+      "package": "com.projecthotel",
       "googleServicesFile": "./google-services.json"
     },
     "extra": {

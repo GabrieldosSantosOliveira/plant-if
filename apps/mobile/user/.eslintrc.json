@@ -2,6 +2,7 @@
   "extends": "@rocketseat/eslint-config/react",
   "plugins": ["eslint-plugin-import-helpers"],
   "rules": {
+    "no-useless-constructor":"off",
     "import-helpers/order-imports": [
       "warn",
       {

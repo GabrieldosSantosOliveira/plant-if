@@ -1,4 +1,4 @@
-package com.gabriel85.user;
+package com.projecthotel;
 
 import android.os.Build;
 import android.os.Bundle;

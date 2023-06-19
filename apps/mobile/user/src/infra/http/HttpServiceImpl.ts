@@ -3,7 +3,7 @@ import {
   HttpServiceOptions,
   HttpServiceResponse,
 } from '@/interfaces/http/HttpService'
-import axios from 'axios'
+import axios, { isAxiosError } from 'axios'
 
 export class HttpServiceImpl implements HttpService {
   async get<T = any>(url: string): Promise<HttpServiceResponse<T>> {
@@ -15,8 +15,18 @@ export class HttpServiceImpl implements HttpService {
     url: string,
     options?: HttpServiceOptions | undefined,
   ): Promise<HttpServiceResponse<T>> {
-    const { data, status } = await axios.post(url, options?.body)
-    return { data, statusCode: status }
+    try {
+      const { data, status } = await axios.post(url, options?.body)
+      return { data, statusCode: status }
+    } catch (error) {
+      if (isAxiosError(error)) {
+        return {
+          data: error.response?.data,
+          statusCode: error.response?.status || 500,
+        }
+      }
+      throw new Error()
+    }
   }
 
   async put<T = any>(

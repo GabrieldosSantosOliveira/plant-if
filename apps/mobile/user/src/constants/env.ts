@@ -4,6 +4,7 @@ import {
   FACEBOOK_APP_ID,
   APPLE_CLIENT_ID,
   APPLE_REDIRECT_URI,
+  BASE_URL,
 } from '@env'
 
 export const env = {
@@ -12,4 +13,5 @@ export const env = {
   FACEBOOK_APP_ID: FACEBOOK_APP_ID as string,
   APPLE_CLIENT_ID: APPLE_CLIENT_ID as string,
   APPLE_REDIRECT_URI: APPLE_REDIRECT_URI as string,
+  BASE_URL: BASE_URL as string,
 }

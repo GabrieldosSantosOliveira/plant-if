@@ -48,6 +48,50 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155503536182:android:a20a1ce0a20a231c115097",
+        "android_client_info": {
+          "package_name": "com.projecthotel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155503536182-qh2t65ploetp48ej0r9a19uo0av3s2vc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.projecthotel",
+            "certificate_hash": "3ea18c2a9e1cba2eb0da07c62a5b19ea4b31eb6f"
+          }
+        },
+        {
+          "client_id": "155503536182-ifncuctfkjhdn14ugdrvmut2j7lak14i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqScLV7AmRVX_hSKkSocZetzNsd_LN6K4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155503536182-ifncuctfkjhdn14ugdrvmut2j7lak14i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "155503536182-ojt8cgnvkfdp3uq9hp722ppsjl64c95n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.gabriel85.user"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
