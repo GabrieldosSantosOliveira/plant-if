@@ -7,6 +7,7 @@ export interface HttpServiceOptionsHeaders {
 }
 export interface HttpServiceOptions {
   headers?: HttpServiceOptionsHeaders
+  params?: object
 }
 
 export interface HttpService {

@@ -14,6 +14,7 @@ export class HttpServiceImpl implements HttpService {
       headers: {
         Authorization: options?.headers?.Authorization,
       },
+      params: options?.params,
     })
     return { data, statusCode: status }
   }

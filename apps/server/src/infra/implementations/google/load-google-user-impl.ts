@@ -5,6 +5,7 @@ import {
 } from '@/app/repositories/google/load-google-user'
 import { HttpService } from '@/interfaces/http/http-service'
 import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
+
 export interface GoogleResponseAccount {
   email: string
   email_verified: string
