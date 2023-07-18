@@ -4,7 +4,7 @@ import { ServerError } from '../errors/server-error'
 import { HttpStatusCode } from './http-status-code'
 
 export class ResponseEntity {
-  static customError(statusCode: HttpStatusCode, body: any): HttpResponse {
+  static customError(statusCode:  HttpStatusCode, body: any): HttpResponse {
     return {
       statusCode,
       body,

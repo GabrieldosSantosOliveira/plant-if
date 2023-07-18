@@ -22,10 +22,8 @@ export class SingInWithGoogleService {
     switch (statusCode) {
       case HttpStatusCode.OK:
         return { data, statusCode }
-        break
       default:
         throw new UnexpectedError()
-        break
     }
   }
 }

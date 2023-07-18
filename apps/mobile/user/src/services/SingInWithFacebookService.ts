@@ -20,13 +20,10 @@ export class SingInWithFacebookService {
       },
     )
     switch (statusCode) {
-      case HttpStatusCode.OK:
+      case HttpStatusCode.CONFLICT:
         return { data, statusCode }
-        break
-
       default:
         throw new UnexpectedError()
-        break
     }
   }
 }

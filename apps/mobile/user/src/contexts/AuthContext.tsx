@@ -6,7 +6,7 @@ import { UserDto } from '@/models/UserDto'
 import { SingInWithFacebookService } from '@/services/SingInWithFacebookService'
 import { SingInWithGoogleService } from '@/services/SingInWithGoogleService'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
-import { createContext, ReactNode, FC, useEffect, useState } from 'react'
+import React, { createContext, ReactNode, FC, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { AccessToken, LoginManager } from 'react-native-fbsdk-next'
 export interface AuthContextProps {
