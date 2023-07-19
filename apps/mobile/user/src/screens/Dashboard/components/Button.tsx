@@ -13,6 +13,7 @@ export interface ButtonProps extends AccessibilityProps {
   isLoading?: boolean
   onPress: () => void
 }
+const HEIGHT = 52
 export const Button: FC<ButtonProps> = ({
   icon,
   title,
@@ -32,8 +33,10 @@ export const Button: FC<ButtonProps> = ({
     >
       {isLoading ? (
         <View
-          style={{ width: '100%', borderRadius: 4, paddingHorizontal: 10 }}
-          height={52}
+          width="100%"
+          paddingHorizontal="md"
+          borderRadius="rounded-lg"
+          height={HEIGHT}
           flexDirection="row"
           justifyContent="center"
           alignItems="center"
@@ -48,8 +51,10 @@ export const Button: FC<ButtonProps> = ({
         </View>
       ) : (
         <View
-          style={{ width: '100%', borderRadius: 4, paddingHorizontal: 10 }}
-          height={52}
+          borderRadius="rounded-lg"
+          width="100%"
+          paddingHorizontal="md"
+          height={HEIGHT}
           flexDirection="row"
           justifyContent="space-between"
           alignItems="center"

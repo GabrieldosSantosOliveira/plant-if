@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>155503536182-pagpfoidkjdb1k1nstpn07o3amatg8cv.apps.googleusercontent.com</string>
+	<string>155503536182-ojt8cgnvkfdp3uq9hp722ppsjl64c95n.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.155503536182-pagpfoidkjdb1k1nstpn07o3amatg8cv</string>
+	<string>com.googleusercontent.apps.155503536182-ojt8cgnvkfdp3uq9hp722ppsjl64c95n</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>155503536182-g1bng6hi2um91uuplea1ign1u5tecgoj.apps.googleusercontent.com</string>
+	<string>155503536182-0p0konbpobmpopm461ttmmolu4rtpkjn.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAfyIxOkfvTq_melrKg8bd2emUcbJlYcCU</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.projecthotel</string>
+	<string>com.gabriel85.user</string>
 	<key>PROJECT_ID</key>
 	<string>plant-if</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:155503536182:ios:636a1ce7b65b36a9115097</string>
+	<string>1:155503536182:ios:35389ec6581da76c115097</string>
 </dict>
 </plist>

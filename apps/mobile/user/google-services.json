@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "155503536182-g1bng6hi2um91uuplea1ign1u5tecgoj.apps.googleusercontent.com",
+          "client_id": "155503536182-6m4lmn6aesum5ru3k4oemcs1t2a5hvfv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gabriel85.user",
+            "certificate_hash": "3e721d54d66ab41d9e5697f1f147e486d01b68c3"
+          }
+        },
+        {
+          "client_id": "155503536182-t51iqaop6lf4u9u92efbm4pihrgq8vjf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.gabriel85.user",
@@ -58,7 +66,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "155503536182-qh2t65ploetp48ej0r9a19uo0av3s2vc.apps.googleusercontent.com",
+          "client_id": "155503536182-0p0konbpobmpopm461ttmmolu4rtpkjn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.projecthotel",
+            "certificate_hash": "3e721d54d66ab41d9e5697f1f147e486d01b68c3"
+          }
+        },
+        {
+          "client_id": "155503536182-t0pndq18g6db5nri77vkq2ps574dgqhq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.projecthotel",

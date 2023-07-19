@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { Loading } from '@/components/Loading'
 import { StatusBar } from '@/components/StatusBar'
 import { AuthProvider } from '@/contexts/AuthContext'

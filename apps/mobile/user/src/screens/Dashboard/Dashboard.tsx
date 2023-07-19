@@ -6,9 +6,11 @@ import { useAuth } from '@/hooks/useAuth'
 import { Theme } from '@/styles/theme'
 import { useTheme } from '@shopify/restyle'
 import LottieView from 'lottie-react-native'
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { StyleSheet } from 'react-native'
 
 import { Button } from './components/Button'
+
 export const Dashboard = () => {
   const { promptSingInWithGoogle, promptSingInWithFacebook } = useAuth()
   const { colors } = useTheme<Theme>()
@@ -18,23 +20,23 @@ export const Dashboard = () => {
   return (
     <View
       bg="mainBackground"
-      paddingHorizontal="l"
+      paddingHorizontal="2xl"
       flex={1}
       justifyContent="flex-end"
-      gap="l"
-      paddingVertical="l"
+      gap="2xl"
+      paddingVertical="2xl"
     >
       <LottieView
         source={Farm}
         autoPlay
         loop
         resizeMode="contain"
-        style={{ position: 'relative' }}
+        style={styles.lottie}
       />
       <Text variant="header" textAlign="center">
         Nós amamos ajudar você a plantar melhor
       </Text>
-      <View gap="l">
+      <View gap="2xl">
         <Button
           accessible
           accessibilityLabel="Entrar na aplicação"
@@ -74,3 +76,8 @@ export const Dashboard = () => {
     </View>
   )
 }
+const styles = StyleSheet.create({
+  lottie: {
+    position: 'relative',
+  },
+})
