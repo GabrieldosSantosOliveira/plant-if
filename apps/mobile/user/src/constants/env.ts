@@ -7,4 +7,3 @@ export const env = {
   APPLE_REDIRECT_URI: process.env.EXPO_PUBLIC_APPLE_REDIRECT_URI as string,
   BASE_URL: process.env.EXPO_PUBLIC_BASE_URL as string,
 }
-console.log(env)

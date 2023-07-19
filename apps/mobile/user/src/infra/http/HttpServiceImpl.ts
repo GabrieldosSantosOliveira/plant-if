@@ -3,53 +3,87 @@ import {
   HttpServiceOptions,
   HttpServiceResponse,
 } from '@/interfaces/http/HttpService'
-import axios, { isAxiosError } from 'axios'
-
+function isJSON(text: string) {
+  try {
+    JSON.parse(text)
+    return true
+  } catch {
+    return false
+  }
+}
 export class HttpServiceImpl implements HttpService {
   async get<T = unknown>(url: string): Promise<HttpServiceResponse<T>> {
-    const { data, status } = await axios.get(url)
-    return { data, statusCode: status }
+    const response = await fetch(url)
+    const text = await response.text()
+
+    if (isJSON(text)) {
+      const data = await response.json()
+      return { data, statusCode: response.status }
+    }
+    return { data: undefined as T, statusCode: response.status }
   }
 
   async post<T = unknown>(
     url: string,
     options?: HttpServiceOptions | undefined,
   ): Promise<HttpServiceResponse<T>> {
-    try {
-      const { data, status } = await axios.post(url, options?.body)
-      return { data, statusCode: status }
-    } catch (error) {
-      if (isAxiosError(error)) {
-        return {
-          data: error.response?.data,
-          statusCode: error.response?.status || 500,
-        }
-      }
-      throw new Error()
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(options),
+    })
+    const text = await response.text()
+    if (isJSON(text)) {
+      const data = await response.json()
+      return { data, statusCode: response.status }
     }
+    return { data: undefined as T, statusCode: response.status }
   }
 
   async put<T = unknown>(
     url: string,
     options?: HttpServiceOptions | undefined,
   ): Promise<HttpServiceResponse<T>> {
-    const { data, status } = await axios.put(url, options?.body)
-    return { data, statusCode: status }
+    const response = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(options?.body),
+    })
+    const text = await response.text()
+    if (isJSON(text)) {
+      const data = await response.json()
+      return { data, statusCode: response.status }
+    }
+    return { data: undefined as T, statusCode: response.status }
   }
 
   async patch<T = unknown>(
     url: string,
     options?: HttpServiceOptions | undefined,
   ): Promise<HttpServiceResponse<T>> {
-    const { data, status } = await axios.patch(url, options?.body)
-    return { data, statusCode: status }
+    const response = await fetch(url, {
+      method: 'PATCH',
+      body: JSON.stringify(options?.body),
+    })
+    const text = await response.text()
+    if (isJSON(text)) {
+      const data = await response.json()
+      return { data, statusCode: response.status }
+    }
+    return { data: undefined as T, statusCode: response.status }
   }
 
   async delete<T = unknown>(
     url: string,
     options?: HttpServiceOptions | undefined,
   ): Promise<HttpServiceResponse<T>> {
-    const { data, status } = await axios.delete(url, { data: options?.body })
-    return { data, statusCode: status }
+    const response = await fetch(url, {
+      method: 'DELETE',
+      body: JSON.stringify(options?.body),
+    })
+    const text = await response.text()
+    if (isJSON(text)) {
+      const data = await response.json()
+      return { data, statusCode: response.status }
+    }
+    return { data: undefined as T, statusCode: response.status }
   }
 }

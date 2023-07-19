@@ -1,10 +1,10 @@
-import { Loading } from '@/components/Loading'
-import { StatusBar } from '@/components/StatusBar'
-import { AuthProvider } from '@/contexts/AuthContext'
-import { ColorModeProvider } from '@/contexts/ColorModeContext'
-import { HttpServiceProvider } from '@/contexts/HttpServiceContext'
-import { StorageProvider } from '@/contexts/StorageContext'
-import { Dashboard } from '@/screens/Dashboard/Dashboard'
+import { Loading } from '@/ui/components/Loading'
+import { StatusBar } from '@/ui/components/StatusBar'
+import { AuthProvider } from '@/ui/contexts/AuthContext'
+import { ColorModeProvider } from '@/ui/contexts/ColorModeContext'
+import { HttpServiceProvider } from '@/ui/contexts/HttpServiceContext'
+import { StorageProvider } from '@/ui/contexts/StorageContext'
+import { Dashboard } from '@/ui/screens/Dashboard/Dashboard'
 import { Inter_500Medium } from '@expo-google-fonts/inter'
 import {
   Poppins_500Medium,

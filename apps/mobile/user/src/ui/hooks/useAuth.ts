@@ -1,5 +1,5 @@
-import { AuthContext } from '@/contexts/AuthContext'
 import { WithoutProviderError } from '@/errors/WithoutProviderError'
+import { AuthContext } from '@/ui/contexts/AuthContext'
 import { useContext } from 'react'
 export const useAuth = () => {
   const value = useContext(AuthContext)

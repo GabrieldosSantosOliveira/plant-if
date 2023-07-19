@@ -8,16 +8,18 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "jsEngine": "hermes",
-    "plugins": ["@react-native-google-signin/google-signin",
-     [
-      "react-native-fbsdk-next",
-      {
-        "appID": "3406302206319081",
-        "clientToken": "ea9953f16cd3b61013f0458ddad5ed5a",
-        "displayName": "PlantIf",
-        "scheme": "fb3406302206319081"
-      }
-    ]],
+    "plugins": [
+      "@react-native-google-signin/google-signin",
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "3406302206319081",
+          "clientToken": "ea9953f16cd3b61013f0458ddad5ed5a",
+          "displayName": "PlantIf",
+          "scheme": "fb3406302206319081"
+        }
+      ]
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

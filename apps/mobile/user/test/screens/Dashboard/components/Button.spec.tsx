@@ -1,6 +1,6 @@
-import { View } from '@/components/shared/View'
 import { render, fireEvent } from '@/jest/test-utils'
-import { Button } from '@/screens/Dashboard/components/Button'
+import { View } from '@/ui/components/shared/View'
+import { Button } from '@/ui/screens/Dashboard/components/Button'
 import { faker } from '@faker-js/faker'
 describe('<Button />', () => {
   it('should render with correct title', () => {

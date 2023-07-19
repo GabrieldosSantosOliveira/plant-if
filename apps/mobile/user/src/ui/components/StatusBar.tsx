@@ -1,5 +1,5 @@
-import { useColorMode } from '@/hooks/useColorMode'
-import { Theme } from '@/styles/theme'
+import { useColorMode } from '@/ui/hooks/useColorMode'
+import { Theme } from '@/ui/styles/theme'
 import { useTheme } from '@shopify/restyle'
 import {
   StatusBar as ExpoStatusBar,

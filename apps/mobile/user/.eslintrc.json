@@ -1,9 +1,13 @@
 {
-  "extends": ["plugin:react/jsx-runtime","@rocketseat/eslint-config/react", "@react-native-community"],
+  "extends": [
+    "plugin:react/jsx-runtime",
+    "@rocketseat/eslint-config/react",
+    "@react-native-community"
+  ],
   "plugins": ["eslint-plugin-import-helpers"],
   "rules": {
-    "react/react-in-jsx-scope":"off",
-    "no-useless-constructor":"off",
+    "react/react-in-jsx-scope": "off",
+    "no-useless-constructor": "off",
     "import-helpers/order-imports": [
       "warn",
       {

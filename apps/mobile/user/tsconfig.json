@@ -4,20 +4,16 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/assets/*": ["./src/assets/*"],
-      "@/components/*": ["./src/components/*"],
       "@/constants/*": ["./src/constants/*"],
-      "@/contexts/*": ["./src/contexts/*"],
+      "@/domain/*": ["./src/domain/*"],
       "@/errors/*": ["./src/errors/*"],
       "@/helpers/*": ["./src/helpers/*"],
-      "@/hooks/*": ["./src/hooks/*"],
       "@/infra/*": ["./src/infra/*"],
       "@/interfaces/*": ["./src/interfaces/*"],
       "@/main/*": ["./src/main/*"],
       "@/models/*": ["./src/models/*"],
-      "@/screens/*": ["./src/screens/*"],
       "@/services/*": ["./src/services/*"],
-      "@/styles/*": ["./src/styles/*"],
+      "@/ui/*": ["./src/ui/*"],
       "@/test/*": ["./test/*"],
       "@/jest/*": ["./jest/*"]
     }

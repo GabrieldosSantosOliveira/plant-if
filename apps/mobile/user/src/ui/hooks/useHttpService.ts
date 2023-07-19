@@ -1,5 +1,5 @@
-import { HttpServiceContext } from '@/contexts/HttpServiceContext'
 import { WithoutProviderError } from '@/errors/WithoutProviderError'
+import { HttpServiceContext } from '@/ui/contexts/HttpServiceContext'
 import { useContext } from 'react'
 export const useHttpService = () => {
   const value = useContext(HttpServiceContext)

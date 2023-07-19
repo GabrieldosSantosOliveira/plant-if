@@ -1,7 +1,7 @@
-import { AuthProvider } from '@/contexts/AuthContext'
-import { ColorModeProvider } from '@/contexts/ColorModeContext'
-import { HttpServiceProvider } from '@/contexts/HttpServiceContext'
-import { StorageProvider } from '@/contexts/StorageContext'
+import { AuthProvider } from '@/ui/contexts/AuthContext'
+import { ColorModeProvider } from '@/ui/contexts/ColorModeContext'
+import { HttpServiceProvider } from '@/ui/contexts/HttpServiceContext'
+import { StorageProvider } from '@/ui/contexts/StorageContext'
 import { render, RenderOptions } from '@testing-library/react-native'
 import { ReactNode, FC, ReactElement } from 'react'
 export interface AllTheProvidersProps {
