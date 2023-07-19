@@ -6,12 +6,12 @@ import {
 import axios, { isAxiosError } from 'axios'
 
 export class HttpServiceImpl implements HttpService {
-  async get<T = any>(url: string): Promise<HttpServiceResponse<T>> {
+  async get<T = unknown>(url: string): Promise<HttpServiceResponse<T>> {
     const { data, status } = await axios.get(url)
     return { data, statusCode: status }
   }
 
-  async post<T = any>(
+  async post<T = unknown>(
     url: string,
     options?: HttpServiceOptions | undefined,
   ): Promise<HttpServiceResponse<T>> {
@@ -29,7 +29,7 @@ export class HttpServiceImpl implements HttpService {
     }
   }
 
-  async put<T = any>(
+  async put<T = unknown>(
     url: string,
     options?: HttpServiceOptions | undefined,
   ): Promise<HttpServiceResponse<T>> {
@@ -37,7 +37,7 @@ export class HttpServiceImpl implements HttpService {
     return { data, statusCode: status }
   }
 
-  async patch<T = any>(
+  async patch<T = unknown>(
     url: string,
     options?: HttpServiceOptions | undefined,
   ): Promise<HttpServiceResponse<T>> {
@@ -45,11 +45,11 @@ export class HttpServiceImpl implements HttpService {
     return { data, statusCode: status }
   }
 
-  async delete<T = any>(
+  async delete<T = unknown>(
     url: string,
     options?: HttpServiceOptions | undefined,
   ): Promise<HttpServiceResponse<T>> {
-    const { data, status } = await axios.delete(url, options?.body)
+    const { data, status } = await axios.delete(url, { data: options?.body })
     return { data, statusCode: status }
   }
 }

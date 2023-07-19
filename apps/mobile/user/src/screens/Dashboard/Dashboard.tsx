@@ -68,7 +68,7 @@ export const Dashboard = () => {
           accessible
           accessibilityLabel="Entrar na aplicação"
           accessibilityHint="Cadastrar utilizando o email"
-          onPress={() => {}}
+          onPress={console.log}
           icon={<Icons.email color={colors.textPrimary} />}
           title="Continuar com email"
         />

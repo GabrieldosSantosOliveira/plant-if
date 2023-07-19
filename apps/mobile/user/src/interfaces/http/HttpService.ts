@@ -3,23 +3,23 @@ export interface HttpServiceResponse<T> {
   statusCode: number
 }
 export interface HttpServiceOptions {
-  body?: any
+  body?: unknown
 }
 export interface HttpService {
-  get<T = any>(url: string): Promise<HttpServiceResponse<T>>
-  post<T = any>(
+  get<T = unknown>(url: string): Promise<HttpServiceResponse<T>>
+  post<T = unknown>(
     url: string,
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>>
-  put<T = any>(
+  put<T = unknown>(
     url: string,
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>>
-  patch<T = any>(
+  patch<T = unknown>(
     url: string,
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>>
-  delete<T = any>(
+  delete<T = unknown>(
     url: string,
     options?: HttpServiceOptions,
   ): Promise<HttpServiceResponse<T>>

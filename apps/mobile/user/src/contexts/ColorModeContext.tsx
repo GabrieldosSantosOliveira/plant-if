@@ -25,9 +25,9 @@ export const ColorModeProvider: FC<ColorModeProviderProps> = ({ children }) => {
   const [colorMode, setColorMode] = useState<ColorModeType>('light')
   const colorScheme = useColorScheme()
   const { storage } = useStorage()
-  Appearance.addChangeListener(({ colorScheme }) => {
-    if (colorMode === 'automatic' && colorScheme) {
-      setTheme(colorScheme)
+  Appearance.addChangeListener((preferences) => {
+    if (colorMode === 'automatic' && preferences.colorScheme) {
+      setTheme(preferences.colorScheme)
     }
   })
   const changeColorModeToAutomatic = async () => {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 jest.mock(
   'react-native-fbsdk-next',
   () => require('react-native-fbsdk-next/jest/mocks').default,

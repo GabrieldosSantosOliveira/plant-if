@@ -16,6 +16,7 @@ import {
   Roboto_700Bold,
   useFonts,
 } from '@expo-google-fonts/roboto'
+import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function App() {
@@ -29,7 +30,7 @@ export default function App() {
   })
   return (
     <StorageProvider>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container}>
         <ColorModeProvider>
           <HttpServiceProvider>
             <AuthProvider>
@@ -42,3 +43,8 @@ export default function App() {
     </StorageProvider>
   )
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
