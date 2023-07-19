@@ -1,5 +1,5 @@
-import { User } from '@/app/entities/user'
-import { CreateUserRepository } from '@/app/repositories/user/create-user-repository'
+import { CreateUserRepository } from '@/domain/contracts/repositories/user/create-user-repository'
+import { User } from '@/domain/entities/user'
 
 import { PrismaUserMapper } from '../mappers/prisma-user-mapper'
 import { PrismaService } from '../prisma-service'

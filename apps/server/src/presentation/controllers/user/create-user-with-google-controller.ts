@@ -1,8 +1,8 @@
+import { CreateUserWithGoogleUseCase } from '@/domain/use-cases/user/create-user-with-google-use-case'
 import { ResponseEntity } from '@/helpers/http/response-entity'
 import { Controller } from '@/interfaces/controller/controller'
 import { HttpRequest } from '@/interfaces/http/http-request'
 import { HttpResponse } from '@/interfaces/http/http-response'
-import { CreateUserWithGoogleUseCase } from '@/interfaces/use-cases/user/create-user-with-google-use-case'
 import { ExceptionFilter } from '@/presentation/errors/validation/exception-filter'
 import { UserViewModel } from '@/presentation/view-models/user-view-model'
 

@@ -1,4 +1,4 @@
-import { User, UserProps } from '@/app/entities/user'
+import { User, UserProps } from '@/domain/entities/user'
 import { faker } from '@faker-js/faker'
 export const makeUser = (user: Partial<UserProps> = {}) => {
   return new User({

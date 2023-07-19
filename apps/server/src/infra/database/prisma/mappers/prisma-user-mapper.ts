@@ -1,4 +1,4 @@
-import { User } from '@/app/entities/user'
+import { User } from '@/domain/entities/user'
 import { User as RawUser } from '@prisma/client'
 export class PrismaUserMapper {
   static toDomain(rawUser: RawUser): User {

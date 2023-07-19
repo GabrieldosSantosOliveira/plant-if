@@ -1,4 +1,4 @@
-import { Land, LandProps } from '@/app/entities/land'
+import { Land, LandProps } from '@/domain/entities/land'
 import { faker } from '@faker-js/faker'
 
 export const makeLand = (land: Partial<LandProps> = {}) => {

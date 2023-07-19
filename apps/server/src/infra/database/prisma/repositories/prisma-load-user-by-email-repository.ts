@@ -1,5 +1,5 @@
-import { User } from '@/app/entities/user'
-import { LoadUserByEmailRepository } from '@/app/repositories/user/load-user-by-email-repository'
+import { LoadUserByEmailRepository } from '@/domain/contracts/repositories/user/load-user-by-email-repository'
+import { User } from '@/domain/entities/user'
 
 import { PrismaUserMapper } from '../mappers/prisma-user-mapper'
 import { PrismaService } from '../prisma-service'

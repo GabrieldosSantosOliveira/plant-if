@@ -2,7 +2,7 @@ import {
   CreateUserWithGoogleUseCase,
   CreateUserWithGoogleUseCaseRequest,
   CreateUserWithGoogleUseCaseResponse,
-} from '@/interfaces/use-cases/user/create-user-with-google-use-case'
+} from '@/domain/use-cases/user/create-user-with-google-use-case'
 import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
 import { makeUser } from '@/test/app/factories/make-user'
 

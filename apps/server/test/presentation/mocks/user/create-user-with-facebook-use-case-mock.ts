@@ -2,7 +2,7 @@ import {
   CreateUserWithFacebookUseCase,
   CreateUserWithFacebookUseCaseRequest,
   CreateUserWithFacebookUseCaseResponse,
-} from '@/interfaces/use-cases/user/create-user-with-facebook-use-case'
+} from '@/domain/use-cases/user/create-user-with-facebook-use-case'
 import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
 import { makeUser } from '@/test/app/factories/make-user'
 

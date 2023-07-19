@@ -15,7 +15,8 @@ module.exports = {
       'module-resolver',
       {
         alias: {
-          '@/app': './src/app',
+          '@/data': './src/data',
+          '@/domain': './src/domain',
           '@/helpers': './src/helpers',
           '@/infra': './src/infra',
           '@/interfaces': './src/interfaces',

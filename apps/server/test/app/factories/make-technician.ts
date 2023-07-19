@@ -1,4 +1,4 @@
-import { Technician, TechnicianProps } from '@/app/entities/technician'
+import { Technician, TechnicianProps } from '@/domain/entities/technician'
 import { faker } from '@faker-js/faker'
 
 export const makeTechnician = (technician: Partial<TechnicianProps> = {}) => {

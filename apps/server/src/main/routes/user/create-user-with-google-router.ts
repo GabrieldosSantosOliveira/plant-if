@@ -1,10 +1,10 @@
-import { ExpressRouterAdapter } from '@/main/adapters/express-router-adapter'
-import { CreateUserWithGoogleComposer } from '@/main/composers/create-user-with-google-composer'
+import { makeExpressRouterAdapter } from '@/main/adapters/express-router-adapter'
+import { makeCreateUserWithGoogleController } from '@/main/factories/presentation/controllers/make-create-user-with-google'
 import { Router } from 'express'
 
 export default function CreateUserWithGoogleRouter(router: Router) {
   router.post(
     '/user/google',
-    ExpressRouterAdapter.route(CreateUserWithGoogleComposer.route()),
+    makeExpressRouterAdapter(makeCreateUserWithGoogleController()),
   )
 }
