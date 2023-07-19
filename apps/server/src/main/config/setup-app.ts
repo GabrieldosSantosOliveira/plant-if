@@ -3,7 +3,7 @@ import express, { json } from 'express'
 import morgan from 'morgan'
 
 import { setupRoutes } from './setup-routes'
-export async function setupApp() {
+export const setupApp = async () => {
   const app = express()
   app.use(json())
   app.use(cors())

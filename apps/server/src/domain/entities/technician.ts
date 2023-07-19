@@ -1,5 +1,3 @@
-import { randomUUID } from 'crypto'
-
 import { Replace } from '../helpers/replace'
 
 export interface TechnicianProps {
@@ -15,17 +13,12 @@ export class Technician {
   private props: TechnicianProps
   constructor({
     createdAt,
-    id,
     updatedAt,
     ...props
-  }: Replace<
-    TechnicianProps,
-    { id?: string; createdAt?: Date; updatedAt?: Date }
-  >) {
+  }: Replace<TechnicianProps, { createdAt?: Date; updatedAt?: Date }>) {
     this.props = {
       createdAt: createdAt || new Date(),
       updatedAt: updatedAt || new Date(),
-      id: id || randomUUID(),
       ...props,
     }
   }

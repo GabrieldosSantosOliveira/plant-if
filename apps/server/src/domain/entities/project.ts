@@ -1,17 +1,10 @@
-import { randomUUID } from 'node:crypto'
-
 import { Replace } from '../helpers/replace'
-import { Technician } from './technician'
-import { User } from './user'
 
 export interface ProjectProps {
   id: string
-  students: User[]
-  teachers: User[]
   codeShareForTeachers: string
   codeShareForStudents: string
   title: string
-  technician: Technician[]
   startDate: Date
   endDate: Date
   management: string[]
@@ -24,49 +17,24 @@ export class Project {
 
   constructor({
     createdAt,
-    id,
     updatedAt,
-    codeShareForStudents,
-    codeShareForTeachers,
     ...props
   }: Replace<
     ProjectProps,
     {
-      id?: string
       createdAt?: Date
       updatedAt?: Date
-      codeShareForTeachers?: string
-      codeShareForStudents?: string
     }
   >) {
     this.props = {
-      codeShareForStudents: codeShareForStudents || randomUUID(),
-      codeShareForTeachers: codeShareForTeachers || randomUUID(),
       createdAt: createdAt || new Date(),
       updatedAt: updatedAt || new Date(),
-      id: id || randomUUID(),
       ...props,
     }
   }
 
   public get id() {
     return this.props.id
-  }
-
-  public get students() {
-    return this.props.students
-  }
-
-  public set students(students: User[]) {
-    this.props.students = students
-  }
-
-  public get teachers() {
-    return this.props.teachers
-  }
-
-  public set teachers(teachers: User[]) {
-    this.props.teachers = teachers
   }
 
   public get codeShareForTeachers() {
@@ -91,14 +59,6 @@ export class Project {
 
   public set title(title: string) {
     this.props.title = title
-  }
-
-  public get technician() {
-    return this.props.technician
-  }
-
-  public set technician(technician: Technician[]) {
-    this.props.technician = technician
   }
 
   public get startDate() {

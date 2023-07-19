@@ -1,13 +1,5 @@
-import { IsString, IsNotEmpty } from 'class-validator'
-export interface CreateUserWithGoogleBodyDtoParams {
-  accessToken: string
-}
-export class CreateUserWithGoogleBodyDto {
-  constructor({ accessToken }: CreateUserWithGoogleBodyDtoParams) {
-    this.accessToken = accessToken
-  }
+import { z } from 'zod'
 
-  @IsString()
-  @IsNotEmpty()
-  accessToken: string
-}
+export const CreateUserWithGoogleBodyDto = z.object({
+  accessToken: z.string().trim().nonempty(),
+})

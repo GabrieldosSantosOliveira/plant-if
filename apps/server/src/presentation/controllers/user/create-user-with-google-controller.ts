@@ -5,7 +5,6 @@ import { HttpResponse } from '@/interfaces/http/http-response'
 import { CreateUserWithGoogleUseCase } from '@/interfaces/use-cases/user/create-user-with-google-use-case'
 import { ExceptionFilter } from '@/presentation/errors/validation/exception-filter'
 import { UserViewModel } from '@/presentation/view-models/user-view-model'
-import { validate } from 'class-validator'
 
 import { CreateUserWithGoogleBodyDto } from '../../dtos/user/create-user-with-google-body.dto'
 export interface CreateUserWithGoogleControllerRequest {
@@ -20,16 +19,17 @@ export class CreateUserWithGoogleController implements Controller {
     httpRequest: HttpRequest<CreateUserWithGoogleControllerRequest, any, any>,
   ): Promise<HttpResponse> {
     try {
-      const createUserWithGoogleBodyDto = new CreateUserWithGoogleBodyDto({
-        accessToken: httpRequest.body.accessToken,
-      })
-      const hasErrors = await validate(createUserWithGoogleBodyDto)
-      if (hasErrors.length !== 0) {
-        return ResponseEntity.badRequest(hasErrors)
+      const createUserWithGoogleBodyDto = CreateUserWithGoogleBodyDto.safeParse(
+        {
+          accessToken: httpRequest.body.accessToken,
+        },
+      )
+      if (!createUserWithGoogleBodyDto.success) {
+        return ResponseEntity.badRequest(createUserWithGoogleBodyDto.error)
       }
       const { accessToken, refreshToken, user } =
         await this.createUserWithGoogleUseCase.handle({
-          accessToken: createUserWithGoogleBodyDto.accessToken,
+          accessToken: createUserWithGoogleBodyDto.data.accessToken,
         })
       return ResponseEntity.ok({
         user: UserViewModel.toHTTP(user),

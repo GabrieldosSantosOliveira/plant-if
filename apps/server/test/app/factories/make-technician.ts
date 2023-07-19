@@ -7,6 +7,7 @@ export const makeTechnician = (technician: Partial<TechnicianProps> = {}) => {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     image: faker.internet.avatar(),
+    id: faker.string.uuid(),
     ...technician,
   })
 }

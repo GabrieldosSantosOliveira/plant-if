@@ -1,13 +1,5 @@
-import { IsString, IsNotEmpty } from 'class-validator'
-export interface CreateUserWithFacebookBodyDtoParams {
-  accessToken: string
-}
-export class CreateUserWithFacebookBodyDto {
-  constructor({ accessToken }: CreateUserWithFacebookBodyDtoParams) {
-    this.accessToken = accessToken
-  }
+import { z } from 'zod'
 
-  @IsString()
-  @IsNotEmpty()
-  accessToken: string
-}
+export const CreateUserWithFacebookBodyDto = z.object({
+  accessToken: z.string().trim().nonempty(),
+})
