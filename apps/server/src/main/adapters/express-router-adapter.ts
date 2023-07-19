@@ -9,6 +9,7 @@ export const makeExpressRouterAdapter = (controller: Controller) => {
       params: request.params,
       query: request.query,
     }
+
     const httpResponse = await controller.handle(httpRequest)
     response.status(httpResponse.statusCode).json(httpResponse.body)
   }
