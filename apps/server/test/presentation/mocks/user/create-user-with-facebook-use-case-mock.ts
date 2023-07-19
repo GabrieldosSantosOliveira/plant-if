@@ -31,9 +31,7 @@ export const makeCreateUserWithFacebookUseCaseMock = () => {
 export class CreateUserWithFacebookUseCaseMockWithError
   implements CreateUserWithFacebookUseCase
 {
-  async handle(
-    request: CreateUserWithFacebookUseCaseRequest,
-  ): Promise<CreateUserWithFacebookUseCaseResponse> {
+  async handle(): Promise<CreateUserWithFacebookUseCaseResponse> {
     throw new Error()
   }
 }

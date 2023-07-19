@@ -36,7 +36,7 @@ const makeSutWithException = () => {
 }
 const makeRequest = (
   body: Partial<CreateUserWithGoogleControllerRequest> = {},
-): HttpRequest<CreateUserWithGoogleControllerRequest, any, any> => {
+): HttpRequest<CreateUserWithGoogleControllerRequest, unknown, unknown> => {
   return {
     body: {
       accessToken: 'any_access_token',

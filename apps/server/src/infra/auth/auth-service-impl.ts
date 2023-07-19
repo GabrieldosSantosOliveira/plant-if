@@ -13,7 +13,10 @@ export interface AuthServiceOptions {
 }
 export class AuthServiceImpl implements AuthService {
   private readonly options: AuthServiceOptions
-  constructor(private readonly jwt: Jwt, options: AuthServiceOptions) {
+  constructor(
+    private readonly jwt: Jwt,
+    options: AuthServiceOptions,
+  ) {
     if (options.SECRET_ACCESS_TOKEN === options.SECRET_REFRESH_TOKEN) {
       throw new InvalidParamError(
         'SECRET_ACCESS_TOKEN should not be equal SECRET_REFRESH_TOKEN',

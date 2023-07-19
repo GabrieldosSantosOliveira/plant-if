@@ -4,21 +4,21 @@ import { ServerError } from '../errors/server-error'
 import { HttpStatusCode } from './http-status-code'
 
 export class ResponseEntity {
-  static customError(statusCode:  HttpStatusCode, body: any): HttpResponse {
+  static customError(statusCode: HttpStatusCode, body: unknown): HttpResponse {
     return {
       statusCode,
       body,
     }
   }
 
-  static badRequest(body: any): HttpResponse {
+  static badRequest(body: unknown): HttpResponse {
     return {
       body,
       statusCode: HttpStatusCode.BAD_REQUEST,
     }
   }
 
-  static ok(body: any): HttpResponse {
+  static ok(body: unknown): HttpResponse {
     return {
       body,
       statusCode: HttpStatusCode.OK,

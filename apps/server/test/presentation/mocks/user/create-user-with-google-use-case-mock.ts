@@ -30,9 +30,7 @@ export const makeCreateUserWithGoogleUseCaseMock = () => {
 export class CreateUserWithGoogleUseCaseMockWithError
   implements CreateUserWithGoogleUseCase
 {
-  async handle(
-    request: CreateUserWithGoogleUseCaseRequest,
-  ): Promise<CreateUserWithGoogleUseCaseResponse> {
+  async handle(): Promise<CreateUserWithGoogleUseCaseResponse> {
     throw new Error()
   }
 }

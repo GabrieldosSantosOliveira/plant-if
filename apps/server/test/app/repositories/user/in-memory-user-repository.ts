@@ -1,6 +1,6 @@
-import { User } from '@/app/entities/user'
-import { CreateUserRepository } from '@/app/repositories/user/create-user-repository'
-import { LoadUserByEmailRepository } from '@/app/repositories/user/load-user-by-email-repository'
+import { CreateUserRepository } from '@/domain/contracts/repositories/user/create-user-repository'
+import { LoadUserByEmailRepository } from '@/domain/contracts/repositories/user/load-user-by-email-repository'
+import { User } from '@/domain/entities/user'
 
 export class InMemoryUserRepository
   implements LoadUserByEmailRepository, CreateUserRepository

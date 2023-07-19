@@ -1,5 +1,5 @@
 import { LoadFacebookUser } from '@/domain/contracts/gateways/facebook/load-facebook-user'
-import { GeneratorUUID } from '@/domain/contracts/gateways/uui/generator-uuid'
+import { GeneratorUUID } from '@/domain/contracts/gateways/uuid/generator-uuid'
 import { CreateUserRepository } from '@/domain/contracts/repositories/user/create-user-repository'
 import { LoadUserByEmailRepository } from '@/domain/contracts/repositories/user/load-user-by-email-repository'
 import { User } from '@/domain/entities/user'

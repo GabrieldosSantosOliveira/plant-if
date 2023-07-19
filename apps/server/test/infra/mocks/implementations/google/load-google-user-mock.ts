@@ -2,7 +2,7 @@ import {
   GoogleAccount,
   LoadGoogleUser,
   LoadGoogleUserRequest,
-} from '@/app/repositories/google/load-google-user'
+} from '@/domain/contracts/gateways/google/load-google-user'
 import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
 import { faker } from '@faker-js/faker'
 

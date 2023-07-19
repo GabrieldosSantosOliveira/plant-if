@@ -1,4 +1,4 @@
-export interface HttpRequest<B = any, P = any, Q = any> {
+export interface HttpRequest<B = unknown, P = unknown, Q = unknown> {
   body: B
   params: P
   query: Q

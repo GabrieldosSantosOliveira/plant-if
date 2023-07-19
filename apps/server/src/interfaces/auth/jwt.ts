@@ -1,3 +1,5 @@
+import { JwtPayload } from 'jsonwebtoken'
+
 export interface Payload {
   sub: string
 }
@@ -11,5 +13,5 @@ export interface OptionsDecrypt {
 export interface Jwt {
   encrypt(identifier: string, options: OptionsEncrypt): Promise<string>
   decrypt(encryptText: string, options: OptionsDecrypt): Promise<Payload>
-  decode<T = any>(token: string): Promise<T | null>
+  decode<T = JwtPayload>(token: string): Promise<T | null>
 }

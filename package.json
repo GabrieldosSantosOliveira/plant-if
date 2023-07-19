@@ -1,0 +1,12 @@
+{
+  "name": "plant-if",
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "author": "Gabriel dos Santos Oliveira <gabrielsantosoliveira951@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "lint-staged": "^13.2.3",
+    "husky": "^8.0.0"
+  }
+}

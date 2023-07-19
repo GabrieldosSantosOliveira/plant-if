@@ -4,10 +4,11 @@ import {
   OptionsEncrypt,
   Payload,
 } from '@/interfaces/auth/jwt'
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
+
 export class JwtImpl implements Jwt {
-  async decode<T = any>(token: string): Promise<T | null> {
-    return jwt.decode(token) as any
+  async decode<T = JwtPayload>(token: string): Promise<T | null> {
+    return jwt.decode(token) as T
   }
 
   async encrypt(identifier: string, options: OptionsEncrypt): Promise<string> {

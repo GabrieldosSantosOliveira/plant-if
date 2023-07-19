@@ -1,4 +1,4 @@
-import { Technician } from '@/app/entities/technician'
+import { Technician } from '@/domain/entities/technician'
 
 import { makeTechnician } from '../factories/make-technician'
 

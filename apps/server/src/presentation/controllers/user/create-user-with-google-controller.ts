@@ -16,7 +16,11 @@ export class CreateUserWithGoogleController implements Controller {
   ) {}
 
   async handle(
-    httpRequest: HttpRequest<CreateUserWithGoogleControllerRequest, any, any>,
+    httpRequest: HttpRequest<
+      CreateUserWithGoogleControllerRequest,
+      unknown,
+      unknown
+    >,
   ): Promise<HttpResponse> {
     try {
       const createUserWithGoogleBodyDto = CreateUserWithGoogleBodyDto.safeParse(

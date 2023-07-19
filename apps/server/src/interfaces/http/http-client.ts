@@ -11,7 +11,7 @@ export interface HttpClientOptions {
 }
 
 export interface HttpClient {
-  get<T = any>(
+  get<T = unknown>(
     url: string,
     options?: HttpClientOptions,
   ): Promise<HttpClientResponse<T>>

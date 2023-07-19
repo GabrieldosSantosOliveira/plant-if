@@ -6,7 +6,7 @@ import {
 import axios from 'axios'
 
 export class HttpClientImpl implements HttpClient {
-  async get<T = any>(
+  async get<T = unknown>(
     url: string,
     options?: HttpClientOptions | undefined,
   ): Promise<HttpClientResponse<T>> {

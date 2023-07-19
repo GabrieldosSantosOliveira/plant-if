@@ -1,4 +1,4 @@
-import { Land } from '@/app/entities/land'
+import { Land } from '@/domain/entities/land'
 
 import { makeLand } from '../factories/make-land'
 

@@ -1,4 +1,4 @@
-import { User } from '@/app/entities/user'
+import { User } from '@/domain/entities/user'
 
 import { makeUser } from '../factories/make-user'
 

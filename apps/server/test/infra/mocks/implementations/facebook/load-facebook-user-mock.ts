@@ -2,7 +2,7 @@ import {
   FacebookAccount,
   LoadFacebookUser,
   LoadFacebookUserRequest,
-} from '@/app/repositories/facebook/load-facebook-user'
+} from '@/domain/contracts/gateways/facebook/load-facebook-user'
 import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
 import { faker } from '@faker-js/faker'
 

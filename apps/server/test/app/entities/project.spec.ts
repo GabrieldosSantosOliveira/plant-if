@@ -1,4 +1,4 @@
-import { Project } from '@/app/entities/project'
+import { Project } from '@/domain/entities/project'
 
 import { makeProject } from '../factories/make-project'
 

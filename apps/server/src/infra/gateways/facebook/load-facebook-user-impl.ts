@@ -80,7 +80,7 @@ export class LoadFacebookUserImpl implements LoadFacebookUser {
 
   private async getDebugToken(clientToken: string): Promise<DebugToken> {
     const appToken = await this.getAppToken()
-    const { data } = await this.httpClient.get(
+    const { data } = await this.httpClient.get<DebugToken>(
       new URL('/debug_token', this.BASE_URL).toString(),
       {
         params: {
@@ -94,7 +94,7 @@ export class LoadFacebookUserImpl implements LoadFacebookUser {
 
   private async getUserInfo(clientToken: string): Promise<UserInfo> {
     const debugToken = await this.getDebugToken(clientToken)
-    const { data } = await this.httpClient.get(
+    const { data } = await this.httpClient.get<UserInfo>(
       new URL(`/${debugToken.data.user_id}`, this.BASE_URL).toString(),
       {
         params: {

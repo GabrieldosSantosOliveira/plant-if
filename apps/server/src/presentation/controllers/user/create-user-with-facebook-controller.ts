@@ -16,7 +16,11 @@ export class CreateUserWithFacebookController implements Controller {
   ) {}
 
   async handle(
-    httpRequest: HttpRequest<CreateUserWithFacebookControllerRequest, any, any>,
+    httpRequest: HttpRequest<
+      CreateUserWithFacebookControllerRequest,
+      unknown,
+      unknown
+    >,
   ): Promise<HttpResponse> {
     try {
       const createUserWithFacebookBodyDto =

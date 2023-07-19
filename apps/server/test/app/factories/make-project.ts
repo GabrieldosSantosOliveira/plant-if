@@ -11,5 +11,6 @@ export const makeProject = (project: Partial<ProjectProps> = {}) => {
     codeShareForStudents: faker.string.uuid(),
     codeShareForTeachers: faker.string.uuid(),
     id: faker.string.uuid(),
+    ...project,
   })
 }

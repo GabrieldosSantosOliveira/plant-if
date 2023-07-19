@@ -1,4 +1,4 @@
-import { GeneratorUUID } from '@/domain/contracts/gateways/uui/generator-uuid'
+import { GeneratorUUID } from '@/domain/contracts/gateways/uuid/generator-uuid'
 import { randomUUID } from 'crypto'
 
 export class GeneratorUUIDImpl implements GeneratorUUID {
