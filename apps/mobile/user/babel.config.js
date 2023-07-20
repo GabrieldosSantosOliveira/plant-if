@@ -17,6 +17,7 @@ module.exports = function (api) {
             '@/models': './src/models',
             '@/services': './src/services',
             '@/ui': './src/ui',
+            '@/validation': './src/validation',
             '@/test': './test',
             '@/jest': './jest',
           },

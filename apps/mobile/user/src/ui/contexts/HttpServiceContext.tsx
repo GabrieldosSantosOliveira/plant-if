@@ -1,8 +1,9 @@
-import { HttpServiceImpl } from '@/infra/http/HttpServiceImpl'
-import { HttpService } from '@/interfaces/http/HttpService'
+import { FetchHttpAdapter } from '@/infra/http/FetchHttpAdapter'
+import { JsonValidatorAdapter } from '@/infra/validators/JsonValidatorAdapter'
+import { HttpClient } from '@/interfaces/http/HttpClient'
 import { createContext, FC, ReactNode } from 'react'
 export interface HttpServiceContextProps {
-  httpService: HttpService
+  httpClient: HttpClient
 }
 export const HttpServiceContext = createContext<HttpServiceContextProps>(
   {} as HttpServiceContextProps,
@@ -13,9 +14,9 @@ export interface HttpServiceProviderProps {
 export const HttpServiceProvider: FC<HttpServiceProviderProps> = ({
   children,
 }) => {
-  const httpService = new HttpServiceImpl()
+  const httpClient = new FetchHttpAdapter(new JsonValidatorAdapter())
   return (
-    <HttpServiceContext.Provider value={{ httpService }}>
+    <HttpServiceContext.Provider value={{ httpClient }}>
       {children}
     </HttpServiceContext.Provider>
   )

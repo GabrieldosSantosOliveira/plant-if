@@ -19,7 +19,6 @@
     "@expo-google-fonts/roboto": "^0.2.3",
     "@react-native-google-signin/google-signin": "^10.0.1",
     "@shopify/restyle": "^2.4.2",
-    "axios": "^1.4.0",
     "expo": "^49.0.0",
     "expo-crypto": "~12.4.1",
     "expo-dev-client": "~2.4.6",

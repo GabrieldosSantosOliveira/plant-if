@@ -26,11 +26,11 @@ const CLIENT_ID =
     : env.GOOGLE_CLIENT_ID_ANDROID
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-  const { httpService } = useHttpService()
+  const { httpClient } = useHttpService()
   const { storage } = useStorage()
   const [user, setUser] = useState<UserDto | null>(null)
-  const singInWithFacebookService = new SingInWithFacebookService(httpService)
-  const singInWithGoogleService = new SingInWithGoogleService(httpService)
+  const singInWithFacebookService = new SingInWithFacebookService(httpClient)
+  const singInWithGoogleService = new SingInWithGoogleService(httpClient)
   const promptSingInWithFacebook = async () => {
     const result = await LoginManager.logInWithPermissions([
       'public_profile',
