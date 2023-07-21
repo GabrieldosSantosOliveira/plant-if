@@ -10,15 +10,15 @@ export interface AllTheProvidersProps {
 }
 export const AllTheProviders: FC<AllTheProvidersProps> = ({ children }) => {
   return (
-    <NavigationContainer>
-      <HttpServiceProvider>
-        <StorageProvider>
-          <AuthProvider>
-            <ColorModeProvider>{children}</ColorModeProvider>
-          </AuthProvider>
-        </StorageProvider>
-      </HttpServiceProvider>
-    </NavigationContainer>
+    <HttpServiceProvider>
+      <StorageProvider>
+        <AuthProvider>
+          <ColorModeProvider>
+            <NavigationContainer>{children}</NavigationContainer>
+          </ColorModeProvider>
+        </AuthProvider>
+      </StorageProvider>
+    </HttpServiceProvider>
   )
 }
 

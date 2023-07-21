@@ -1,36 +1,28 @@
 import { AuthRoutes } from '@/@types/navigation'
 import { fireEvent, render } from '@/jest/test-utils'
 import { Onboarding } from '@/ui/screens/Authentication/Onboarding/Onboarding'
-
-import { MakeNavigationMock } from '../../mocks/navigation/MakeNavigationMock'
-import { MakeNavigationRouteMock } from '../../mocks/navigation/MakeNavigationRouteMock'
-const makeSetup = () => {
-  const mockNavigate = jest.fn()
-  const navigate = MakeNavigationMock<AuthRoutes, 'Onboarding'>({
-    navigate: mockNavigate,
-  }).navigation
-  const route = MakeNavigationRouteMock<AuthRoutes, 'Onboarding'>().route
-  return { navigate, mockNavigate, route }
-}
+import { createStackNavigator } from '@react-navigation/stack'
+const mockedNavigate = jest.fn()
+const Stack = createStackNavigator<AuthRoutes>()
+jest.mock('@react-navigation/native', () => {
+  const actualNav = jest.requireActual('@react-navigation/native')
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  }
+})
 describe('<Onboarding />', () => {
-  it('should navigate to screen SingUp if user press button', () => {
-    const { mockNavigate, navigate, route } = makeSetup()
+  it('should navigate to screen EntryPoint on user press button', () => {
     const { getByText } = render(
-      <Onboarding navigation={navigate} route={route} />,
-    )
-    const button = getByText('cadastrar', { exact: false })
-    fireEvent.press(button)
-    expect(mockNavigate).toHaveBeenCalled()
-    expect(mockNavigate).toHaveBeenCalledWith('SingUp')
-  })
-  it('should navigate to screen SingIn if user press button', () => {
-    const { mockNavigate, navigate, route } = makeSetup()
-    const { getByText } = render(
-      <Onboarding navigation={navigate} route={route} />,
+      <Stack.Navigator>
+        <Stack.Screen component={Onboarding} name="Onboarding" />
+      </Stack.Navigator>,
     )
     const button = getByText('entrar', { exact: false })
     fireEvent.press(button)
-    expect(mockNavigate).toHaveBeenCalled()
-    expect(mockNavigate).toHaveBeenCalledWith('SingIn')
+    expect(mockedNavigate).toHaveBeenCalled()
+    expect(mockedNavigate).toHaveBeenCalledWith('EntryPoint')
   })
 })

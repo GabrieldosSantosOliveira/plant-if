@@ -23,6 +23,8 @@ import {
   border,
   shadow,
   position,
+  createVariant,
+  VariantProps,
 } from '@shopify/restyle'
 import React from 'react'
 import {
@@ -39,7 +41,9 @@ export type BaseTextInputProps = ColorProps<Theme> &
   LayoutProps<Theme> &
   BorderProps<Theme> &
   ShadowProps<Theme> &
-  PositionProps<Theme>
+  PositionProps<Theme> &
+  VariantProps<Theme, 'textVariants'>
+
 export const TextInput = createRestyleComponent<
   RNTextInputProps & BaseTextInputProps,
   Theme
@@ -56,6 +60,7 @@ export const TextInput = createRestyleComponent<
     border,
     shadow,
     position,
+    createVariant({ themeKey: 'textVariants' }),
   ],
   RNTextInput,
 )

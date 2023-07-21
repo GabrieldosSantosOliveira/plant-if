@@ -1,4 +1,4 @@
-import { Feather } from '@expo/vector-icons'
+import { Feather, AntDesign } from '@expo/vector-icons'
 
 import { AppleIcon } from './AppleIcon'
 import { FacebookIcon } from './FacebookIcon'
@@ -8,16 +8,19 @@ export interface IconProps {
   color: string
 }
 export const Icons = {
-  googleIcon: ({ size = 24 }: Pick<IconProps, 'size'>) => (
+  google: ({ size = 24 }: Pick<IconProps, 'size'>) => (
     <GoogleIcon height={size} width={size} />
   ),
-  appleIcon: ({ size = 24, color }: IconProps) => (
+  apple: ({ size = 24, color }: IconProps) => (
     <AppleIcon height={size} width={size} fill={color} color={color} />
   ),
-  facebookIcon: ({ size = 24 }: Pick<IconProps, 'size'>) => (
+  facebook: ({ size = 24 }: Pick<IconProps, 'size'>) => (
     <FacebookIcon height={size} width={size} />
   ),
   email: ({ size = 24, color }: IconProps) => (
     <Feather name="mail" size={size} color={color} />
+  ),
+  arrowLeft: ({ size = 24, color }: IconProps) => (
+    <AntDesign name="arrowleft" size={size} color={color} />
   ),
 }

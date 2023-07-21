@@ -47,7 +47,7 @@ export const Dashboard = () => {
               setIsLoadingFacebook(false),
             )
           }}
-          icon={<Icons.facebookIcon />}
+          icon={<Icons.facebook />}
           title="Continuar com Facebook"
           isLoading={isLoadingFacebook}
         />
@@ -60,7 +60,7 @@ export const Dashboard = () => {
             setIsLoadingGoogle(true)
             promptSingInWithGoogle().finally(() => setIsLoadingGoogle(false))
           }}
-          icon={<Icons.googleIcon />}
+          icon={<Icons.google />}
           title="Continuar com Google"
           isLoading={isLoadingGoogle}
         />

@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler'
 import { AuthenticationNavigator } from '@/main/routes/auth.routes'
 import { Loading } from '@/ui/components/Loading'
 import { StatusBar } from '@/ui/components/StatusBar'
@@ -22,6 +21,7 @@ import {
 } from '@expo-google-fonts/roboto'
 import { NavigationContainer } from '@react-navigation/native'
 import { StyleSheet } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -40,16 +40,18 @@ export default function App() {
       <SafeAreaView style={styles.container}>
         <ColorModeProvider>
           <HttpServiceProvider>
-            <AuthProvider>
-              <StatusBar />
-              {isFontsLoaded ? (
-                <NavigationContainer>
-                  <AuthenticationNavigator />
-                </NavigationContainer>
-              ) : (
-                <Loading />
-              )}
-            </AuthProvider>
+            <GestureHandlerRootView style={styles.container}>
+              <AuthProvider>
+                <StatusBar />
+                {isFontsLoaded ? (
+                  <NavigationContainer>
+                    <AuthenticationNavigator />
+                  </NavigationContainer>
+                ) : (
+                  <Loading />
+                )}
+              </AuthProvider>
+            </GestureHandlerRootView>
           </HttpServiceProvider>
         </ColorModeProvider>
       </SafeAreaView>

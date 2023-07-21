@@ -6,7 +6,7 @@ export const ThemeLight = createTheme({
   colors: {
     'main-background': palette.green[50],
     'text-primary': palette.black,
-    'button-border': palette.gray[500],
+    'button-border': palette.black,
   },
   spacing: {
     none: 0,
@@ -27,23 +27,23 @@ export const ThemeLight = createTheme({
   },
   textVariants: {
     hero: {
-      fontWeight: 'normal',
       fontSize: 14,
       fontFamily: 'Poppins_400Regular',
       color: 'text-primary',
     },
     header: {
-      fontWeight: 'normal',
       fontSize: 18,
-      lineHeight: 24,
       fontFamily: 'Inter_500Medium',
       color: 'text-primary',
     },
     button: {
-      fontSize: 16,
-      lineHeight: 24,
-      fontWeight: 'normal',
-      fontFamily: 'Roboto_400Regular',
+      fontSize: 14,
+      fontFamily: 'Poppins_400Regular',
+      color: 'text-primary',
+    },
+    input: {
+      fontSize: 14,
+      fontFamily: 'Poppins_400Regular',
       color: 'text-primary',
     },
     defaults: {},

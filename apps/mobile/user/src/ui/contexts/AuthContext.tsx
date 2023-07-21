@@ -13,6 +13,7 @@ export interface AuthContextProps {
   promptSingInWithGoogle(): Promise<void>
   promptSingInWithFacebook(): Promise<void>
   user: UserDto | null
+  setUser: (user: UserDto | null) => void
 }
 export const AuthContext = createContext<AuthContextProps>(
   {} as AuthContextProps,
@@ -78,6 +79,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         promptSingInWithFacebook,
         promptSingInWithGoogle,
         user,
+        setUser,
       }}
     >
       {children}

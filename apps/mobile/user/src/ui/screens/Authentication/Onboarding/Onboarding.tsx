@@ -1,6 +1,5 @@
-import { AuthRoutes } from '@/@types/navigation'
 import { Box } from '@/ui/components/shared/Box'
-import { StackScreenProps } from '@react-navigation/stack'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { useWindowDimensions, Vibration } from 'react-native'
 import Animated, {
@@ -14,10 +13,10 @@ import { Button } from './Button'
 import { Dot } from './Dot'
 import { slides } from './mocks'
 import { Slide } from './Slide'
-export type OnboardingProps = StackScreenProps<AuthRoutes, 'Onboarding'>
 const FIFTY_MILLISECONDS = 50
 
-export const Onboarding: React.FC<OnboardingProps> = ({ navigation }) => {
+export const Onboarding: React.FC = () => {
+  const { navigate } = useNavigation()
   const { width } = useWindowDimensions()
   const x = useSharedValue(0)
   const scrollRef = useAnimatedRef<Animated.ScrollView>()
@@ -68,15 +67,11 @@ export const Onboarding: React.FC<OnboardingProps> = ({ navigation }) => {
         <Button
           onPress={() => {
             Vibration.vibrate(FIFTY_MILLISECONDS)
-            navigation.navigate('SingUp')
+            navigate('EntryPoint')
           }}
-          title="Cadastrar"
-        />
-        <Button
-          onPress={() => {
-            Vibration.vibrate(FIFTY_MILLISECONDS)
-            navigation.navigate('SingIn')
-          }}
+          accessible
+          accessibilityLabel="Entre na aplicação"
+          accessibilityHint="Navega para a tela de entrada"
           title="Entrar"
           type="primary"
         />
