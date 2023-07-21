@@ -4,6 +4,7 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
+      "@/@types/*": ["./src/@types/*"],
       "@/constants/*": ["./src/constants/*"],
       "@/domain/*": ["./src/domain/*"],
       "@/errors/*": ["./src/errors/*"],

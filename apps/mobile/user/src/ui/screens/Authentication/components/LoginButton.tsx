@@ -7,14 +7,14 @@ import { useTheme } from '@shopify/restyle'
 import { ReactNode, FC } from 'react'
 import { AccessibilityProps, ActivityIndicator } from 'react-native'
 
-export interface ButtonProps extends AccessibilityProps {
+export interface LoginButtonProps extends AccessibilityProps {
   icon: ReactNode
   title: string
   isLoading?: boolean
   onPress: () => void
 }
 const HEIGHT = 52
-export const Button: FC<ButtonProps> = ({
+export const LoginButton: FC<LoginButtonProps> = ({
   icon,
   title,
   onPress,
@@ -25,6 +25,7 @@ export const Button: FC<ButtonProps> = ({
   return (
     <TouchableOpacity
       testID="id-button"
+      borderRadius="rounded-lg"
       disabled={isLoading}
       onPress={onPress}
       accessibilityRole="button"
@@ -40,13 +41,13 @@ export const Button: FC<ButtonProps> = ({
           flexDirection="row"
           justifyContent="center"
           alignItems="center"
-          borderColor="buttonBorder"
+          borderColor="button-border"
           borderWidth={1}
         >
           <ActivityIndicator
             testID="spinner"
             size="small"
-            color={colors.textPrimary}
+            color={colors['text-primary']}
           />
         </View>
       ) : (
@@ -58,7 +59,7 @@ export const Button: FC<ButtonProps> = ({
           flexDirection="row"
           justifyContent="space-between"
           alignItems="center"
-          borderColor="buttonBorder"
+          borderColor="button-border"
           borderWidth={1}
         >
           {icon}

@@ -1,13 +1,14 @@
 import { render, fireEvent } from '@/jest/test-utils'
 import { View } from '@/ui/components/shared/View'
-import { Button } from '@/ui/screens/Dashboard/components/Button'
+import { LoginButton } from '@/ui/screens/Authentication/components/LoginButton'
 import { faker } from '@faker-js/faker'
-describe('<Button />', () => {
+
+describe('<LoginButton />', () => {
   it('should render with correct title', () => {
     const title = faker.person.bio()
     const icon = <View />
     const { getByText } = render(
-      <Button title={title} icon={icon} onPress={jest.fn()} />,
+      <LoginButton title={title} icon={icon} onPress={jest.fn()} />,
     )
     expect(getByText(title)).toBeTruthy()
   })
@@ -15,7 +16,7 @@ describe('<Button />', () => {
     const title = faker.person.bio()
     const icon = <View testID="icon" />
     const { getByTestId } = render(
-      <Button title={title} icon={icon} onPress={jest.fn()} />,
+      <LoginButton title={title} icon={icon} onPress={jest.fn()} />,
     )
     expect(getByTestId('icon')).toBeTruthy()
   })
@@ -24,7 +25,7 @@ describe('<Button />', () => {
     const icon = <View />
     const onPressMock = jest.fn()
     const { getByTestId } = render(
-      <Button title={title} icon={icon} onPress={onPressMock} />,
+      <LoginButton title={title} icon={icon} onPress={onPressMock} />,
     )
     fireEvent.press(getByTestId('id-button'))
     expect(onPressMock).toHaveBeenCalled()
@@ -35,7 +36,7 @@ describe('<Button />', () => {
     const icon = <View />
     const onPressMock = jest.fn()
     const { getByTestId } = render(
-      <Button
+      <LoginButton
         title={title}
         icon={icon}
         onPress={onPressMock}
@@ -49,7 +50,7 @@ describe('<Button />', () => {
     const icon = <View />
     const onPressMock = jest.fn()
     const { getByTestId } = render(
-      <Button
+      <LoginButton
         title={title}
         icon={icon}
         onPress={onPressMock}
@@ -64,7 +65,7 @@ describe('<Button />', () => {
       const icon = <View />
       const onPressMock = jest.fn()
       const { getByRole } = render(
-        <Button
+        <LoginButton
           title={title}
           icon={icon}
           onPress={onPressMock}

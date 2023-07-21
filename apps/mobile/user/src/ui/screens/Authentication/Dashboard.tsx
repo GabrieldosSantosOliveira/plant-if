@@ -9,7 +9,7 @@ import LottieView from 'lottie-react-native'
 import React, { useState } from 'react'
 import { StyleSheet } from 'react-native'
 
-import { Button } from './components/Button'
+import { LoginButton } from './components/LoginButton'
 
 export const Dashboard = () => {
   const { promptSingInWithGoogle, promptSingInWithFacebook } = useAuth()
@@ -19,7 +19,7 @@ export const Dashboard = () => {
 
   return (
     <View
-      bg="mainBackground"
+      bg="main-background"
       paddingHorizontal="2xl"
       flex={1}
       justifyContent="flex-end"
@@ -37,7 +37,7 @@ export const Dashboard = () => {
         Nós amamos ajudar você a plantar melhor
       </Text>
       <View gap="2xl">
-        <Button
+        <LoginButton
           accessible
           accessibilityLabel="Entrar na aplicação"
           accessibilityHint="Cadastrar utilizando o facebook"
@@ -52,7 +52,7 @@ export const Dashboard = () => {
           isLoading={isLoadingFacebook}
         />
 
-        <Button
+        <LoginButton
           accessible
           accessibilityLabel="Entrar na aplicação"
           accessibilityHint="Cadastrar utilizando o google"
@@ -64,12 +64,12 @@ export const Dashboard = () => {
           title="Continuar com Google"
           isLoading={isLoadingGoogle}
         />
-        <Button
+        <LoginButton
           accessible
           accessibilityLabel="Entrar na aplicação"
           accessibilityHint="Cadastrar utilizando o email"
           onPress={console.log}
-          icon={<Icons.email color={colors.textPrimary} />}
+          icon={<Icons.email color={colors['text-primary']} />}
           title="Continuar com email"
         />
       </View>

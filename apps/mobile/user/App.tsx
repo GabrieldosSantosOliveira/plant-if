@@ -1,12 +1,15 @@
+import 'react-native-gesture-handler'
+import { AuthenticationNavigator } from '@/main/routes/auth.routes'
 import { Loading } from '@/ui/components/Loading'
 import { StatusBar } from '@/ui/components/StatusBar'
 import { AuthProvider } from '@/ui/contexts/AuthContext'
 import { ColorModeProvider } from '@/ui/contexts/ColorModeContext'
 import { HttpServiceProvider } from '@/ui/contexts/HttpServiceContext'
 import { StorageProvider } from '@/ui/contexts/StorageContext'
-import { Dashboard } from '@/ui/screens/Dashboard/Dashboard'
 import { Inter_500Medium } from '@expo-google-fonts/inter'
 import {
+  Poppins_400Regular,
+  Poppins_300Light,
   Poppins_500Medium,
   Poppins_700Bold,
   Poppins_600SemiBold,
@@ -14,19 +17,23 @@ import {
 import {
   Roboto_400Regular,
   Roboto_700Bold,
+  Roboto_500Medium,
   useFonts,
 } from '@expo-google-fonts/roboto'
+import { NavigationContainer } from '@react-navigation/native'
 import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
 export default function App() {
   const [isFontsLoaded] = useFonts({
+    Roboto_500Medium,
     Roboto_400Regular,
     Roboto_700Bold,
     Poppins_500Medium,
     Poppins_700Bold,
     Poppins_600SemiBold,
     Inter_500Medium,
+    Poppins_400Regular,
+    Poppins_300Light,
   })
   return (
     <StorageProvider>
@@ -35,7 +42,13 @@ export default function App() {
           <HttpServiceProvider>
             <AuthProvider>
               <StatusBar />
-              {isFontsLoaded ? <Dashboard /> : <Loading />}
+              {isFontsLoaded ? (
+                <NavigationContainer>
+                  <AuthenticationNavigator />
+                </NavigationContainer>
+              ) : (
+                <Loading />
+              )}
             </AuthProvider>
           </HttpServiceProvider>
         </ColorModeProvider>

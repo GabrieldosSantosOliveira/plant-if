@@ -12,7 +12,7 @@ export const StatusBar: FC<ExpoStatusBarProps> = (props) => {
   return (
     <ExpoStatusBar
       translucent
-      backgroundColor={colors.mainBackground}
+      backgroundColor={colors['main-background']}
       style={theme === 'dark' ? 'light' : 'dark'}
       {...props}
     />

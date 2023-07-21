@@ -4,9 +4,9 @@ import { palette } from './palette'
 
 export const ThemeLight = createTheme({
   colors: {
-    mainBackground: palette.green[50],
-    textPrimary: palette.black,
-    buttonBorder: palette.gray[500],
+    'main-background': palette.green[50],
+    'text-primary': palette.black,
+    'button-border': palette.gray[500],
   },
   spacing: {
     none: 0,
@@ -26,19 +26,25 @@ export const ThemeLight = createTheme({
     '9xl': 52,
   },
   textVariants: {
+    hero: {
+      fontWeight: 'normal',
+      fontSize: 14,
+      fontFamily: 'Poppins_400Regular',
+      color: 'text-primary',
+    },
     header: {
       fontWeight: 'normal',
       fontSize: 18,
       lineHeight: 24,
       fontFamily: 'Inter_500Medium',
-      color: 'textPrimary',
+      color: 'text-primary',
     },
     button: {
       fontSize: 16,
       lineHeight: 24,
       fontWeight: 'normal',
       fontFamily: 'Roboto_400Regular',
-      color: 'textPrimary',
+      color: 'text-primary',
     },
     defaults: {},
   },
@@ -69,9 +75,9 @@ export const ThemeLight = createTheme({
 })
 export const ThemeDark = createTheme({
   colors: {
-    mainBackground: palette.blue[900],
-    textPrimary: palette.white,
-    buttonBorder: palette.gray[500],
+    'main-background': palette.blue[900],
+    'text-primary': palette.white,
+    'button-border': palette.gray[500],
   },
   spacing: {
     none: 0,
@@ -91,20 +97,25 @@ export const ThemeDark = createTheme({
     '9xl': 52,
   },
   textVariants: {
+    hero: {
+      fontWeight: 'normal',
+      fontSize: 14,
+      fontFamily: 'Poppins_400Regular',
+      color: 'text-primary',
+    },
     header: {
       fontWeight: 'normal',
       fontSize: 18,
       lineHeight: 24,
       fontFamily: 'Inter_500Medium',
-      color: 'textPrimary',
+      color: 'text-primary',
     },
-
     button: {
       fontSize: 16,
       lineHeight: 24,
       fontWeight: 'normal',
       fontFamily: 'Roboto_400Regular',
-      color: 'textPrimary',
+      color: 'text-primary',
     },
     defaults: {},
   },
