@@ -3,7 +3,6 @@ import { ResponseEntity } from '@/helpers/http/response-entity'
 import { Controller } from '@/interfaces/controller/controller'
 import { HttpRequest } from '@/interfaces/http/http-request'
 import { HttpResponse } from '@/interfaces/http/http-response'
-import { ExceptionFilter } from '@/presentation/errors/validation/exception-filter'
 import { UserViewModel } from '@/presentation/view-models/user-view-model'
 
 import { CreateUserWithGoogleBodyDto } from '../../dtos/user/create-user-with-google-body.dto'
@@ -31,17 +30,19 @@ export class CreateUserWithGoogleController implements Controller {
       if (!createUserWithGoogleBodyDto.success) {
         return ResponseEntity.badRequest(createUserWithGoogleBodyDto.error)
       }
-      const { accessToken, refreshToken, user } =
-        await this.createUserWithGoogleUseCase.handle({
-          accessToken: createUserWithGoogleBodyDto.data.accessToken,
-        })
+      const userOrException = await this.createUserWithGoogleUseCase.handle({
+        accessToken: createUserWithGoogleBodyDto.data.accessToken,
+      })
+      if (userOrException.isLeft()) {
+        return ResponseEntity.exception(userOrException.value)
+      }
       return ResponseEntity.ok({
-        user: UserViewModel.toHTTP(user),
-        accessToken,
-        refreshToken,
+        user: UserViewModel.toHTTP(userOrException.value.user),
+        accessToken: userOrException.value.accessToken,
+        refreshToken: userOrException.value.refreshToken,
       })
     } catch (error) {
-      return ExceptionFilter.handle(error)
+      return ResponseEntity.serverError()
     }
   }
 }

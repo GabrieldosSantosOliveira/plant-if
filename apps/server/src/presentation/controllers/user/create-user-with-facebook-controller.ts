@@ -3,7 +3,6 @@ import { ResponseEntity } from '@/helpers/http/response-entity'
 import { Controller } from '@/interfaces/controller/controller'
 import { HttpRequest } from '@/interfaces/http/http-request'
 import { HttpResponse } from '@/interfaces/http/http-response'
-import { ExceptionFilter } from '@/presentation/errors/validation/exception-filter'
 import { UserViewModel } from '@/presentation/view-models/user-view-model'
 
 import { CreateUserWithFacebookBodyDto } from '../../dtos/user/create-user-with-facebook-body.dto'
@@ -30,17 +29,20 @@ export class CreateUserWithFacebookController implements Controller {
       if (!createUserWithFacebookBodyDto.success) {
         return ResponseEntity.badRequest(createUserWithFacebookBodyDto.error)
       }
-      const { accessToken, refreshToken, user } =
-        await this.createUserWithFacebookUseCase.handle({
-          accessToken: createUserWithFacebookBodyDto.data.accessToken,
-        })
+
+      const userOrException = await this.createUserWithFacebookUseCase.handle({
+        accessToken: createUserWithFacebookBodyDto.data.accessToken,
+      })
+      if (userOrException.isLeft()) {
+        return ResponseEntity.exception(userOrException.value)
+      }
       return ResponseEntity.ok({
-        user: UserViewModel.toHTTP(user),
-        accessToken,
-        refreshToken,
+        user: UserViewModel.toHTTP(userOrException.value.user),
+        accessToken: userOrException.value.accessToken,
+        refreshToken: userOrException.value.refreshToken,
       })
     } catch (error) {
-      return ExceptionFilter.handle(error)
+      return ResponseEntity.serverError()
     }
   }
 }

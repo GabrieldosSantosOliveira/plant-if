@@ -1,28 +1,10 @@
 import {
-  FacebookAccount,
   LoadFacebookUser,
   LoadFacebookUserRequest,
+  LoadFacebookUserResponse,
 } from '@/domain/contracts/gateways/facebook/load-facebook-user'
-import { HttpClient } from '@/interfaces/http/http-client'
-import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
-export interface FacebookResponseAccount {
-  email: string
-  email_verified: string
-  name: string
-  picture: string
-  given_name: string
-  family_name: string
-  id: string
-}
-export interface AppToken {
-  access_token: string
-  token_type: string
-}
-export interface DebugToken {
-  data: {
-    user_id: string
-  }
-}
+import { HttpClient, HttpClientResponse } from '@/interfaces/http/http-client'
+
 export interface Picture {
   data: {
     height: number
@@ -41,61 +23,35 @@ export interface UserInfo {
 
 export class LoadFacebookUserImpl implements LoadFacebookUser {
   private BASE_URL = 'https://graph.facebook.com/'
-  constructor(
-    private readonly httpClient: HttpClient,
-    private readonly clientSecret: string,
-    private readonly clientId: string,
-  ) {}
+  constructor(private readonly httpClient: HttpClient) {}
 
   async loadUser({
     accessToken,
-  }: LoadFacebookUserRequest): Promise<FacebookAccount> {
-    try {
-      const facebookAccount = await this.getUserInfo(accessToken)
+  }: LoadFacebookUserRequest): Promise<LoadFacebookUserResponse> {
+    const response = await this.getUserInfo(accessToken)
+    if (response.statusCode !== 200) {
       return {
-        email: facebookAccount.email,
-        firstName: facebookAccount.first_name,
-        id: facebookAccount.id,
-        lastName: facebookAccount.last_name,
-        picture: facebookAccount.picture.data.url,
+        success: false,
+        user: null,
       }
-    } catch (error) {
-      throw new UnauthorizedException()
+    }
+    return {
+      success: true,
+      user: {
+        email: response.data.email,
+        firstName: response.data.first_name,
+        id: response.data.id,
+        lastName: response.data.last_name,
+        picture: response.data.picture.data.url,
+      },
     }
   }
 
-  private async getAppToken(): Promise<AppToken> {
-    const { data } = await this.httpClient.get<AppToken>(
-      new URL('/oauth/access_token', this.BASE_URL).toString(),
-      {
-        params: {
-          client_id: this.clientId,
-          client_secret: this.clientSecret,
-          grant_type: 'client_credentials',
-        },
-      },
-    )
-    return data
-  }
-
-  private async getDebugToken(clientToken: string): Promise<DebugToken> {
-    const appToken = await this.getAppToken()
-    const { data } = await this.httpClient.get<DebugToken>(
-      new URL('/debug_token', this.BASE_URL).toString(),
-      {
-        params: {
-          access_token: appToken.access_token,
-          input_token: clientToken,
-        },
-      },
-    )
-    return data
-  }
-
-  private async getUserInfo(clientToken: string): Promise<UserInfo> {
-    const debugToken = await this.getDebugToken(clientToken)
-    const { data } = await this.httpClient.get<UserInfo>(
-      new URL(`/${debugToken.data.user_id}`, this.BASE_URL).toString(),
+  private async getUserInfo(
+    clientToken: string,
+  ): Promise<HttpClientResponse<UserInfo>> {
+    const response = await this.httpClient.get<UserInfo>(
+      new URL('/me', this.BASE_URL).toString(),
       {
         params: {
           fields: ['id', 'first_name', 'last_name', 'picture', 'email'].join(
@@ -105,6 +61,6 @@ export class LoadFacebookUserImpl implements LoadFacebookUser {
         },
       },
     )
-    return data
+    return response
   }
 }

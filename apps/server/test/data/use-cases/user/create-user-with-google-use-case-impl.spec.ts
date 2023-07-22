@@ -1,10 +1,10 @@
 import { CreateUserWithGoogleUseCaseImpl } from '@/data/use-cases/user/create-user-with-google-use-case-impl'
+import { UnauthorizedException } from '@/domain/use-cases/errors/unauthorized-exception'
 import { makeGeneratorUUID } from '@/main/factories/infra/gateways/uuid/make-generator-uuid'
-import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
 import { makeAuthServiceMock } from '@/test/infra/mocks/auth/auth-service-mock'
 import {
   makeLoadGoogleUserMock,
-  makeLoadGoogleUserMockWithException,
+  makeLoadGoogleUserMockWithError,
 } from '@/test/infra/mocks/gateways/google/load-google-user-mock'
 import { makeGeneratorUUIDMock } from '@/test/infra/mocks/gateways/uuid/make-generator-uuid'
 
@@ -25,13 +25,12 @@ const makeSut = () => {
   )
   return { sut, loadGoogleUserMock, inMemoryUserRepository, authServiceMock }
 }
-const makeSutWithLoadGoogleException = () => {
+const makeSutWithLoadGoogleError = () => {
   const { authServiceMock } = makeAuthServiceMock()
-  const { loadGoogleUserMockWithException } =
-    makeLoadGoogleUserMockWithException()
+  const { loadGoogleUserMockWithError } = makeLoadGoogleUserMockWithError()
   const { inMemoryUserRepository } = makeInMemoryUserRepository()
   const sut = new CreateUserWithGoogleUseCaseImpl(
-    loadGoogleUserMockWithException,
+    loadGoogleUserMockWithError,
     inMemoryUserRepository,
     authServiceMock,
     inMemoryUserRepository,
@@ -39,7 +38,7 @@ const makeSutWithLoadGoogleException = () => {
   )
   return {
     sut,
-    loadGoogleUserMockWithException,
+    loadGoogleUserMockWithError,
     inMemoryUserRepository,
     authServiceMock,
   }
@@ -48,9 +47,9 @@ describe('CreateUserWithGoogleUseCaseImpl', () => {
   it('should return accessToken, refreshToken and user if user not exists', async () => {
     const { sut } = makeSut()
     const response = await sut.handle({ accessToken: 'any_access_token' })
-    expect(response).toHaveProperty('accessToken')
-    expect(response).toHaveProperty('refreshToken')
-    expect(response).toHaveProperty('user')
+    expect(response.value).toHaveProperty('accessToken')
+    expect(response.value).toHaveProperty('refreshToken')
+    expect(response.value).toHaveProperty('user')
   })
   it('should return accessToken, refreshToken and user if user already exists', async () => {
     const { sut, inMemoryUserRepository, loadGoogleUserMock } = makeSut()
@@ -58,14 +57,19 @@ describe('CreateUserWithGoogleUseCaseImpl', () => {
     await inMemoryUserRepository.create(user)
     loadGoogleUserMock.email = user.email
     const response = await sut.handle({ accessToken: 'any_access_token' })
-    expect(response).toHaveProperty('accessToken')
-    expect(response).toHaveProperty('refreshToken')
-    expect(response).toHaveProperty('user')
+    expect(response.value).toHaveProperty('accessToken')
+    expect(response.value).toHaveProperty('refreshToken')
+    expect(response.value).toHaveProperty('user')
   })
-  it('should throw if accessToken is not valid', async () => {
-    const { sut } = makeSutWithLoadGoogleException()
-    await expect(
-      sut.handle({ accessToken: 'any_access_token' }),
-    ).rejects.toThrow(UnauthorizedException)
+  it('should return exception if accessToken is not valid', async () => {
+    const { sut, loadGoogleUserMock } = makeSut()
+    loadGoogleUserMock.success = false
+    const exception = await sut.handle({ accessToken: 'any_access_token' })
+    expect(exception.value).toEqual(new UnauthorizedException())
+  })
+  it('should throw if LoadGoogleUser throw', async () => {
+    const { sut } = makeSutWithLoadGoogleError()
+    const error = sut.handle({ accessToken: 'any_access_token' })
+    await expect(error).rejects.toThrow()
   })
 })

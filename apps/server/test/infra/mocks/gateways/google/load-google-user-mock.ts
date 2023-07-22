@@ -2,23 +2,29 @@ import {
   GoogleAccount,
   LoadGoogleUser,
   LoadGoogleUserRequest,
+  LoadGoogleUserResponse,
 } from '@/domain/contracts/gateways/google/load-google-user'
-import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
 import { faker } from '@faker-js/faker'
 
 export class LoadGoogleUserMock implements LoadGoogleUser {
   public accessToken: string
   public email: string | null
+  public user: GoogleAccount | null
+  public success = true
   async loadUser({
     accessToken,
-  }: LoadGoogleUserRequest): Promise<GoogleAccount> {
+  }: LoadGoogleUserRequest): Promise<LoadGoogleUserResponse> {
     this.accessToken = accessToken
-    return {
+    this.user = {
       email: this.email || faker.internet.email(),
       family_name: faker.person.lastName(),
       given_name: faker.person.firstName(),
       id: faker.string.uuid(),
       picture: faker.internet.avatar(),
+    }
+    return {
+      success: this.success,
+      user: this.user,
     }
   }
 }
@@ -27,12 +33,12 @@ export const makeLoadGoogleUserMock = () => {
   return { loadGoogleUserMock }
 }
 
-export class LoadGoogleUserMockWithException implements LoadGoogleUser {
-  async loadUser(): Promise<GoogleAccount> {
-    throw new UnauthorizedException()
+export class LoadGoogleUserMockWithError implements LoadGoogleUser {
+  async loadUser(): Promise<LoadGoogleUserResponse> {
+    throw new Error()
   }
 }
-export const makeLoadGoogleUserMockWithException = () => {
-  const loadGoogleUserMockWithException = new LoadGoogleUserMockWithException()
-  return { loadGoogleUserMockWithException }
+export const makeLoadGoogleUserMockWithError = () => {
+  const loadGoogleUserMockWithError = new LoadGoogleUserMockWithError()
+  return { loadGoogleUserMockWithError }
 }

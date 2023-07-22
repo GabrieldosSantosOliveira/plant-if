@@ -1,4 +1,6 @@
 import { CreateUserWithAppleUseCaseImpl } from '@/data/use-cases/user/create-user-with-apple-use-case-impl'
+import { BadRequestException } from '@/domain/use-cases/errors/bad-request-exception'
+import { UnauthorizedException } from '@/domain/use-cases/errors/unauthorized-exception'
 import { CreateUserWithAppleUseCaseRequest } from '@/domain/use-cases/user/create-user-with-apple'
 import { makeUser } from '@/test/domain/factories/make-user'
 import { makeAuthServiceMock } from '@/test/infra/mocks/auth/auth-service-mock'
@@ -51,32 +53,39 @@ describe('CreateUserWithAppleUseCaseImpl', () => {
   it('should return accessToken, refreshToken and user if success', async () => {
     const { sut } = makeSut()
     const response = await sut.handle(makeRequest())
-    expect(response).toHaveProperty('accessToken')
-    expect(response).toHaveProperty('refreshToken')
-    expect(response).toHaveProperty('user')
+    expect(response.value).toHaveProperty('accessToken')
+    expect(response.value).toHaveProperty('refreshToken')
+    expect(response.value).toHaveProperty('user')
   })
-  it('should throw if invalid code is provided', async () => {
+  it('should return exception if invalid code is provided', async () => {
     const { sut, authAppleUserMock } = makeSut()
     authAppleUserMock.isAuthenticated = false
-    await expect(() => sut.handle(makeRequest())).rejects.toThrow()
+    const exception = await sut.handle(makeRequest())
+    expect(exception.value).toEqual(new UnauthorizedException())
   })
+
   it('should return accessToken, refreshToken and user if user already exists', async () => {
     const { sut, inMemoryUserRepository } = makeSut()
     const user = makeUser()
     await inMemoryUserRepository.create(user)
     const response = await sut.handle(makeRequest({ email: user.email }))
-    expect(response).toHaveProperty('accessToken')
-    expect(response).toHaveProperty('refreshToken')
-    expect(response).toHaveProperty('user')
+    expect(response.value).toHaveProperty('accessToken')
+    expect(response.value).toHaveProperty('refreshToken')
+    expect(response.value).toHaveProperty('user')
   })
-  it('should throw if user not exists and firstName and lastName is not provided', async () => {
+  it('should return exception if user not exists and firstName and lastName is not provided', async () => {
     const { sut } = makeSut()
-    const response = sut.handle(
+    const exception = await sut.handle(
       makeRequest({
         firstName: undefined,
         lastName: undefined,
       }),
     )
-    await expect(response).rejects.toThrow()
+    expect(exception.value).toEqual(
+      new BadRequestException({
+        description:
+          'should be provided firstName and lastName if user not exists already',
+      }),
+    )
   })
 })

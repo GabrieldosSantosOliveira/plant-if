@@ -1,9 +1,11 @@
+import { Exception } from '@/domain/use-cases/errors/exception'
+import { UnauthorizedException } from '@/domain/use-cases/errors/unauthorized-exception'
 import {
   CreateUserWithFacebookUseCase,
   CreateUserWithFacebookUseCaseRequest,
   CreateUserWithFacebookUseCaseResponse,
 } from '@/domain/use-cases/user/create-user-with-facebook-use-case'
-import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
+import { Either, left, right } from '@/shared/either'
 import { makeUser } from '@/test/domain/factories/make-user'
 
 export class CreateUserWithFacebookUseCaseMock
@@ -13,14 +15,14 @@ export class CreateUserWithFacebookUseCaseMock
   public response: CreateUserWithFacebookUseCaseResponse
   async handle(
     request: CreateUserWithFacebookUseCaseRequest,
-  ): Promise<CreateUserWithFacebookUseCaseResponse> {
+  ): Promise<Either<Exception, CreateUserWithFacebookUseCaseResponse>> {
     this.request = request
     this.response = {
       accessToken: 'any_access_token',
       refreshToken: 'any_refresh_token',
       user: makeUser(),
     }
-    return this.response
+    return right(this.response)
   }
 }
 export const makeCreateUserWithFacebookUseCaseMock = () => {
@@ -31,7 +33,9 @@ export const makeCreateUserWithFacebookUseCaseMock = () => {
 export class CreateUserWithFacebookUseCaseMockWithError
   implements CreateUserWithFacebookUseCase
 {
-  async handle(): Promise<CreateUserWithFacebookUseCaseResponse> {
+  async handle(): Promise<
+    Either<Exception, CreateUserWithFacebookUseCaseResponse>
+  > {
     throw new Error()
   }
 }
@@ -43,8 +47,10 @@ export const makeCreateUserWithFacebookUseCaseMockWithError = () => {
 export class CreateUserWithFacebookUseCaseMockWithException
   implements CreateUserWithFacebookUseCase
 {
-  async handle(): Promise<CreateUserWithFacebookUseCaseResponse> {
-    throw new UnauthorizedException()
+  async handle(): Promise<
+    Either<Exception, CreateUserWithFacebookUseCaseResponse>
+  > {
+    return left(new UnauthorizedException())
   }
 }
 export const makeCreateUserWithFacebookUseCaseMockWithException = () => {

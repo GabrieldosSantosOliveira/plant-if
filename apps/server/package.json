@@ -7,8 +7,10 @@
     "build": "rimraf ./dist && babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "jest --passWithNoTests --runInBand --verbose",
-    "test:ci":"npm run test -- --coverage",
+    "test": "jest --passWithNoTests --verbose --colors",
+    "test:watch": "npm run test -- --watch",
+    "test:staged": "npm run test -- --bail=0 --findRelatedTests",
+    "test:ci": "npm run test -- --coverage",
     "format": "prettier -w ."
   },
   "keywords": [],

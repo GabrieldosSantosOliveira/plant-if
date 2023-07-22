@@ -1,10 +1,9 @@
 import {
-  GoogleAccount,
   LoadGoogleUser,
   LoadGoogleUserRequest,
+  LoadGoogleUserResponse,
 } from '@/domain/contracts/gateways/google/load-google-user'
 import { HttpClient } from '@/interfaces/http/http-client'
-import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
 
 export interface GoogleResponseAccount {
   email: string
@@ -19,25 +18,34 @@ export class LoadGoogleUserImpl implements LoadGoogleUser {
   constructor(private readonly httpClient: HttpClient) {}
   async loadUser({
     accessToken,
-  }: LoadGoogleUserRequest): Promise<GoogleAccount> {
-    try {
-      const { data } = await this.httpClient.get<GoogleResponseAccount>(
-        'https://www.googleapis.com/oauth2/v2/userinfo',
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      )
+  }: LoadGoogleUserRequest): Promise<LoadGoogleUserResponse> {
+    const response = await this.getUserInfo(accessToken)
+    if (response.statusCode !== 200) {
       return {
-        email: data.email,
-        given_name: data.given_name,
-        id: data.id,
-        family_name: data.family_name,
-        picture: data.picture,
+        success: false,
+        user: null,
       }
-    } catch (error) {
-      throw new UnauthorizedException()
     }
+    return {
+      success: true,
+      user: {
+        email: response.data.email,
+        given_name: response.data.given_name,
+        id: response.data.id,
+        family_name: response.data.family_name,
+        picture: response.data.picture,
+      },
+    }
+  }
+
+  private async getUserInfo(accessToken: string) {
+    return await this.httpClient.get<GoogleResponseAccount>(
+      'https://www.googleapis.com/oauth2/v2/userinfo',
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    )
   }
 }

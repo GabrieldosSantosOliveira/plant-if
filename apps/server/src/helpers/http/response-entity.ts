@@ -1,13 +1,18 @@
+import { Exception } from '@/domain/use-cases/errors/exception'
 import { HttpResponse } from '@/interfaces/http/http-response'
 
 import { ServerError } from '../errors/server-error'
 import { HttpStatusCode } from './http-status-code'
 
 export class ResponseEntity {
-  static customError(statusCode: HttpStatusCode, body: unknown): HttpResponse {
+  static exception(exception: Exception): HttpResponse {
     return {
-      statusCode,
-      body,
+      statusCode: exception.statusCode,
+      body: {
+        message: exception.message,
+        code: exception.code,
+        description: exception.description,
+      },
     }
   }
 

@@ -5,9 +5,15 @@ export interface GoogleAccount {
   email: string
   picture: string
 }
+export interface LoadGoogleUserResponse {
+  user: GoogleAccount | null
+  success: boolean
+}
 export interface LoadGoogleUserRequest {
   accessToken: string
 }
 export interface LoadGoogleUser {
-  loadUser({ accessToken }: LoadGoogleUserRequest): Promise<GoogleAccount>
+  loadUser({
+    accessToken,
+  }: LoadGoogleUserRequest): Promise<LoadGoogleUserResponse>
 }

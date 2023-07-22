@@ -1,4 +1,7 @@
 import { User } from '@/domain/entities/user'
+import { Either } from '@/shared/either'
+
+import { Exception } from '../errors/exception'
 export interface CreateUserWithGoogleUseCaseRequest {
   accessToken: string
 }
@@ -10,5 +13,5 @@ export interface CreateUserWithGoogleUseCaseResponse {
 export interface CreateUserWithGoogleUseCase {
   handle(
     request: CreateUserWithGoogleUseCaseRequest,
-  ): Promise<CreateUserWithGoogleUseCaseResponse>
+  ): Promise<Either<Exception, CreateUserWithGoogleUseCaseResponse>>
 }

@@ -1,6 +1,6 @@
 import { CreateUserWithFacebookUseCaseImpl } from '@/data/use-cases/user/create-user-with-facebook-use-case-impl'
+import { UnauthorizedException } from '@/domain/use-cases/errors/unauthorized-exception'
 import { makeGeneratorUUID } from '@/main/factories/infra/gateways/uuid/make-generator-uuid'
-import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
 import { makeAuthServiceMock } from '@/test/infra/mocks/auth/auth-service-mock'
 import {
   makeLoadFacebookUserMock,
@@ -48,9 +48,9 @@ describe('CreateUserWithFacebookUseCaseImpl', () => {
   it('should return accessToken, refreshToken and user if user not exists', async () => {
     const { sut } = makeSut()
     const response = await sut.handle({ accessToken: 'any_access_token' })
-    expect(response).toHaveProperty('accessToken')
-    expect(response).toHaveProperty('refreshToken')
-    expect(response).toHaveProperty('user')
+    expect(response.value).toHaveProperty('accessToken')
+    expect(response.value).toHaveProperty('refreshToken')
+    expect(response.value).toHaveProperty('user')
   })
   it('should return accessToken, refreshToken and user if user already exists', async () => {
     const { sut, inMemoryUserRepository, loadFacebookUserMock } = makeSut()
@@ -58,14 +58,19 @@ describe('CreateUserWithFacebookUseCaseImpl', () => {
     await inMemoryUserRepository.create(user)
     loadFacebookUserMock.email = user.email
     const response = await sut.handle({ accessToken: 'any_access_token' })
-    expect(response).toHaveProperty('accessToken')
-    expect(response).toHaveProperty('refreshToken')
-    expect(response).toHaveProperty('user')
+    expect(response.value).toHaveProperty('accessToken')
+    expect(response.value).toHaveProperty('refreshToken')
+    expect(response.value).toHaveProperty('user')
   })
-  it('should throw if accessToken is not valid', async () => {
+  it('should return exception if accessToken is not valid', async () => {
+    const { sut, loadFacebookUserMock } = makeSut()
+    loadFacebookUserMock.success = false
+    const exception = await sut.handle({ accessToken: 'any_access_token' })
+    expect(exception.value).toEqual(new UnauthorizedException())
+  })
+  it('should throw if LoadFacebookUser throw', async () => {
     const { sut } = makeSutWithLoadFacebookException()
-    await expect(
-      sut.handle({ accessToken: 'any_access_token' }),
-    ).rejects.toThrow(UnauthorizedException)
+    const exception = sut.handle({ accessToken: 'any_access_token' })
+    await expect(exception).rejects.toThrow()
   })
 })

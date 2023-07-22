@@ -3,12 +3,15 @@ import { GeneratorUUID } from '@/domain/contracts/gateways/uuid/generator-uuid'
 import { CreateUserRepository } from '@/domain/contracts/repositories/user/create-user-repository'
 import { LoadUserByEmailRepository } from '@/domain/contracts/repositories/user/load-user-by-email-repository'
 import { User } from '@/domain/entities/user'
+import { Exception } from '@/domain/use-cases/errors/exception'
+import { UnauthorizedException } from '@/domain/use-cases/errors/unauthorized-exception'
 import {
   CreateUserWithGoogleUseCase,
   CreateUserWithGoogleUseCaseRequest,
   CreateUserWithGoogleUseCaseResponse,
 } from '@/domain/use-cases/user/create-user-with-google-use-case'
 import { AuthService } from '@/interfaces/auth/auth-service'
+import { Either, left, right } from '@/shared/either'
 
 export class CreateUserWithGoogleUseCaseImpl
   implements CreateUserWithGoogleUseCase
@@ -23,28 +26,31 @@ export class CreateUserWithGoogleUseCaseImpl
 
   async handle(
     request: CreateUserWithGoogleUseCaseRequest,
-  ): Promise<CreateUserWithGoogleUseCaseResponse> {
+  ): Promise<Either<Exception, CreateUserWithGoogleUseCaseResponse>> {
     const googleUser = await this.loadGoogleUser.loadUser({
       accessToken: request.accessToken,
     })
+    if (!googleUser.success || !googleUser.user) {
+      return left(new UnauthorizedException())
+    }
     const userExists = await this.loadUserByEmailRepository.findByEmail(
-      googleUser.email,
+      googleUser.user.email,
     )
     if (userExists) {
       const { accessToken, refreshToken } =
         await this.authService.generateAccessTokenAndRefreshToken(userExists.id)
-      return { accessToken, refreshToken, user: userExists }
+      return right({ accessToken, refreshToken, user: userExists })
     }
     const user = new User({
-      email: googleUser.email,
-      firstName: googleUser.given_name,
-      lastName: googleUser.family_name,
-      image: googleUser.picture,
+      email: googleUser.user.email,
+      firstName: googleUser.user.given_name,
+      lastName: googleUser.user.family_name,
+      image: googleUser.user.picture,
       id: this.generatorUUID.randomUUID(),
     })
     await this.createUserRepository.create(user)
     const { accessToken, refreshToken } =
       await this.authService.generateAccessTokenAndRefreshToken(user.id)
-    return { accessToken, refreshToken, user }
+    return right({ accessToken, refreshToken, user })
   }
 }

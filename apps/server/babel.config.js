@@ -22,6 +22,8 @@ module.exports = {
           '@/interfaces': './src/interfaces',
           '@/main': './src/main',
           '@/presentation': './src/presentation',
+          '@/shared': './src/shared',
+          '@/test': './test',
         },
       },
     ],
