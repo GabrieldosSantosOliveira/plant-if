@@ -1,3 +1,4 @@
+import { AuthService } from '@/data/protocols/auth/auth-service'
 import { AuthAppleUser } from '@/domain/contracts/gateways/apple/auth-apple-user'
 import { GeneratorUUID } from '@/domain/contracts/gateways/uuid/generator-uuid'
 import { CreateUserRepository } from '@/domain/contracts/repositories/user/create-user-repository'
@@ -11,7 +12,6 @@ import {
   CreateUserWithAppleUseCaseRequest,
   CreateUserWithAppleUseCaseResponse,
 } from '@/domain/use-cases/user/create-user-with-apple'
-import { AuthService } from '@/interfaces/auth/auth-service'
 import { Either, left, right } from '@/shared/either'
 
 export class CreateUserWithAppleUseCaseImpl

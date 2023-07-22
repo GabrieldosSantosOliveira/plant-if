@@ -1,29 +1,35 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
-    "declaration": true,
     "strictPropertyInitialization": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "strict": true,
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "outDir": "dist",
     "removeComments": true,
-    "strict": true,
-    "target": "ES6",
+    "target": "es6",
     "esModuleInterop": true,
-    "alwaysStrict": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
       "@/data/*": ["./src/data/*"],
       "@/domain/*": ["./src/domain/*"],
-      "@/helpers/*": ["./src/helpers/*"],
+      "@/helpers/*": ["src/presentation/helpers/*"],
       "@/infra/*": ["./src/infra/*"],
       "@/interfaces/*": ["./src/interfaces/*"],
       "@/main/*": ["./src/main/*"],
       "@/presentation/*": ["./src/presentation/*"],
       "@/shared/*": ["./src/shared/*"],
+      "@/utils/*": ["./src/utils/*"],
       "@/test/*": ["./test/*"]
     }
-  }
+  },
+  "exclude": ["./test"]
 }

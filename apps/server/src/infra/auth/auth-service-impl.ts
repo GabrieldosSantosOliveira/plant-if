@@ -2,9 +2,10 @@ import {
   AuthService,
   AuthServiceAccessToken,
   AuthServiceRefreshToken,
-} from '@/interfaces/auth/auth-service'
-import { Jwt, Payload } from '@/interfaces/auth/jwt'
-import { InvalidParamError } from '@/presentation/errors/errors/invalid-param-error'
+} from '@/data/protocols/auth/auth-service'
+import { Jwt, Payload } from '@/data/protocols/auth/jwt'
+import { Either } from '@/shared/either'
+import { InvalidParamError } from '@/utils/errors/invalid-param-error'
 export interface AuthServiceOptions {
   SECRET_ACCESS_TOKEN: string
   SECRET_REFRESH_TOKEN: string
@@ -25,31 +26,41 @@ export class AuthServiceImpl implements AuthService {
     this.options = options
   }
 
-  async decryptAccessToken(accessToken: string): Promise<Payload> {
+  async decryptAccessToken(
+    accessToken: string,
+  ): Promise<Either<Error, Payload>> {
     return await this.jwt.decrypt(accessToken, {
       secret: this.options.SECRET_ACCESS_TOKEN,
     })
   }
 
-  async decryptRefreshToken(refreshToken: string): Promise<Payload> {
+  async decryptRefreshToken(
+    refreshToken: string,
+  ): Promise<Either<Error, Payload>> {
     return this.jwt.decrypt(refreshToken, {
       secret: this.options.SECRET_REFRESH_TOKEN,
     })
   }
 
   async generateAccessToken(id: string): Promise<AuthServiceAccessToken> {
-    const accessToken = await this.jwt.encrypt(id, {
-      secret: this.options.SECRET_ACCESS_TOKEN,
-      expire: this.options.EXPIRE_ACCESS_TOKEN,
-    })
+    const accessToken = await this.jwt.encrypt(
+      { sub: id },
+      {
+        secret: this.options.SECRET_ACCESS_TOKEN,
+        expire: this.options.EXPIRE_ACCESS_TOKEN,
+      },
+    )
     return { accessToken }
   }
 
   async generateRefreshToken(id: string): Promise<AuthServiceRefreshToken> {
-    const refreshToken = await this.jwt.encrypt(id, {
-      secret: this.options.SECRET_REFRESH_TOKEN,
-      expire: this.options.EXPIRE_REFRESH_TOKEN,
-    })
+    const refreshToken = await this.jwt.encrypt(
+      { sub: id },
+      {
+        secret: this.options.SECRET_REFRESH_TOKEN,
+        expire: this.options.EXPIRE_REFRESH_TOKEN,
+      },
+    )
     return { refreshToken }
   }
 

@@ -1,4 +1,4 @@
-import { HttpStatusCode } from '@/helpers/http/http-status-code'
+import { HttpStatusCode } from '@/presentation/helpers/http/http-status-code'
 
 import { Exception } from './exception'
 import { HttpException } from './http-exception'

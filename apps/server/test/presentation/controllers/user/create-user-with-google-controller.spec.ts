@@ -1,9 +1,9 @@
-import { HttpStatusCode } from '@/helpers/http/http-status-code'
-import { HttpRequest } from '@/interfaces/http/http-request'
 import {
   CreateUserWithGoogleController,
   CreateUserWithGoogleControllerRequest,
 } from '@/presentation/controllers/user/create-user-with-google-controller'
+import { HttpStatusCode } from '@/presentation/helpers/http/http-status-code'
+import { HttpRequest } from '@/presentation/protocols/http/http-request'
 import {
   makeCreateUserWithGoogleUseCaseMock,
   makeCreateUserWithGoogleUseCaseMockWithError,

@@ -2,7 +2,7 @@ import {
   HttpClient,
   HttpClientOptions,
   HttpClientResponse,
-} from '@/interfaces/http/http-client'
+} from '@/data/protocols/http/http-client'
 import axios, { isAxiosError } from 'axios'
 
 export class HttpClientImpl implements HttpClient {

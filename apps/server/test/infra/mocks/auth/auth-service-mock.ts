@@ -2,8 +2,9 @@ import {
   AuthService,
   AuthServiceAccessToken,
   AuthServiceRefreshToken,
-} from '@/interfaces/auth/auth-service'
-import { Payload } from '@/interfaces/auth/jwt'
+} from '@/data/protocols/auth/auth-service'
+import { Payload } from '@/data/protocols/auth/jwt'
+import { Either, right } from '@/shared/either'
 
 export class AuthServiceMock implements AuthService {
   async generateAccessToken(): Promise<AuthServiceAccessToken> {
@@ -22,12 +23,12 @@ export class AuthServiceMock implements AuthService {
     return { accessToken, refreshToken }
   }
 
-  async decryptAccessToken(): Promise<Payload> {
-    return { sub: 'any_sub' }
+  async decryptAccessToken(): Promise<Either<Error, Payload>> {
+    return right({ sub: 'any_sub' })
   }
 
-  async decryptRefreshToken(): Promise<Payload> {
-    return { sub: 'any_sub' }
+  async decryptRefreshToken(): Promise<Either<Error, Payload>> {
+    return right({ sub: 'any_sub' })
   }
 }
 export const makeAuthServiceMock = () => {

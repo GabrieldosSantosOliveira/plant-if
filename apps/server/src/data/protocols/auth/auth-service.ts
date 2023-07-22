@@ -1,3 +1,5 @@
+import { Either } from '@/shared/either'
+
 import { Payload } from './jwt'
 
 export interface AuthServiceAccessToken {
@@ -12,6 +14,6 @@ export interface AuthService {
   generateAccessTokenAndRefreshToken(
     id: string,
   ): Promise<AuthServiceRefreshToken & AuthServiceAccessToken>
-  decryptAccessToken(accessToken: string): Promise<Payload>
-  decryptRefreshToken(refreshToken: string): Promise<Payload>
+  decryptAccessToken(accessToken: string): Promise<Either<Error, Payload>>
+  decryptRefreshToken(refreshToken: string): Promise<Either<Error, Payload>>
 }

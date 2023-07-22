@@ -1,8 +1,8 @@
 import { CreateUserWithGoogleUseCase } from '@/domain/use-cases/user/create-user-with-google-use-case'
-import { ResponseEntity } from '@/helpers/http/response-entity'
-import { Controller } from '@/interfaces/controller/controller'
-import { HttpRequest } from '@/interfaces/http/http-request'
-import { HttpResponse } from '@/interfaces/http/http-response'
+import { ResponseEntity } from '@/presentation/helpers/http/response-entity'
+import { Controller } from '@/presentation/protocols/controller/controller'
+import { HttpRequest } from '@/presentation/protocols/http/http-request'
+import { HttpResponse } from '@/presentation/protocols/http/http-response'
 import { UserViewModel } from '@/presentation/view-models/user-view-model'
 
 import { CreateUserWithGoogleBodyDto } from '../../dtos/user/create-user-with-google-body.dto'

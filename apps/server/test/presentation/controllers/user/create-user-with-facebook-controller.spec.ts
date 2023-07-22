@@ -1,9 +1,9 @@
-import { HttpStatusCode } from '@/helpers/http/http-status-code'
-import { HttpRequest } from '@/interfaces/http/http-request'
 import {
   CreateUserWithFacebookController,
   CreateUserWithFacebookControllerRequest,
 } from '@/presentation/controllers/user/create-user-with-facebook-controller'
+import { HttpStatusCode } from '@/presentation/helpers/http/http-status-code'
+import { HttpRequest } from '@/presentation/protocols/http/http-request'
 import {
   makeCreateUserWithFacebookUseCaseMock,
   makeCreateUserWithFacebookUseCaseMockWithError,
@@ -54,7 +54,7 @@ describe('CreateUserWithFacebookController', () => {
     )
     expect(httpResponse.statusCode).toBe(HttpStatusCode.BAD_REQUEST)
   })
-  it('should return 200 if success', async () => {
+  it('should returinterfaces/http/http-requestn 200 if success', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeRequest())
     expect(httpResponse.statusCode).toBe(HttpStatusCode.OK)

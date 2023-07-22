@@ -1,3 +1,4 @@
+import { AuthService } from '@/data/protocols/auth/auth-service'
 import { LoadGoogleUser } from '@/domain/contracts/gateways/google/load-google-user'
 import { GeneratorUUID } from '@/domain/contracts/gateways/uuid/generator-uuid'
 import { CreateUserRepository } from '@/domain/contracts/repositories/user/create-user-repository'
@@ -10,7 +11,6 @@ import {
   CreateUserWithGoogleUseCaseRequest,
   CreateUserWithGoogleUseCaseResponse,
 } from '@/domain/use-cases/user/create-user-with-google-use-case'
-import { AuthService } from '@/interfaces/auth/auth-service'
 import { Either, left, right } from '@/shared/either'
 
 export class CreateUserWithGoogleUseCaseImpl

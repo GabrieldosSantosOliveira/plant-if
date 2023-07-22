@@ -1,9 +1,12 @@
 import {
+  HttpClient,
+  HttpClientResponse,
+} from '@/data/protocols/http/http-client'
+import {
   LoadFacebookUser,
   LoadFacebookUserRequest,
   LoadFacebookUserResponse,
 } from '@/domain/contracts/gateways/facebook/load-facebook-user'
-import { HttpClient, HttpClientResponse } from '@/interfaces/http/http-client'
 
 export interface Picture {
   data: {
