@@ -4,7 +4,7 @@ import { Router } from 'express'
 
 export default function CreateUserWithFacebookRouter(router: Router) {
   router.post(
-    '/user/facebook',
+    '/user/auth/facebook',
     makeExpressRouterAdapter(makeCreateUserWithFacebookController()),
   )
 }

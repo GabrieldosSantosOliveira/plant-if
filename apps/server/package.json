@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsnd -r tsconfig-paths/register ./src/main/server",
-    "start": "node ./dist/main/server",
+    "start": "node ./dist/src/main/server",
     "build": "rimraf ./dist && tsc && tsc-alias",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

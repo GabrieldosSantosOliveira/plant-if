@@ -16,7 +16,7 @@
     "test:staged": "npm run test -- --bail=0 --findRelatedTests",
     "test:ci": "npm run test -- --coverage",
     "type:check": "tsc --noEmit"
-    },
+  },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.3",
     "@expo-google-fonts/poppins": "^0.2.3",

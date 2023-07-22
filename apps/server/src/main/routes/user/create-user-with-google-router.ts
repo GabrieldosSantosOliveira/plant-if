@@ -4,7 +4,7 @@ import { Router } from 'express'
 
 export default function CreateUserWithGoogleRouter(router: Router) {
   router.post(
-    '/user/google',
+    '/user/auth/google',
     makeExpressRouterAdapter(makeCreateUserWithGoogleController()),
   )
 }

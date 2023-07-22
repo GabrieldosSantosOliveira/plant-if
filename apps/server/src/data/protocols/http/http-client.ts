@@ -3,15 +3,21 @@ export interface HttpClientResponse<T> {
   data: T
 }
 export interface HttpClientOptionsHeaders {
-  Authorization: string
+  Authorization?: string
+  ContentType?: string
 }
 export interface HttpClientOptions {
   headers?: HttpClientOptionsHeaders
   params?: object
+  body?: unknown
 }
 
 export interface HttpClient {
   get<T = unknown>(
+    url: string,
+    options?: HttpClientOptions,
+  ): Promise<HttpClientResponse<T>>
+  post<T = unknown>(
     url: string,
     options?: HttpClientOptions,
   ): Promise<HttpClientResponse<T>>
