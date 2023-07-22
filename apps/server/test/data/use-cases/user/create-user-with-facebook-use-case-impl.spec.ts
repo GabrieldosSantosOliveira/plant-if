@@ -5,21 +5,23 @@ import { makeAuthServiceMock } from '@/test/infra/mocks/auth/auth-service-mock'
 import {
   makeLoadFacebookUserMock,
   makeLoadFacebookUserMockWithException,
-} from '@/test/infra/mocks/implementations/facebook/load-facebook-user-mock'
+} from '@/test/infra/mocks/gateways/facebook/load-facebook-user-mock'
+import { makeGeneratorUUIDMock } from '@/test/infra/mocks/gateways/uuid/make-generator-uuid'
 
-import { makeUser } from '../../factories/make-user'
-import { makeInMemoryUserRepository } from '../../repositories/user/in-memory-user-repository'
+import { makeUser } from '../../../domain/factories/make-user'
+import { makeInMemoryUserRepository } from '../../../infra/mocks/repositories/user/in-memory-user-repository'
 
 const makeSut = () => {
   const { authServiceMock } = makeAuthServiceMock()
   const { loadFacebookUserMock } = makeLoadFacebookUserMock()
   const { inMemoryUserRepository } = makeInMemoryUserRepository()
+  const { generatorUUIDMock } = makeGeneratorUUIDMock()
   const sut = new CreateUserWithFacebookUseCaseImpl(
     loadFacebookUserMock,
     inMemoryUserRepository,
     authServiceMock,
     inMemoryUserRepository,
-    makeGeneratorUUID(),
+    generatorUUIDMock,
   )
   return { sut, loadFacebookUserMock, inMemoryUserRepository, authServiceMock }
 }

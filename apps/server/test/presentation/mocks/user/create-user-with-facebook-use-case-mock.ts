@@ -4,7 +4,7 @@ import {
   CreateUserWithFacebookUseCaseResponse,
 } from '@/domain/use-cases/user/create-user-with-facebook-use-case'
 import { UnauthorizedException } from '@/presentation/errors/exceptions/unauthorized-exception'
-import { makeUser } from '@/test/app/factories/make-user'
+import { makeUser } from '@/test/domain/factories/make-user'
 
 export class CreateUserWithFacebookUseCaseMock
   implements CreateUserWithFacebookUseCase

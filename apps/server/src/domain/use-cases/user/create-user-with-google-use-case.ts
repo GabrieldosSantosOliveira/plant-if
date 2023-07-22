@@ -1,4 +1,4 @@
-import { User } from '@/app/entities/user'
+import { User } from '@/domain/entities/user'
 export interface CreateUserWithGoogleUseCaseRequest {
   accessToken: string
 }

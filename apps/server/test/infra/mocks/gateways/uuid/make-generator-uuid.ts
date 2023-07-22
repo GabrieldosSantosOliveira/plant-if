@@ -6,4 +6,7 @@ export class GeneratorUUIDMock implements GeneratorUUID {
   }
 }
 
-export const makeGeneratorUUID = () => new GeneratorUUIDMock()
+export const makeGeneratorUUIDMock = () => {
+  const generatorUUIDMock = new GeneratorUUIDMock()
+  return { generatorUUIDMock }
+}

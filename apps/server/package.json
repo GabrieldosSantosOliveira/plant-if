@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "jest --passWithNoTests --runInBand --verbose",
+    "test:ci":"npm run test -- --coverage",
     "format": "prettier -w ."
   },
   "keywords": [],

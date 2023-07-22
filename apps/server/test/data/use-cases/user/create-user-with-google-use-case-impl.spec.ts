@@ -5,21 +5,23 @@ import { makeAuthServiceMock } from '@/test/infra/mocks/auth/auth-service-mock'
 import {
   makeLoadGoogleUserMock,
   makeLoadGoogleUserMockWithException,
-} from '@/test/infra/mocks/implementations/google/load-google-user-mock'
+} from '@/test/infra/mocks/gateways/google/load-google-user-mock'
+import { makeGeneratorUUIDMock } from '@/test/infra/mocks/gateways/uuid/make-generator-uuid'
 
-import { makeUser } from '../../factories/make-user'
-import { makeInMemoryUserRepository } from '../../repositories/user/in-memory-user-repository'
+import { makeUser } from '../../../domain/factories/make-user'
+import { makeInMemoryUserRepository } from '../../../infra/mocks/repositories/user/in-memory-user-repository'
 
 const makeSut = () => {
   const { authServiceMock } = makeAuthServiceMock()
   const { loadGoogleUserMock } = makeLoadGoogleUserMock()
   const { inMemoryUserRepository } = makeInMemoryUserRepository()
+  const { generatorUUIDMock } = makeGeneratorUUIDMock()
   const sut = new CreateUserWithGoogleUseCaseImpl(
     loadGoogleUserMock,
     inMemoryUserRepository,
     authServiceMock,
     inMemoryUserRepository,
-    makeGeneratorUUID(),
+    generatorUUIDMock,
   )
   return { sut, loadGoogleUserMock, inMemoryUserRepository, authServiceMock }
 }
