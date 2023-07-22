@@ -21,15 +21,12 @@
     "paths": {
       "@/data/*": ["./src/data/*"],
       "@/domain/*": ["./src/domain/*"],
-      "@/helpers/*": ["src/presentation/helpers/*"],
       "@/infra/*": ["./src/infra/*"],
-      "@/interfaces/*": ["./src/interfaces/*"],
       "@/main/*": ["./src/main/*"],
       "@/presentation/*": ["./src/presentation/*"],
       "@/shared/*": ["./src/shared/*"],
       "@/utils/*": ["./src/utils/*"],
       "@/test/*": ["./test/*"]
     }
-  },
-  "exclude": ["./test"]
+  }
 }

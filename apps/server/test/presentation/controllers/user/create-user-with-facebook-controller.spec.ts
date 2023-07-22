@@ -8,7 +8,8 @@ import {
   makeCreateUserWithFacebookUseCaseMock,
   makeCreateUserWithFacebookUseCaseMockWithError,
   makeCreateUserWithFacebookUseCaseMockWithException,
-} from '@/test/presentation/mocks/user/create-user-with-facebook-use-case-mock'
+} from '@/test/data/mocks/user/create-user-with-facebook-use-case-mock'
+import { faker } from '@faker-js/faker'
 
 const makeSut = () => {
   const { createUserWithFacebookUseCaseMock } =
@@ -16,7 +17,7 @@ const makeSut = () => {
   const sut = new CreateUserWithFacebookController(
     createUserWithFacebookUseCaseMock,
   )
-  return { sut }
+  return { sut, createUserWithFacebookUseCaseMock }
 }
 const makeSutWithError = () => {
   const { createUserWithFacebookUseCaseMockWithError } =
@@ -54,7 +55,7 @@ describe('CreateUserWithFacebookController', () => {
     )
     expect(httpResponse.statusCode).toBe(HttpStatusCode.BAD_REQUEST)
   })
-  it('should returinterfaces/http/http-requestn 200 if success', async () => {
+  it('should return 200 if success', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeRequest())
     expect(httpResponse.statusCode).toBe(HttpStatusCode.OK)
@@ -68,5 +69,18 @@ describe('CreateUserWithFacebookController', () => {
     const { sut } = makeSutWithException()
     const httpResponse = await sut.handle(makeRequest())
     expect(httpResponse.statusCode).toBe(HttpStatusCode.UNAUTHORIZED_ERROR)
+  })
+
+  it('should call CreateUserWithFacebookUseCase with correct params', async () => {
+    const { sut, createUserWithFacebookUseCaseMock } = makeSut()
+    const accessToken = faker.lorem.slug()
+    const createUserWithFacebookUseCaseMockSpy = jest.spyOn(
+      createUserWithFacebookUseCaseMock,
+      'handle',
+    )
+    await sut.handle(makeRequest({ accessToken }))
+    expect(createUserWithFacebookUseCaseMockSpy).toHaveBeenCalledWith({
+      accessToken,
+    })
   })
 })

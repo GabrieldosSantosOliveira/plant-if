@@ -11,9 +11,6 @@ export interface AuthServiceRefreshToken {
 export interface AuthService {
   generateAccessToken(id: string): Promise<AuthServiceAccessToken>
   generateRefreshToken(id: string): Promise<AuthServiceRefreshToken>
-  generateAccessTokenAndRefreshToken(
-    id: string,
-  ): Promise<AuthServiceRefreshToken & AuthServiceAccessToken>
   decryptAccessToken(accessToken: string): Promise<Either<Error, Payload>>
   decryptRefreshToken(refreshToken: string): Promise<Either<Error, Payload>>
 }

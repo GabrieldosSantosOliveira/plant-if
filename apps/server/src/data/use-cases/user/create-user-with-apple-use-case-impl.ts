@@ -11,7 +11,7 @@ import {
   CreateUserWithAppleUseCase,
   CreateUserWithAppleUseCaseRequest,
   CreateUserWithAppleUseCaseResponse,
-} from '@/domain/use-cases/user/create-user-with-apple'
+} from '@/domain/use-cases/user/create-user-with-apple-use-case'
 import { Either, left, right } from '@/shared/either'
 
 export class CreateUserWithAppleUseCaseImpl
@@ -38,8 +38,12 @@ export class CreateUserWithAppleUseCaseImpl
       request.email,
     )
     if (userExists) {
-      const { accessToken, refreshToken } =
-        await this.authService.generateAccessTokenAndRefreshToken(userExists.id)
+      const { refreshToken } = await this.authService.generateRefreshToken(
+        userExists.id,
+      )
+      const { accessToken } = await this.authService.generateAccessToken(
+        userExists.id,
+      )
       return right({ accessToken, refreshToken, user: userExists })
     }
     if (!request.firstName || !request.lastName) {
@@ -57,8 +61,10 @@ export class CreateUserWithAppleUseCaseImpl
       lastName: request.lastName,
     })
     await this.createUserRepository.create(user)
-    const { accessToken, refreshToken } =
-      await this.authService.generateAccessTokenAndRefreshToken(user.id)
+    const { refreshToken } = await this.authService.generateRefreshToken(
+      user.id,
+    )
+    const { accessToken } = await this.authService.generateAccessToken(user.id)
     return right({ accessToken, refreshToken, user })
   }
 }

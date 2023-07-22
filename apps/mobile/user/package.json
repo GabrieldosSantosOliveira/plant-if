@@ -11,9 +11,12 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier -w .",
-    "test": "jest --runInBand --verbose --passWithNoTests",
-    "test:ci": "npm test -- --coverage"
-  },
+    "test": "jest --verbose --passWithNoTests --colors",
+    "test:watch": "npm run test -- --watch",
+    "test:staged": "npm run test -- --bail=0 --findRelatedTests",
+    "test:ci": "npm run test -- --coverage",
+    "type:check": "tsc --noEmit"
+    },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.3",
     "@expo-google-fonts/poppins": "^0.2.3",

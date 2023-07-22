@@ -37,8 +37,12 @@ export class CreateUserWithGoogleUseCaseImpl
       googleUser.user.email,
     )
     if (userExists) {
-      const { accessToken, refreshToken } =
-        await this.authService.generateAccessTokenAndRefreshToken(userExists.id)
+      const { refreshToken } = await this.authService.generateRefreshToken(
+        userExists.id,
+      )
+      const { accessToken } = await this.authService.generateAccessToken(
+        userExists.id,
+      )
       return right({ accessToken, refreshToken, user: userExists })
     }
     const user = new User({
@@ -49,8 +53,10 @@ export class CreateUserWithGoogleUseCaseImpl
       id: this.generatorUUID.randomUUID(),
     })
     await this.createUserRepository.create(user)
-    const { accessToken, refreshToken } =
-      await this.authService.generateAccessTokenAndRefreshToken(user.id)
+    const { refreshToken } = await this.authService.generateRefreshToken(
+      user.id,
+    )
+    const { accessToken } = await this.authService.generateAccessToken(user.id)
     return right({ accessToken, refreshToken, user })
   }
 }

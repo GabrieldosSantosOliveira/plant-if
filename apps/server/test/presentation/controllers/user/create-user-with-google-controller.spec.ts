@@ -8,7 +8,8 @@ import {
   makeCreateUserWithGoogleUseCaseMock,
   makeCreateUserWithGoogleUseCaseMockWithError,
   makeCreateUserWithGoogleUseCaseMockWithException,
-} from '@/test/presentation/mocks/user/create-user-with-google-use-case-mock'
+} from '@/test/data/mocks/user/create-user-with-google-use-case-mock'
+import { faker } from '@faker-js/faker'
 
 const makeSut = () => {
   const { createUserWithGoogleUseCaseMock } =
@@ -16,7 +17,7 @@ const makeSut = () => {
   const sut = new CreateUserWithGoogleController(
     createUserWithGoogleUseCaseMock,
   )
-  return { sut }
+  return { sut, createUserWithGoogleUseCaseMock }
 }
 const makeSutWithError = () => {
   const { createUserWithGoogleUseCaseMockWithError } =
@@ -68,5 +69,17 @@ describe('CreateUserWithGoogleController', () => {
     const { sut } = makeSutWithException()
     const httpResponse = await sut.handle(makeRequest())
     expect(httpResponse.statusCode).toBe(HttpStatusCode.UNAUTHORIZED_ERROR)
+  })
+  it('should call CreateUserWithGoogleUseCase with correct params', async () => {
+    const { sut, createUserWithGoogleUseCaseMock } = makeSut()
+    const accessToken = faker.lorem.slug()
+    const createUserWithGoogleUseCaseMockSpy = jest.spyOn(
+      createUserWithGoogleUseCaseMock,
+      'handle',
+    )
+    await sut.handle(makeRequest({ accessToken }))
+    expect(createUserWithGoogleUseCaseMockSpy).toHaveBeenCalledWith({
+      accessToken,
+    })
   })
 })

@@ -7,6 +7,7 @@ import {
   makeLoadFacebookUserMockWithException,
 } from '@/test/infra/mocks/gateways/facebook/load-facebook-user-mock'
 import { makeGeneratorUUIDMock } from '@/test/infra/mocks/gateways/uuid/make-generator-uuid'
+import { faker } from '@faker-js/faker'
 
 import { makeUser } from '../../../domain/factories/make-user'
 import { makeInMemoryUserRepository } from '../../../infra/mocks/repositories/user/in-memory-user-repository'
@@ -72,5 +73,46 @@ describe('CreateUserWithFacebookUseCaseImpl', () => {
     const { sut } = makeSutWithLoadFacebookException()
     const exception = sut.handle({ accessToken: 'any_access_token' })
     await expect(exception).rejects.toThrow()
+  })
+  it('should call LoadFacebookUser with correct accessToken', async () => {
+    const { sut, loadFacebookUserMock } = makeSut()
+    const accessToken = faker.lorem.slug()
+    const loadFacebookUserMockSpy = jest.spyOn(loadFacebookUserMock, 'loadUser')
+    await sut.handle({ accessToken })
+    expect(loadFacebookUserMockSpy).toHaveBeenCalledWith({ accessToken })
+  })
+  it('should call LoadUserByEmailRepository with correct email', async () => {
+    const { sut, inMemoryUserRepository, loadFacebookUserMock } = makeSut()
+    const email = faker.internet.email()
+    loadFacebookUserMock.email = email
+    const inMemoryUserRepositorySpy = jest.spyOn(
+      inMemoryUserRepository,
+      'findByEmail',
+    )
+    await sut.handle({ accessToken: 'any_access_token' })
+    expect(inMemoryUserRepositorySpy).toHaveBeenCalledWith(email)
+  })
+  it('should call AuthService with correct id', async () => {
+    const {
+      sut,
+      inMemoryUserRepository,
+      authServiceMock,
+      loadFacebookUserMock,
+    } = makeSut()
+    const email = faker.internet.email()
+    loadFacebookUserMock.email = email
+    const generateAccessTokenSpy = jest.spyOn(
+      authServiceMock,
+      'generateAccessToken',
+    )
+    const generateRefreshTokenSpy = jest.spyOn(
+      authServiceMock,
+      'generateRefreshToken',
+    )
+    await sut.handle({ accessToken: 'any_access_token' })
+    const user = await inMemoryUserRepository.findByEmail(email)
+
+    expect(generateRefreshTokenSpy).toHaveBeenCalledWith(user?.id)
+    expect(generateAccessTokenSpy).toHaveBeenCalledWith(user?.id)
   })
 })

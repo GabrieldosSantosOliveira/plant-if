@@ -15,14 +15,6 @@ export class AuthServiceMock implements AuthService {
     return { refreshToken: 'any_refresh_token' }
   }
 
-  async generateAccessTokenAndRefreshToken(): Promise<
-    AuthServiceRefreshToken & AuthServiceAccessToken
-  > {
-    const { accessToken } = await this.generateAccessToken()
-    const { refreshToken } = await this.generateRefreshToken()
-    return { accessToken, refreshToken }
-  }
-
   async decryptAccessToken(): Promise<Either<Error, Payload>> {
     return right({ sub: 'any_sub' })
   }

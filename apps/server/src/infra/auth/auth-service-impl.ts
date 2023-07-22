@@ -63,14 +63,4 @@ export class AuthServiceImpl implements AuthService {
     )
     return { refreshToken }
   }
-
-  async generateAccessTokenAndRefreshToken(
-    id: string,
-  ): Promise<AuthServiceRefreshToken & AuthServiceAccessToken> {
-    const [{ accessToken }, { refreshToken }] = await Promise.all([
-      this.generateAccessToken(id),
-      this.generateRefreshToken(id),
-    ])
-    return { accessToken, refreshToken }
-  }
 }

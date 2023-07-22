@@ -7,6 +7,7 @@ import {
   makeLoadGoogleUserMockWithError,
 } from '@/test/infra/mocks/gateways/google/load-google-user-mock'
 import { makeGeneratorUUIDMock } from '@/test/infra/mocks/gateways/uuid/make-generator-uuid'
+import { faker } from '@faker-js/faker'
 
 import { makeUser } from '../../../domain/factories/make-user'
 import { makeInMemoryUserRepository } from '../../../infra/mocks/repositories/user/in-memory-user-repository'
@@ -71,5 +72,42 @@ describe('CreateUserWithGoogleUseCaseImpl', () => {
     const { sut } = makeSutWithLoadGoogleError()
     const error = sut.handle({ accessToken: 'any_access_token' })
     await expect(error).rejects.toThrow()
+  })
+  it('should call LoadGoogleUser with correct accessToken', async () => {
+    const { sut, loadGoogleUserMock } = makeSut()
+    const accessToken = faker.lorem.slug()
+    const loadFacebookUserMockSpy = jest.spyOn(loadGoogleUserMock, 'loadUser')
+    await sut.handle({ accessToken })
+    expect(loadFacebookUserMockSpy).toHaveBeenCalledWith({ accessToken })
+  })
+  it('should call LoadUserByEmailRepository with correct email', async () => {
+    const { sut, inMemoryUserRepository, loadGoogleUserMock } = makeSut()
+    const email = faker.internet.email()
+    loadGoogleUserMock.email = email
+    const inMemoryUserRepositorySpy = jest.spyOn(
+      inMemoryUserRepository,
+      'findByEmail',
+    )
+    await sut.handle({ accessToken: 'any_access_token' })
+    expect(inMemoryUserRepositorySpy).toHaveBeenCalledWith(email)
+  })
+  it('should call AuthService with correct id', async () => {
+    const { sut, inMemoryUserRepository, authServiceMock, loadGoogleUserMock } =
+      makeSut()
+    const email = faker.internet.email()
+    loadGoogleUserMock.email = email
+    const generateAccessTokenSpy = jest.spyOn(
+      authServiceMock,
+      'generateAccessToken',
+    )
+    const generateRefreshTokenSpy = jest.spyOn(
+      authServiceMock,
+      'generateRefreshToken',
+    )
+    await sut.handle({ accessToken: 'any_access_token' })
+    const user = await inMemoryUserRepository.findByEmail(email)
+
+    expect(generateRefreshTokenSpy).toHaveBeenCalledWith(user?.id)
+    expect(generateAccessTokenSpy).toHaveBeenCalledWith(user?.id)
   })
 })

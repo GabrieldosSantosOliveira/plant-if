@@ -11,7 +11,7 @@
     "test:watch": "npm run test -- --watch",
     "test:staged": "npm run test -- --bail=0 --findRelatedTests",
     "test:ci": "npm run test -- --coverage",
-    "type:check": "rimraf ./dist && tsc --noEmit && tsc-alias",
+    "type:check": "rimraf ./dist && tsc --noEmit",
     "format": "prettier -w ."
   },
   "keywords": [],

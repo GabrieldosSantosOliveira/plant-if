@@ -1,7 +1,7 @@
 import { CreateUserWithAppleUseCaseImpl } from '@/data/use-cases/user/create-user-with-apple-use-case-impl'
 import { BadRequestException } from '@/domain/use-cases/errors/bad-request-exception'
 import { UnauthorizedException } from '@/domain/use-cases/errors/unauthorized-exception'
-import { CreateUserWithAppleUseCaseRequest } from '@/domain/use-cases/user/create-user-with-apple'
+import { CreateUserWithAppleUseCaseRequest } from '@/domain/use-cases/user/create-user-with-apple-use-case'
 import { makeUser } from '@/test/domain/factories/make-user'
 import { makeAuthServiceMock } from '@/test/infra/mocks/auth/auth-service-mock'
 import { makeAuthAppleUserMock } from '@/test/infra/mocks/gateways/apple/auth-apple-user-mock'
@@ -87,5 +87,38 @@ describe('CreateUserWithAppleUseCaseImpl', () => {
           'should be provided firstName and lastName if user not exists already',
       }),
     )
+  })
+  it('should call AuthAppleUser with correct code', async () => {
+    const { sut, authAppleUserMock } = makeSut()
+    const code = faker.lorem.slug()
+    const authAppleUserMockSpy = jest.spyOn(authAppleUserMock, 'authenticate')
+    await sut.handle(makeRequest({ code }))
+    expect(authAppleUserMockSpy).toHaveBeenCalledWith(code)
+  })
+  it('should call LoadUserByEmailRepository with correct email', async () => {
+    const { sut, inMemoryUserRepository } = makeSut()
+    const email = faker.internet.email()
+    const inMemoryUserRepositorySpy = jest.spyOn(
+      inMemoryUserRepository,
+      'findByEmail',
+    )
+    await sut.handle(makeRequest({ email }))
+    expect(inMemoryUserRepositorySpy).toHaveBeenCalledWith(email)
+  })
+  it('should call AuthService with correct id', async () => {
+    const { sut, authServiceMock, inMemoryUserRepository } = makeSut()
+    const generateAccessTokenMockSpy = jest.spyOn(
+      authServiceMock,
+      'generateAccessToken',
+    )
+    const generateRefreshTokenMockSpy = jest.spyOn(
+      authServiceMock,
+      'generateRefreshToken',
+    )
+    const email = faker.internet.email()
+    await sut.handle(makeRequest({ email }))
+    const user = await inMemoryUserRepository.findByEmail(email)
+    expect(generateAccessTokenMockSpy).toHaveBeenCalledWith(user?.id)
+    expect(generateRefreshTokenMockSpy).toHaveBeenCalledWith(user?.id)
   })
 })
