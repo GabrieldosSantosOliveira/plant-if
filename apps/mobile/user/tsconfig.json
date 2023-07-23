@@ -14,6 +14,7 @@
     "paths": {
       "@/@types/*": ["./src/@types/*"],
       "@/constants/*": ["./src/constants/*"],
+      "@/data/*": ["./src/data/*"],
       "@/domain/*": ["./src/domain/*"],
       "@/errors/*": ["./src/errors/*"],
       "@/helpers/*": ["./src/helpers/*"],
@@ -22,6 +23,7 @@
       "@/main/*": ["./src/main/*"],
       "@/models/*": ["./src/models/*"],
       "@/services/*": ["./src/services/*"],
+      "@/shared/*": ["./src/shared/*"],
       "@/ui/*": ["./src/ui/*"],
       "@/validation/*": ["./src/validation/*"],
       "@/test/*": ["./test/*"],

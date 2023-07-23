@@ -1,7 +1,7 @@
-import { AuthProvider } from '@/ui/contexts/AuthContext'
-import { ColorModeProvider } from '@/ui/contexts/ColorModeContext'
-import { HttpServiceProvider } from '@/ui/contexts/HttpServiceContext'
-import { StorageProvider } from '@/ui/contexts/StorageContext'
+import { AuthProvider } from '@/ui/contexts/auth-context'
+import { ColorModeProvider } from '@/ui/contexts/color-mode-context'
+import { HttpClientProvider } from '@/ui/contexts/http-client-context'
+import { StorageProvider } from '@/ui/contexts/storage-context'
 import { NavigationContainer } from '@react-navigation/native'
 import { render, RenderOptions } from '@testing-library/react-native'
 import { ReactNode, FC, ReactElement } from 'react'
@@ -10,7 +10,7 @@ export interface AllTheProvidersProps {
 }
 export const AllTheProviders: FC<AllTheProvidersProps> = ({ children }) => {
   return (
-    <HttpServiceProvider>
+    <HttpClientProvider>
       <StorageProvider>
         <AuthProvider>
           <ColorModeProvider>
@@ -18,7 +18,7 @@ export const AllTheProviders: FC<AllTheProvidersProps> = ({ children }) => {
           </ColorModeProvider>
         </AuthProvider>
       </StorageProvider>
-    </HttpServiceProvider>
+    </HttpClientProvider>
   )
 }
 

@@ -9,6 +9,7 @@ module.exports = function (api) {
           alias: {
             '@/@types/*': './src/@types',
             '@/constants': './src/constants',
+            '@/data': './src/data',
             '@/domain': './src/domain',
             '@/errors': './src/errors',
             '@/helpers': './src/helpers',
@@ -17,6 +18,7 @@ module.exports = function (api) {
             '@/main': './src/main',
             '@/models': './src/models',
             '@/services': './src/services',
+            '@/shared': './src/shared',
             '@/ui': './src/ui',
             '@/validation': './src/validation',
             '@/test': './test',

@@ -1,10 +1,10 @@
-import { AuthenticationNavigator } from '@/main/routes/auth.routes'
-import { Loading } from '@/ui/components/Loading'
-import { StatusBar } from '@/ui/components/StatusBar'
-import { AuthProvider } from '@/ui/contexts/AuthContext'
-import { ColorModeProvider } from '@/ui/contexts/ColorModeContext'
-import { HttpServiceProvider } from '@/ui/contexts/HttpServiceContext'
-import { StorageProvider } from '@/ui/contexts/StorageContext'
+import { AuthenticationNavigator } from '@/main/routes/auth-routes'
+import { Loading } from '@/ui/components/loading'
+import { StatusBar } from '@/ui/components/status-bar'
+import { AuthProvider } from '@/ui/contexts/auth-context'
+import { ColorModeProvider } from '@/ui/contexts/color-mode-context'
+import { HttpClientProvider } from '@/ui/contexts/http-client-context'
+import { StorageProvider } from '@/ui/contexts/storage-context'
 import { Inter_500Medium } from '@expo-google-fonts/inter'
 import {
   Poppins_400Regular,
@@ -20,6 +20,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/roboto'
 import { NavigationContainer } from '@react-navigation/native'
+import React from 'react'
 import { StyleSheet } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -39,7 +40,7 @@ export default function App() {
     <StorageProvider>
       <SafeAreaView style={styles.container}>
         <ColorModeProvider>
-          <HttpServiceProvider>
+          <HttpClientProvider>
             <GestureHandlerRootView style={styles.container}>
               <AuthProvider>
                 <StatusBar />
@@ -52,7 +53,7 @@ export default function App() {
                 )}
               </AuthProvider>
             </GestureHandlerRootView>
-          </HttpServiceProvider>
+          </HttpClientProvider>
         </ColorModeProvider>
       </SafeAreaView>
     </StorageProvider>
