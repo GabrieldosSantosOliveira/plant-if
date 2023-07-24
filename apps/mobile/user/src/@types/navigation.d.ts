@@ -1,11 +1,11 @@
-import { UserUiModelProvider } from '@/domain/ui-model/user-ui-model'
+import { UserUiModelProvider } from '@/domain/use-cases/is-user-already-exists-use-case'
 
 /* eslint-disable @typescript-eslint/no-empty-interface */
 export type AuthRoutes = {
   Onboarding: undefined
   SingIn: {
     email: string
-    provider: UserUiModelProvider
+    provider?: UserUiModelProvider
   }
   SingUp: {
     email: string

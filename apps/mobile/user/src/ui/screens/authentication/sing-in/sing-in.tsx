@@ -44,8 +44,11 @@ export const SingIn: React.FC<SingInProps> = ({
       />
     ),
   }
+  params.provider
   const AuthProvider =
-    params.provider !== 'email' ? AuthLogin[params.provider] : null
+    params.provider !== 'email' && params.provider
+      ? AuthLogin[params.provider]
+      : null
   return (
     <Box
       flex={1}

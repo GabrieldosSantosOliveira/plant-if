@@ -12,14 +12,6 @@ export class UserUiModel {
     return new UserUiModel({ ...this.props, ...props })
   }
 
-  public get provider() {
-    return this.props.provider
-  }
-
-  public set provider(provider: UserUiModelProvider) {
-    this.props.provider = provider
-  }
-
   public get id(): string {
     return this.props.id
   }

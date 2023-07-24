@@ -6,6 +6,7 @@ export interface UserProps {
   firstName: string
   lastName: string
   image?: string
+  password?: string
   provider: UserProvider
   createdAt: Date
   updatedAt: Date
@@ -22,6 +23,14 @@ export class User {
       updatedAt: updatedAt || new Date(),
       ...props,
     }
+  }
+
+  public get password() {
+    return this.props.password
+  }
+
+  public set password(password: string | undefined) {
+    this.props.password = password
   }
 
   public get provider() {

@@ -65,7 +65,7 @@ describe('CreateUserWithFacebookController', () => {
     const httpResponse = await sut.handle(makeRequest())
     expect(httpResponse.statusCode).toBe(HttpStatusCode.SERVER_ERROR)
   })
-  it('should return 401 if CreateUserWithFacebookUseCase throw exception', async () => {
+  it('should return 401 if CreateUserWithFacebookUseCase return exception', async () => {
     const { sut } = makeSutWithException()
     const httpResponse = await sut.handle(makeRequest())
     expect(httpResponse.statusCode).toBe(HttpStatusCode.UNAUTHORIZED_ERROR)

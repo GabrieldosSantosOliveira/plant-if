@@ -30,6 +30,13 @@ export class ResponseEntity {
     }
   }
 
+  static created(body: unknown): HttpResponse {
+    return {
+      body,
+      statusCode: HttpStatusCode.CREATED,
+    }
+  }
+
   static serverError(): HttpResponse {
     return {
       body: {

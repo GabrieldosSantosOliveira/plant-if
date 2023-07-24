@@ -19,6 +19,7 @@ export class PrismaUserMapper {
       image: rawUser.image || undefined,
       updatedAt: rawUser.updatedAt,
       provider,
+      password: rawUser.password || undefined,
     })
   }
 
@@ -32,6 +33,7 @@ export class PrismaUserMapper {
       lastName: user.lastName,
       updatedAt: user.updatedAt,
       provider: user.provider,
+      password: user.password || null,
     }
   }
 }
