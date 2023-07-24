@@ -16,6 +16,7 @@ export class AuthWithFacebookUseCaseImpl implements AuthWithFacebookUseCase {
     const userOrException = await this.authWithFacebookRepository.execute(
       accessToken,
     )
+
     if (userOrException.isLeft()) {
       return left(userOrException.value)
     }

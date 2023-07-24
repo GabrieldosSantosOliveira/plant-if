@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
+    "module": "commonjs",
     "strictPropertyInitialization": false,
     "strict": true,
     "allowUnreachableCode": true,

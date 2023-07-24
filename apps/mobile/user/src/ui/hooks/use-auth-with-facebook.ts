@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { AccessToken, LoginManager } from 'react-native-fbsdk-next'
 
 import { useAuth } from './use-auth'
+import { useToast } from './use-toast'
 export interface UseAuthWithGoogleProps {
   authWithFacebookUseCase: AuthWithFacebookUseCase
 }
@@ -11,7 +12,7 @@ export const useAuthWithFacebook = ({
 }: UseAuthWithGoogleProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { setUser } = useAuth()
-
+  const toast = useToast()
   const promptAsync = async () => {
     try {
       setIsLoading(true)
@@ -26,11 +27,16 @@ export const useAuthWithFacebook = ({
         result.grantedPermissions?.includes('email') &&
         accessToken
       ) {
-        const response = await authWithFacebookUseCase.execute(
+        const userOrError = await authWithFacebookUseCase.execute(
           accessToken.accessToken,
         )
-        if (response.isRight()) {
-          setUser(response.value)
+        if (userOrError.isRight()) {
+          setUser(userOrError.value)
+        }
+        if (userOrError.isLeft()) {
+          toast.error({
+            title: userOrError.value.message,
+          })
         }
       }
     } finally {

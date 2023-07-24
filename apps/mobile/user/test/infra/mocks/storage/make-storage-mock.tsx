@@ -1,3 +1,5 @@
 import { ReactNativeMMKVAdapter } from '@/infra/storage/react-native-mmkv-adapter'
 
-export const MakeStorageMock = () => new ReactNativeMMKVAdapter()
+import { makeJsonMock } from '../json/make-json-mock'
+
+export const MakeStorageMock = () => new ReactNativeMMKVAdapter(makeJsonMock())

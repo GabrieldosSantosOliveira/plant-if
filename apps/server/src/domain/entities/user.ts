@@ -1,10 +1,12 @@
 import { Replace } from '../helpers/replace'
+export type UserProvider = 'email' | 'google' | 'facebook'
 export interface UserProps {
   id: string
   email: string
   firstName: string
   lastName: string
   image?: string
+  provider: UserProvider
   createdAt: Date
   updatedAt: Date
 }
@@ -20,6 +22,14 @@ export class User {
       updatedAt: updatedAt || new Date(),
       ...props,
     }
+  }
+
+  public get provider() {
+    return this.props.provider
+  }
+
+  public set provider(provider: UserProvider) {
+    this.props.provider = provider
   }
 
   public get id() {

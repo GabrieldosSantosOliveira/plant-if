@@ -16,6 +16,7 @@ model User {
   firstName String
   lastName  String
   image     String?
+  provider  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

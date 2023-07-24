@@ -1,8 +1,9 @@
 import { render, fireEvent } from '@/jest/test-utils'
+import { makeFaker } from '@/test/mock/faker'
 import { View } from '@/ui/components/shared/view'
 import { LoginButton } from '@/ui/screens/authentication/components/login-button'
-import { faker } from '@faker-js/faker'
-
+import React from 'react'
+const { faker } = makeFaker()
 describe('<LoginButton />', () => {
   it('should render with correct title', () => {
     const title = faker.person.bio()
@@ -73,6 +74,21 @@ describe('<LoginButton />', () => {
         />,
       )
       const button = getByRole('button')
+      expect(button).toBeTruthy()
+    })
+    it('should show accessibilityLabel if passed', () => {
+      const accessibilityLabel = faker.lorem.words()
+      const title = faker.lorem.words()
+      const onPressMock = jest.fn()
+      const { getByLabelText } = render(
+        <LoginButton
+          icon={<View />}
+          title={title}
+          onPress={onPressMock}
+          accessibilityLabel={accessibilityLabel}
+        />,
+      )
+      const button = getByLabelText(accessibilityLabel)
       expect(button).toBeTruthy()
     })
   })

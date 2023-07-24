@@ -18,6 +18,7 @@ export interface LoginButtonProps extends AccessibilityProps {
   title: string
   isLoading?: boolean
   onPress: () => void
+  testID?: string
 }
 const HEIGHT = 52
 export const LoginButton: FC<LoginButtonProps> = ({

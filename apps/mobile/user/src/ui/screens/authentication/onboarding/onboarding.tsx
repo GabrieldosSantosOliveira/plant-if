@@ -9,10 +9,10 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated'
 
-import { Button } from './button'
+import { Button } from './../components/button'
 import { Dot } from './dot'
-import { slides } from './mocks'
 import { Slide } from './slide'
+import { slides } from './slides'
 const FIFTY_MILLISECONDS = 50
 
 export const Onboarding: React.FC = () => {

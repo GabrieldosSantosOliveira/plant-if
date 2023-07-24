@@ -1,3 +1,5 @@
 import { ExpoSecureStorageAdapter } from '@/infra/storage/expo-secure-storage-adapter'
 
-export const MakeSecureStorage = () => new ExpoSecureStorageAdapter()
+import { MakeJson } from '../json/make-json'
+
+export const MakeSecureStorage = () => new ExpoSecureStorageAdapter(MakeJson())

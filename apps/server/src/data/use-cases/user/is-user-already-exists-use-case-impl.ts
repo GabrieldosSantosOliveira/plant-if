@@ -18,8 +18,8 @@ export class IsUserAlreadyExistsUseCaseImpl
     const isUserAlreadyExists =
       await this.loadUserByEmailRepository.findByEmail(request.email)
     if (isUserAlreadyExists) {
-      return true
+      return { userExists: true, provider: isUserAlreadyExists.provider }
     }
-    return false
+    return { userExists: false, provider: undefined }
   }
 }

@@ -1,7 +1,12 @@
+import { UserProvider } from '@/domain/entities/user'
+
 export interface IsUserAlreadyExistsUseCaseRequest {
   email: string
 }
-export type IsUserAlreadyExistsUseCaseResponse = boolean
+export interface IsUserAlreadyExistsUseCaseResponse {
+  userExists: boolean
+  provider?: UserProvider
+}
 export interface IsUserAlreadyExistsUseCase {
   handle(
     request: IsUserAlreadyExistsUseCaseRequest,

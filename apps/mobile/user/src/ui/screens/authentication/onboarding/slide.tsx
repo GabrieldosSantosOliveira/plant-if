@@ -35,10 +35,10 @@ export const Slide: React.FC<SlideProps> = ({ description, image, title }) => {
         style={{ borderRadius: borderRadii['rounded-3xl'] }}
       />
       <Box gap="md" width="100%" paddingHorizontal="3xl">
-        <Text variant="hero" opacity={0.5}>
+        <Text variant="slide" opacity={0.5}>
           {title}
         </Text>
-        <Text variant="hero" fontSize={20}>
+        <Text variant="slide" fontSize={20}>
           {description}
         </Text>
       </Box>

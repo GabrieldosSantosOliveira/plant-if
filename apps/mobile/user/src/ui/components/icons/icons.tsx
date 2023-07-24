@@ -1,4 +1,4 @@
-import { Feather, AntDesign } from '@expo/vector-icons'
+import { Feather, AntDesign, MaterialIcons } from '@expo/vector-icons'
 
 import { AppleIcon } from './apple-icon'
 import { FacebookIcon } from './facebook-icon'
@@ -22,5 +22,11 @@ export const Icons = {
   ),
   arrowLeft: ({ size = 24, color }: IconProps) => (
     <AntDesign name="arrowleft" size={size} color={color} />
+  ),
+  errorOutline: ({ size = 24, color }: IconProps) => (
+    <MaterialIcons name="error-outline" size={size} color={color} />
+  ),
+  checkCircleo: ({ size = 24, color }: IconProps) => (
+    <AntDesign name="checkcircleo" size={size} color={color} />
   ),
 }

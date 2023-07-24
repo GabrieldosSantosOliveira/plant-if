@@ -14,8 +14,8 @@
 		96905EF65AED1B983A6B3ABC /* libPods-PlantIf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-PlantIf.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		215DD6D63DF645F7A9B35A51 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25DB309A42694E1FA97CD77F /* GoogleService-Info.plist */; };
-		8FFD8F0472CF427E9C9FAA88 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6132B5A637E247A9B9A413E5 /* noop-file.swift */; };
+		E903931AE8C44D7EA00E5681 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF4E33F3640B4A5E943A2089 /* GoogleService-Info.plist */; };
+		82E9F5A381E142A69ECFC3BB /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D487C9B7E943FC95EA8DAE /* noop-file.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,9 +32,9 @@
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-PlantIf/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		25DB309A42694E1FA97CD77F /* GoogleService-Info.plist */ = {isa = PBXFileReference; name = "GoogleService-Info.plist"; path = "PlantIf/GoogleService-Info.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
-		6132B5A637E247A9B9A413E5 /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "PlantIf/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
-		EFE60A13CF72475A9A9021B1 /* PlantIf-Bridging-Header.h */ = {isa = PBXFileReference; name = "PlantIf-Bridging-Header.h"; path = "PlantIf/PlantIf-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		AF4E33F3640B4A5E943A2089 /* GoogleService-Info.plist */ = {isa = PBXFileReference; name = "GoogleService-Info.plist"; path = "PlantIf/GoogleService-Info.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
+		39D487C9B7E943FC95EA8DAE /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "PlantIf/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		CDA749CB408447B69F187EE8 /* PlantIf-Bridging-Header.h */ = {isa = PBXFileReference; name = "PlantIf-Bridging-Header.h"; path = "PlantIf/PlantIf-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,9 +59,9 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				25DB309A42694E1FA97CD77F /* GoogleService-Info.plist */,
-				6132B5A637E247A9B9A413E5 /* noop-file.swift */,
-				EFE60A13CF72475A9A9021B1 /* PlantIf-Bridging-Header.h */,
+				AF4E33F3640B4A5E943A2089 /* GoogleService-Info.plist */,
+				39D487C9B7E943FC95EA8DAE /* noop-file.swift */,
+				CDA749CB408447B69F187EE8 /* PlantIf-Bridging-Header.h */,
 			);
 			name = PlantIf;
 			sourceTree = "<group>";
@@ -202,8 +202,8 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				215DD6D63DF645F7A9B35A51 /* GoogleService-Info.plist in Resources */,
-				BF6683B582794234A2CF95F0 /* PlantIf-Bridging-Header.h in Resources */,
+				E903931AE8C44D7EA00E5681 /* GoogleService-Info.plist in Resources */,
+				52538BCD400D465BA0ABDF70 /* PlantIf-Bridging-Header.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +297,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				8FFD8F0472CF427E9C9FAA88 /* noop-file.swift in Sources */,
+				82E9F5A381E142A69ECFC3BB /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

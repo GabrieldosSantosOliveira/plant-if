@@ -5,6 +5,7 @@ import { Platform } from 'react-native'
 
 import { env } from './../../constants/env'
 import { useAuth } from './use-auth'
+import { useToast } from './use-toast'
 const CLIENT_ID =
   Platform.OS === 'ios'
     ? env.GOOGLE_CLIENT_ID_IOS
@@ -17,6 +18,7 @@ export const useAuthWithGoogle = ({
 }: UseAuthWithGoogleProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const { setUser } = useAuth()
+  const toast = useToast()
   useEffect(() => {
     GoogleSignin.configure({
       offlineAccess: true,
@@ -33,6 +35,11 @@ export const useAuthWithGoogle = ({
       const userOrError = await authWithGoogleUseCase.execute(accessToken)
       if (userOrError.isRight()) {
         setUser(userOrError.value)
+      }
+      if (userOrError.isLeft()) {
+        toast.error({
+          title: userOrError.value.message,
+        })
       }
     } finally {
       setIsLoading(false)

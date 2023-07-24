@@ -20,17 +20,22 @@ const makeRequest = (
 }
 
 describe('IsUserAlreadyExistsUseCaseImpl', () => {
-  it('should return false if user not exists', async () => {
+  it('should provider and userExists false if user not exists', async () => {
     const { sut } = makeSut()
     const response = await sut.handle(makeRequest())
-    expect(response).toBeFalsy()
+    expect(response).toEqual({
+      userExists: false,
+    })
   })
-  it('should return true if user exists', async () => {
+  it('should return userExists true and provider if user exists', async () => {
     const { sut, inMemoryUserRepository } = makeSut()
     const user = makeUser()
     await inMemoryUserRepository.create(user)
     const response = await sut.handle(makeRequest({ email: user.email }))
-    expect(response).toBeTruthy()
+    expect(response).toEqual({
+      userExists: true,
+      provider: 'email',
+    })
   })
 
   it('should call LoadUserByEmailRepository with correct email', async () => {

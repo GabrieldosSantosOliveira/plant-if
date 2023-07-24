@@ -30,7 +30,8 @@ export class IsUserAlreadyExistsController implements Controller {
         email: isUserAlreadyExistsBodyDto.data.email,
       })
       return ResponseEntity.ok({
-        userExists: isUserExists,
+        userExists: isUserExists.userExists,
+        provider: isUserExists.provider,
       })
     } catch (error) {
       return ResponseEntity.serverError()

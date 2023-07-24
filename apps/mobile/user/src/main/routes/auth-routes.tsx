@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import { MakeEntryPoint } from '../factories/ui/screens/authentication/entry-point/make-entry-point'
 import { MakeOnboarding } from '../factories/ui/screens/authentication/onboarding/make-onboarding'
+import { MakeSingIn } from '../factories/ui/screens/authentication/sing-in/make-sing-in'
 
 const AuthenticationStack = createStackNavigator<AuthRoutes>()
 
@@ -18,7 +19,7 @@ export const AuthenticationNavigator: React.FC = () => {
         name="Onboarding"
         component={MakeOnboarding}
       />
-      <AuthenticationStack.Screen name="SingIn" component={Dashboard} />
+      <AuthenticationStack.Screen name="SingIn" component={MakeSingIn} />
       <AuthenticationStack.Screen name="SingUp" component={SingUp} />
       <AuthenticationStack.Screen name="ForgotPassword" component={Dashboard} />
       <AuthenticationStack.Screen

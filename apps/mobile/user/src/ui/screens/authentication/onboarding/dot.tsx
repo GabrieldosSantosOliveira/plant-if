@@ -1,3 +1,4 @@
+import { useTheme } from '@/ui/hooks/use-theme'
 import { StyleSheet } from 'react-native'
 import Animated, {
   Extrapolate,
@@ -9,6 +10,7 @@ export interface DotProps {
   index: number
 }
 export const Dot: React.FC<DotProps> = ({ currentIndex, index }) => {
+  const { colors } = useTheme()
   const opacity = useAnimatedStyle(() => ({
     opacity: interpolate(
       currentIndex.value,
@@ -29,13 +31,21 @@ export const Dot: React.FC<DotProps> = ({ currentIndex, index }) => {
       },
     ],
   }))
-  return <Animated.View style={[styles.container, opacity, scale]} />
+  return (
+    <Animated.View
+      style={[
+        styles.container,
+        opacity,
+        scale,
+        { backgroundColor: colors['text-primary'] },
+      ]}
+    />
+  )
 }
 const styles = StyleSheet.create({
   container: {
     width: 8,
     height: 8,
-    backgroundColor: '#000',
     borderRadius: 8,
   },
 })

@@ -1,14 +1,17 @@
+import { UserUiModelProvider } from '@/domain/ui-model/user-ui-model'
+
 /* eslint-disable @typescript-eslint/no-empty-interface */
 export type AuthRoutes = {
   Onboarding: undefined
   SingIn: {
-    email?: undefined
+    email: string
+    provider: UserUiModelProvider
   }
   SingUp: {
-    email?: undefined
+    email: string
   }
   ForgotPassword: {
-    email?: undefined
+    email: string
   }
   EntryPoint: undefined
 }

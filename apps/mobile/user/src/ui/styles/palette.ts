@@ -8,4 +8,7 @@ export const palette = {
   gray: { 500: '#CCCCCC' },
   white: '#fff',
   black: '#000',
+  red: {
+    500: '#ef4444',
+  },
 }

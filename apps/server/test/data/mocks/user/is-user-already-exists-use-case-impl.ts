@@ -1,14 +1,21 @@
 import {
   IsUserAlreadyExistsUseCase,
   IsUserAlreadyExistsUseCaseRequest,
+  IsUserAlreadyExistsUseCaseResponse,
 } from '@/domain/use-cases/user/is-user-already-exists-use-case'
 
 export class IsUserAlreadyExistsUseCaseMock
   implements IsUserAlreadyExistsUseCase
 {
   public request: IsUserAlreadyExistsUseCaseRequest
-  public response = true
-  async handle(request: IsUserAlreadyExistsUseCaseRequest): Promise<boolean> {
+  public response: IsUserAlreadyExistsUseCaseResponse = {
+    userExists: true,
+    provider: 'email',
+  }
+
+  async handle(
+    request: IsUserAlreadyExistsUseCaseRequest,
+  ): Promise<IsUserAlreadyExistsUseCaseResponse> {
     this.request = request
     return this.response
   }
@@ -20,7 +27,7 @@ export const makeIsUserAlreadyExistsUseCaseMock = () => {
 export class IsUserAlreadyExistsUseCaseMockWithError
   implements IsUserAlreadyExistsUseCase
 {
-  async handle(): Promise<boolean> {
+  async handle(): Promise<IsUserAlreadyExistsUseCaseResponse> {
     throw new Error()
   }
 }

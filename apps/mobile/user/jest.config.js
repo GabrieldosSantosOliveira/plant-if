@@ -6,7 +6,10 @@ const { compilerOptions } = require('./tsconfig.json')
 module.exports = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
-  setupFiles: ['<rootDir>/jest/jest-setup.ts'],
+  setupFiles: [
+    '<rootDir>/node_modules/@react-native-google-signin/google-signin/jest/build/setup.js',
+    '<rootDir>/jest/jest-setup.ts',
+  ],
   setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
   preset: 'jest-expo',
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {

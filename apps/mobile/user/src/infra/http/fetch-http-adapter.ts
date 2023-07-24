@@ -3,6 +3,7 @@ import {
   HttpClientOptions,
   HttpClientResponse,
 } from '@/data/protocols/http/http-client'
+import { Json } from '@/data/protocols/json/json'
 import { JsonValidator } from '@/validation/protocols/json-validator'
 enum HttpMethod {
   GET = 'GET',
@@ -12,14 +13,18 @@ enum HttpMethod {
   DELETE = 'DELETE',
 }
 export class FetchHttpAdapter implements HttpClient {
-  constructor(private readonly jsonValidator: JsonValidator) {}
+  constructor(
+    private readonly jsonValidator: JsonValidator,
+    private readonly json: Json,
+  ) {}
+
   async get<T = unknown>(
     url: string,
     options?: HttpClientOptions,
   ): Promise<HttpClientResponse<T>> {
     const response = await fetch(url, {
       method: HttpMethod.GET,
-      body: JSON.stringify(options?.body),
+      body: await this.json.stringify(options?.body),
       headers: {
         ...options?.headers,
         'Content-Type':
@@ -28,7 +33,7 @@ export class FetchHttpAdapter implements HttpClient {
     })
     const text = await response.text()
     if (this.jsonValidator.isValidJSON(text)) {
-      const data = await response.json()
+      const data = await this.json.parse<T>(text)
       return { data, statusCode: response.status }
     }
     return { data: undefined as T, statusCode: response.status }
@@ -40,7 +45,7 @@ export class FetchHttpAdapter implements HttpClient {
   ): Promise<HttpClientResponse<T>> {
     const response = await fetch(url, {
       method: HttpMethod.POST,
-      body: JSON.stringify(options?.body),
+      body: await this.json.stringify(options?.body),
       headers: {
         ...options?.headers,
         'Content-Type':
@@ -49,7 +54,7 @@ export class FetchHttpAdapter implements HttpClient {
     })
     const text = await response.text()
     if (this.jsonValidator.isValidJSON(text)) {
-      const data = await response.json()
+      const data = await this.json.parse<T>(text)
       return { data, statusCode: response.status }
     }
     return { data: undefined as T, statusCode: response.status }
@@ -61,7 +66,7 @@ export class FetchHttpAdapter implements HttpClient {
   ): Promise<HttpClientResponse<T>> {
     const response = await fetch(url, {
       method: HttpMethod.PUT,
-      body: JSON.stringify(options?.body),
+      body: await this.json.stringify(options?.body),
       headers: {
         ...options?.headers,
         'Content-Type':
@@ -70,7 +75,7 @@ export class FetchHttpAdapter implements HttpClient {
     })
     const text = await response.text()
     if (this.jsonValidator.isValidJSON(text)) {
-      const data = await response.json()
+      const data = await this.json.parse<T>(text)
       return { data, statusCode: response.status }
     }
     return { data: undefined as T, statusCode: response.status }
@@ -82,7 +87,7 @@ export class FetchHttpAdapter implements HttpClient {
   ): Promise<HttpClientResponse<T>> {
     const response = await fetch(url, {
       method: HttpMethod.PATCH,
-      body: JSON.stringify(options?.body),
+      body: await this.json.stringify(options?.body),
       headers: {
         ...options?.headers,
         'Content-Type':
@@ -91,7 +96,7 @@ export class FetchHttpAdapter implements HttpClient {
     })
     const text = await response.text()
     if (this.jsonValidator.isValidJSON(text)) {
-      const data = await response.json()
+      const data = await this.json.parse<T>(text)
       return { data, statusCode: response.status }
     }
     return { data: undefined as T, statusCode: response.status }
@@ -103,7 +108,7 @@ export class FetchHttpAdapter implements HttpClient {
   ): Promise<HttpClientResponse<T>> {
     const response = await fetch(url, {
       method: HttpMethod.DELETE,
-      body: JSON.stringify(options?.body),
+      body: await this.json.stringify(options?.body),
       headers: {
         ...options?.headers,
         'Content-Type':
@@ -112,7 +117,7 @@ export class FetchHttpAdapter implements HttpClient {
     })
     const text = await response.text()
     if (this.jsonValidator.isValidJSON(text)) {
-      const data = await response.json()
+      const data = await this.json.parse<T>(text)
       return { data, statusCode: response.status }
     }
     return { data: undefined as T, statusCode: response.status }
