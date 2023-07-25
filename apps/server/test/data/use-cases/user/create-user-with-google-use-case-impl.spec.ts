@@ -1,6 +1,5 @@
 import { CreateUserWithGoogleUseCaseImpl } from '@/data/use-cases/user/create-user-with-google-use-case-impl'
 import { UnauthorizedException } from '@/domain/use-cases/errors/unauthorized-exception'
-import { makeGeneratorUUID } from '@/main/factories/infra/gateways/uuid/make-generator-uuid'
 import { makeAuthServiceMock } from '@/test/infra/mocks/auth/auth-service-mock'
 import {
   makeLoadGoogleUserMock,
@@ -30,12 +29,14 @@ const makeSutWithLoadGoogleError = () => {
   const { authServiceMock } = makeAuthServiceMock()
   const { loadGoogleUserMockWithError } = makeLoadGoogleUserMockWithError()
   const { inMemoryUserRepository } = makeInMemoryUserRepository()
+  const { generatorUUIDMock } = makeGeneratorUUIDMock()
+
   const sut = new CreateUserWithGoogleUseCaseImpl(
     loadGoogleUserMockWithError,
     inMemoryUserRepository,
     authServiceMock,
     inMemoryUserRepository,
-    makeGeneratorUUID(),
+    generatorUUIDMock,
   )
   return {
     sut,

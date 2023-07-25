@@ -1,5 +1,3 @@
-import { HttpClientImpl } from '@/infra/http/http-client-impl'
+import { AxiosHttpClientAdapter } from '@/infra/http/axios-http-client-adapter'
 
-export const makeHttpClient = () => {
-  return new HttpClientImpl()
-}
+export const makeHttpClient = () => new AxiosHttpClientAdapter()

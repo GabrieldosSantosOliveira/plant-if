@@ -5,7 +5,7 @@ import {
 } from '@/data/protocols/http/http-client'
 import axios, { isAxiosError } from 'axios'
 
-export class HttpClientImpl implements HttpClient {
+export class AxiosHttpClientAdapter implements HttpClient {
   async post<T = unknown>(
     url: string,
     options?: HttpClientOptions | undefined,

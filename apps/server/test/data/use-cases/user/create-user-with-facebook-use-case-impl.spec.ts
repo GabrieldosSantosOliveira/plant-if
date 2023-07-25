@@ -1,6 +1,5 @@
 import { CreateUserWithFacebookUseCaseImpl } from '@/data/use-cases/user/create-user-with-facebook-use-case-impl'
 import { UnauthorizedException } from '@/domain/use-cases/errors/unauthorized-exception'
-import { makeGeneratorUUID } from '@/main/factories/infra/gateways/uuid/make-generator-uuid'
 import { makeAuthServiceMock } from '@/test/infra/mocks/auth/auth-service-mock'
 import {
   makeLoadFacebookUserMock,
@@ -31,12 +30,14 @@ const makeSutWithLoadFacebookException = () => {
   const { loadFacebookUserMockWithException } =
     makeLoadFacebookUserMockWithException()
   const { inMemoryUserRepository } = makeInMemoryUserRepository()
+  const { generatorUUIDMock } = makeGeneratorUUIDMock()
+
   const sut = new CreateUserWithFacebookUseCaseImpl(
     loadFacebookUserMockWithException,
     inMemoryUserRepository,
     authServiceMock,
     inMemoryUserRepository,
-    makeGeneratorUUID(),
+    generatorUUIDMock,
   )
   return {
     sut,
