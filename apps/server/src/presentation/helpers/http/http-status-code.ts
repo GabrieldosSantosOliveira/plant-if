@@ -8,4 +8,5 @@ export enum HttpStatusCode {
   CONFLICT = 409,
   NOT_FOUND = 404,
   FORBIDDEN = 403,
+  NO_CONTENT = 204,
 }

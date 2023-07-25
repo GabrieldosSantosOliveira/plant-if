@@ -1,9 +1,13 @@
 import { CreateUserRepository } from '@/domain/contracts/repositories/user/create-user-repository'
 import { LoadUserByEmailRepository } from '@/domain/contracts/repositories/user/load-user-by-email-repository'
+import { UpdateUserRepository } from '@/domain/contracts/repositories/user/update-user-repository'
 import { User } from '@/domain/entities/user'
 
 export class InMemoryUserRepository
-  implements LoadUserByEmailRepository, CreateUserRepository
+  implements
+    LoadUserByEmailRepository,
+    CreateUserRepository,
+    UpdateUserRepository
 {
   private users: User[] = []
   async findByEmail(email: string): Promise<User | null> {
@@ -16,6 +20,13 @@ export class InMemoryUserRepository
 
   async create(user: User): Promise<void> {
     this.users.push(user)
+  }
+
+  async save(user: User): Promise<void> {
+    const userIndex = this.users.findIndex(({ id }) => id === user.id)
+    if (userIndex >= 0) {
+      this.users[userIndex] = user
+    }
   }
 }
 export const makeInMemoryUserRepository = () => {

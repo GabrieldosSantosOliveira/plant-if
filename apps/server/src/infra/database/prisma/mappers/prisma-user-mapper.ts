@@ -20,6 +20,8 @@ export class PrismaUserMapper {
       updatedAt: rawUser.updatedAt,
       provider,
       password: rawUser.password || undefined,
+      resetPasswordExpires: rawUser.resetPasswordExpires || undefined,
+      resetPasswordToken: rawUser.resetPasswordToken || undefined,
     })
   }
 
@@ -34,6 +36,8 @@ export class PrismaUserMapper {
       updatedAt: user.updatedAt,
       provider: user.provider,
       password: user.password || null,
+      resetPasswordExpires: user.resetPasswordExpires || null,
+      resetPasswordToken: user.resetPasswordToken || null,
     }
   }
 }

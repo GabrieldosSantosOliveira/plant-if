@@ -16,6 +16,13 @@ export class ResponseEntity {
     }
   }
 
+  static notContent(): HttpResponse {
+    return {
+      statusCode: HttpStatusCode.NO_CONTENT,
+      body: null,
+    }
+  }
+
   static badRequest(body: unknown): HttpResponse {
     return {
       body,
