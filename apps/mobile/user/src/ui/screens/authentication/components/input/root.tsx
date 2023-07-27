@@ -2,21 +2,23 @@ import { InputProvider } from '@/ui/contexts/input-context'
 import { useInput } from '@/ui/hooks/use-input'
 import { memo } from 'react'
 
-import { Text } from '../shared/text'
-import { View, ViewProps } from '../shared/view'
+import { Box, BoxProps } from '../../../../components/shared/box'
+import { Text } from '../../../../components/shared/text'
 
-export type RootProps = ViewProps & {
+export type RootProps = BoxProps & {
   errorMessage?: string
+  label?: string
 }
 export const RootBase: React.FC<RootProps> = (props: RootProps) => {
   const { isFocus } = useInput()
   return (
-    <>
-      <View
-        borderColor={props.errorMessage ? 'error' : 'button-border'}
+    <Box gap="xs">
+      <Text variant="input-label">{props.label}</Text>
+      <Box
+        borderColor={props.errorMessage ? 'error' : 'input-stroke'}
         borderWidth={isFocus ? 2 : 1}
         height={52}
-        gap="2xs"
+        gap="md"
         paddingHorizontal="md"
         borderRadius="rounded-lg"
         flexDirection="row"
@@ -26,7 +28,7 @@ export const RootBase: React.FC<RootProps> = (props: RootProps) => {
       {props.errorMessage ? (
         <Text variant="error">{props.errorMessage}</Text>
       ) : null}
-    </>
+    </Box>
   )
 }
 export const Root = memo((props: RootProps) => {

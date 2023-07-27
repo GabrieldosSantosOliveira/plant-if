@@ -1,11 +1,9 @@
 import type { AuthRoutes } from '@/@types/navigation'
-import { Dashboard } from '@/ui/screens/authentication/dashboard'
-import { SingUp } from '@/ui/screens/authentication/sing-up/sing-up'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { MakeEntryPoint } from '../factories/ui/screens/authentication/entry-point/make-entry-point'
+import { MakeLogin } from '../factories/ui/screens/authentication/login/make-login'
 import { MakeOnboarding } from '../factories/ui/screens/authentication/onboarding/make-onboarding'
-import { MakeSingIn } from '../factories/ui/screens/authentication/sing-in/make-sing-in'
+import { MakeSingUp } from '../factories/ui/screens/authentication/sing-up/make-sing-up'
 
 const AuthenticationStack = createStackNavigator<AuthRoutes>()
 
@@ -19,13 +17,13 @@ export const AuthenticationNavigator: React.FC = () => {
         name="Onboarding"
         component={MakeOnboarding}
       />
-      <AuthenticationStack.Screen name="SingIn" component={MakeSingIn} />
-      <AuthenticationStack.Screen name="SingUp" component={SingUp} />
-      <AuthenticationStack.Screen name="ForgotPassword" component={Dashboard} />
+      <AuthenticationStack.Screen name="Login" component={MakeLogin} />
+      <AuthenticationStack.Screen name="SingUp" component={MakeSingUp} />
       <AuthenticationStack.Screen
-        name="EntryPoint"
-        component={MakeEntryPoint}
+        name="ForgotPassword"
+        component={MakeSingUp}
       />
+      <AuthenticationStack.Screen name="ResetPassword" component={MakeSingUp} />
     </AuthenticationStack.Navigator>
   )
 }

@@ -1,11 +1,12 @@
+import React from 'react'
 import { ActivityIndicator } from 'react-native'
 
-import { View } from './shared/view'
+import { Box } from './shared/box'
 
 export const Loading = () => {
   return (
-    <View flex={1} justifyContent="center" alignItems="center">
+    <Box flex={1} justifyContent="center" alignItems="center">
       <ActivityIndicator size="large" color={'black'} />
-    </View>
+    </Box>
   )
 }

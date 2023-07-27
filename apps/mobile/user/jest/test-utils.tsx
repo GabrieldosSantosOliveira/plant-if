@@ -1,12 +1,13 @@
 import { AuthProvider } from '@/ui/contexts/auth-context'
-import { ColorModeProvider } from '@/ui/contexts/color-mode-context'
 import { HttpClientProvider } from '@/ui/contexts/http-client-context'
 import { StorageProvider } from '@/ui/contexts/storage-context'
 import { ToastProvider } from '@/ui/contexts/toast-context'
 import { NavigationContainer } from '@react-navigation/native'
 import { render, RenderOptions } from '@testing-library/react-native'
-import { ReactNode, FC, ReactElement } from 'react'
+import React, { ReactNode, FC, ReactElement } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+
+import { ColorModeMockMockProvider } from './mocks/color-mode-mock'
 export interface AllTheProvidersProps {
   children: ReactNode
 }
@@ -17,9 +18,9 @@ export const AllTheProviders: FC<AllTheProvidersProps> = ({ children }) => {
         <HttpClientProvider>
           <StorageProvider>
             <AuthProvider>
-              <ColorModeProvider>
+              <ColorModeMockMockProvider>
                 <NavigationContainer>{children}</NavigationContainer>
-              </ColorModeProvider>
+              </ColorModeMockMockProvider>
             </AuthProvider>
           </StorageProvider>
         </HttpClientProvider>

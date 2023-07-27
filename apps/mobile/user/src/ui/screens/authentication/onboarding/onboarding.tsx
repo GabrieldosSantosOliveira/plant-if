@@ -1,7 +1,7 @@
 import { Box } from '@/ui/components/shared/box'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { useWindowDimensions, Vibration } from 'react-native'
+import { useWindowDimensions } from 'react-native'
 import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
@@ -13,7 +13,6 @@ import { Button } from './../components/button'
 import { Dot } from './dot'
 import { Slide } from './slide'
 import { slides } from './slides'
-const FIFTY_MILLISECONDS = 50
 
 export const Onboarding: React.FC = () => {
   const { navigate } = useNavigation()
@@ -64,17 +63,16 @@ export const Onboarding: React.FC = () => {
         flexDirection="row"
         gap="2xl"
       >
-        <Button
-          onPress={() => {
-            Vibration.vibrate(FIFTY_MILLISECONDS)
-            navigate('EntryPoint')
-          }}
-          accessible
-          accessibilityLabel="Entre na aplicação"
-          accessibilityHint="Navega para a tela de entrada"
-          title="Entrar"
-          type="primary"
-        />
+        <Box flexDirection="row" gap="md">
+          <Button
+            onPress={() => navigate('Login')}
+            accessible
+            accessibilityHint="Navega para a tela de autenticação"
+            title="Continuar"
+            type="primary"
+            testID="button-next"
+          />
+        </Box>
       </Box>
     </Box>
   )

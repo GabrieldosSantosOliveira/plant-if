@@ -33,6 +33,7 @@ export const Slide: React.FC<SlideProps> = ({ description, image, title }) => {
         alt="imagem"
         resizeMode="cover"
         style={{ borderRadius: borderRadii['rounded-3xl'] }}
+        accessibilityIgnoresInvertColors={false}
       />
       <Box gap="md" width="100%" paddingHorizontal="3xl">
         <Text variant="slide" opacity={0.5}>

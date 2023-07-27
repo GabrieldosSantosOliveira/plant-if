@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@/jest/test-utils'
+import { act, fireEvent, render } from '@/jest/test-utils'
 import { Onboarding } from '@/ui/screens/authentication/onboarding/onboarding'
 const mockedNavigate = jest.fn()
 jest.mock('@react-navigation/native', () => {
@@ -11,25 +11,20 @@ jest.mock('@react-navigation/native', () => {
   }
 })
 describe('<Onboarding />', () => {
-  it('should navigate to screen EntryPoint on user press button', () => {
-    const { getByText } = render(<Onboarding />)
-    const button = getByText('entrar', { exact: false })
-    fireEvent.press(button)
+  it('should navigate to screen Login on user press button', async () => {
+    const { getByTestId } = render(<Onboarding />)
+    const button = getByTestId('button-next', { exact: false })
+    await act(async () => {
+      fireEvent.press(button)
+    })
     expect(mockedNavigate).toHaveBeenCalled()
-    expect(mockedNavigate).toHaveBeenCalledWith('EntryPoint')
+    expect(mockedNavigate).toHaveBeenCalledWith('Login')
   })
   describe('accessibility', () => {
-    it('should has accessibilityLabel in Button', () => {
-      const { getByLabelText } = render(<Onboarding />)
-      const button = getByLabelText('Entre na aplicação', { exact: false })
-      expect(button).toBeTruthy()
-    })
     it('should has accessibilityHint in Button', () => {
-      const { getAllByA11yHint } = render(<Onboarding />)
-      const button = getAllByA11yHint('Navega para a tela de entrada', {
-        exact: false,
-      })
-      expect(button).toBeTruthy()
+      const { getByTestId } = render(<Onboarding />)
+      const button = getByTestId('button-next', { exact: false })
+      expect(button).toHaveProp('accessibilityHint')
     })
   })
 })

@@ -1,7 +1,11 @@
-import { AuthRoutes } from '@/@types/navigation'
+import { MakeAuthWithFacebookUseCase } from '@/main/factories/data/use-cases/auth/make-auth-with-facebook-use-case'
+import { MakeAuthWithGoogleUseCase } from '@/main/factories/data/use-cases/auth/make-auth-with-google-use-case'
 import { SingUp } from '@/ui/screens/authentication/sing-up/sing-up'
-import { StackScreenProps } from '@react-navigation/stack'
-export type MakeSingUpProps = StackScreenProps<AuthRoutes, 'SingUp'>
-export const MakeSingUp: React.FC<MakeSingUpProps> = () => {
-  return <SingUp />
+export const MakeSingUp: React.FC = () => {
+  return (
+    <SingUp
+      authWithFacebookUseCase={MakeAuthWithFacebookUseCase()}
+      authWithGoogleUseCase={MakeAuthWithGoogleUseCase()}
+    />
+  )
 }

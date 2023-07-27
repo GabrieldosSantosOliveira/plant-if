@@ -53,7 +53,7 @@ export const ColorModeProvider: FC<ColorModeProviderProps> = ({ children }) => {
       )
 
       if (!colorModeSaveInStorage) {
-        await changeColorModeToLight()
+        await changeColorModeToDark()
       } else if (colorModeSaveInStorage === 'automatic') {
         await changeColorModeToAutomatic()
       } else if (colorModeSaveInStorage === 'dark') {

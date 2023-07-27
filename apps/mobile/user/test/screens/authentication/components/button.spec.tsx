@@ -45,18 +45,18 @@ describe('<Button />', () => {
       const button = getByRole('button')
       expect(button).toBeTruthy()
     })
-    it('should show accessibilityLabel if passed', () => {
-      const accessibilityLabel = faker.lorem.words()
+    it('should show accessibilityHint if passed', () => {
+      const accessibilityHint = faker.lorem.words()
       const title = faker.lorem.words()
       const onPressMock = jest.fn()
-      const { getByLabelText } = render(
+      const { getAllByHintText } = render(
         <Button
           title={title}
           onPress={onPressMock}
-          accessibilityLabel={accessibilityLabel}
+          accessibilityHint={accessibilityHint}
         />,
       )
-      const button = getByLabelText(accessibilityLabel)
+      const button = getAllByHintText(accessibilityHint)
       expect(button).toBeTruthy()
     })
   })

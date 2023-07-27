@@ -1,94 +1,64 @@
 import { render, fireEvent } from '@/jest/test-utils'
 import { makeFaker } from '@/test/mock/faker'
-import { View } from '@/ui/components/shared/view'
+import { Box } from '@/ui/components/shared/box'
 import { LoginButton } from '@/ui/screens/authentication/components/login-button'
 import React from 'react'
 const { faker } = makeFaker()
 describe('<LoginButton />', () => {
-  it('should render with correct title', () => {
-    const title = faker.person.bio()
-    const icon = <View />
-    const { getByText } = render(
-      <LoginButton title={title} icon={icon} onPress={jest.fn()} />,
-    )
-    expect(getByText(title)).toBeTruthy()
-  })
   it('should render with correct icon', () => {
-    const title = faker.person.bio()
-    const icon = <View testID="icon" />
+    const icon = <Box testID="icon" />
     const { getByTestId } = render(
-      <LoginButton title={title} icon={icon} onPress={jest.fn()} />,
+      <LoginButton icon={icon} onPress={jest.fn()} />,
     )
     expect(getByTestId('icon')).toBeTruthy()
   })
   it('should call onPress on user press', () => {
-    const title = faker.person.bio()
-    const icon = <View />
+    const icon = <Box />
     const onPressMock = jest.fn()
     const { getByTestId } = render(
-      <LoginButton title={title} icon={icon} onPress={onPressMock} />,
+      <LoginButton icon={icon} onPress={onPressMock} />,
     )
     fireEvent.press(getByTestId('id-button'))
     expect(onPressMock).toHaveBeenCalled()
   })
 
   it('should disable button on press button', () => {
-    const title = faker.person.bio()
-    const icon = <View />
+    const icon = <Box />
     const onPressMock = jest.fn()
     const { getByTestId } = render(
-      <LoginButton
-        title={title}
-        icon={icon}
-        onPress={onPressMock}
-        isLoading={true}
-      />,
+      <LoginButton icon={icon} onPress={onPressMock} isLoading={true} />,
     )
     expect(getByTestId('id-button')).toBeDisabled()
   })
   it('should show spinner if button isLoading', () => {
-    const title = faker.person.bio()
-    const icon = <View />
+    const icon = <Box />
     const onPressMock = jest.fn()
     const { getByTestId } = render(
-      <LoginButton
-        title={title}
-        icon={icon}
-        onPress={onPressMock}
-        isLoading={true}
-      />,
+      <LoginButton icon={icon} onPress={onPressMock} isLoading={true} />,
     )
     expect(getByTestId('spinner')).toBeTruthy()
   })
   describe('accessibility', () => {
     it('should be role button', () => {
-      const title = faker.person.bio()
-      const icon = <View />
+      const icon = <Box />
       const onPressMock = jest.fn()
       const { getByRole } = render(
-        <LoginButton
-          title={title}
-          icon={icon}
-          onPress={onPressMock}
-          isLoading={true}
-        />,
+        <LoginButton icon={icon} onPress={onPressMock} isLoading={true} />,
       )
       const button = getByRole('button')
       expect(button).toBeTruthy()
     })
-    it('should show accessibilityLabel if passed', () => {
-      const accessibilityLabel = faker.lorem.words()
-      const title = faker.lorem.words()
+    it('should show accessibilityHint if passed', () => {
+      const accessibilityHint = faker.lorem.words()
       const onPressMock = jest.fn()
-      const { getByLabelText } = render(
+      const { getAllByHintText } = render(
         <LoginButton
-          icon={<View />}
-          title={title}
+          icon={<Box />}
           onPress={onPressMock}
-          accessibilityLabel={accessibilityLabel}
+          accessibilityHint={accessibilityHint}
         />,
       )
-      const button = getByLabelText(accessibilityLabel)
+      const button = getAllByHintText(accessibilityHint)
       expect(button).toBeTruthy()
     })
   })

@@ -1,6 +1,7 @@
 import { Feather, AntDesign, MaterialIcons } from '@expo/vector-icons'
 
 import { AppleIcon } from './apple-icon'
+import { Email } from './email'
 import { FacebookIcon } from './facebook-icon'
 import { GoogleIcon } from './google-icon'
 export interface IconProps {
@@ -18,7 +19,7 @@ export const Icons = {
     <FacebookIcon height={size} width={size} />
   ),
   email: ({ size = 24, color }: IconProps) => (
-    <Feather name="mail" size={size} color={color} />
+    <Email height={size} width={size} color={color} />
   ),
   arrowLeft: ({ size = 24, color }: IconProps) => (
     <AntDesign name="arrowleft" size={size} color={color} />
@@ -28,5 +29,14 @@ export const Icons = {
   ),
   checkCircleo: ({ size = 24, color }: IconProps) => (
     <AntDesign name="checkcircleo" size={size} color={color} />
+  ),
+  lock: ({ size = 24, color }: IconProps) => (
+    <Feather name="lock" size={size} color={color} />
+  ),
+  eye: ({ size = 24, color }: IconProps) => (
+    <Feather name="eye" size={size} color={color} />
+  ),
+  eyeOff: ({ size = 24, color }: IconProps) => (
+    <Feather name="eye-off" size={size} color={color} />
   ),
 }
