@@ -4,6 +4,7 @@ import { ResponseEntity } from '@/presentation/helpers/http/response-entity'
 import { Controller } from '@/presentation/protocols/controller/controller'
 import { HttpRequest } from '@/presentation/protocols/http/http-request'
 import { HttpResponse } from '@/presentation/protocols/http/http-response'
+import { UserViewModel } from '@/presentation/view-models/user-view-model'
 export interface AuthenticateUserWithEmailUseCaseRequestBody {
   email: string
   password: string
@@ -39,7 +40,7 @@ export class AuthenticateUserWithEmailController implements Controller {
       return ResponseEntity.ok({
         accessToken: userOrException.value.accessToken,
         refreshToken: userOrException.value.refreshToken,
-        user: userOrException.value.user,
+        user: UserViewModel.toHTTP(userOrException.value.user),
       })
     } catch {
       return ResponseEntity.serverError()
