@@ -34,7 +34,7 @@ const borderRadii = {
 export const ThemeLight = createTheme({
   colors: {
     'main-background': palette.white,
-    'text-primary': '#312E49',
+    'text-primary': 'rgb(49, 46, 73)',
     'text-secondary': palette.white,
     'button-border': palette.black,
     error: '#FF0058',
@@ -44,6 +44,7 @@ export const ThemeLight = createTheme({
     'input-stroke': '#A2A2A6',
     'social-stroke': '#EBE9F1',
     'icon-main': '#667085',
+    'go-back-button': 'rgba(240, 240, 240, 1)',
   },
   spacing,
   textVariants: {

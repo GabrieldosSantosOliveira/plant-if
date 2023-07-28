@@ -4,21 +4,16 @@ import { Box } from '@/ui/components/shared/box'
 import { Text } from '@/ui/components/shared/text'
 import { useTheme } from '@/ui/hooks/use-theme'
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
 
 export const Header = () => {
-  const { goBack } = useNavigation()
   const { colors } = useTheme()
+  const { goBack } = useNavigation()
   return (
     <Box>
-      <RoundedIcon
-        accessibilityHint="Navega para a tela anterior"
-        testID="button-go-back"
-        onPress={goBack}
-      >
+      <RoundedIcon onPress={goBack} testID="button-go-back">
         <Icons.arrowLeft color={colors['text-primary']} />
       </RoundedIcon>
-      <Text variant="heading">Olá, {'\n'}Acesse sua conta</Text>
+      <Text variant="heading">Esqueceu sua senha</Text>
     </Box>
   )
 }

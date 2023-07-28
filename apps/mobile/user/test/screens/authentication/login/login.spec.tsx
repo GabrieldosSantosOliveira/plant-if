@@ -132,7 +132,6 @@ describe('<Login />', () => {
     await act(async () => {
       fireEvent.press(buttonSubmit)
     })
-    sut.debug()
     expect(mockUseAuthWithEmail).toHaveBeenCalled()
   })
 })

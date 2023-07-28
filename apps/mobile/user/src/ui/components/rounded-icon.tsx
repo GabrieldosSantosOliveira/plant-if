@@ -15,6 +15,7 @@ export const RoundedIcon: React.FC<RoundedIconProps> = (props) => {
       borderRadius="rounded-full"
       justifyContent="center"
       alignItems="center"
+      backgroundColor="go-back-button"
       {...props}
     />
   )

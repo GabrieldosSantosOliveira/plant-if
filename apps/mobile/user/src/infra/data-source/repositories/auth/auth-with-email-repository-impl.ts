@@ -35,7 +35,6 @@ export class AuthWithEmailRepositoryImpl implements AuthWithEmailRepository {
           },
         },
       )
-      console.log()
       if (response.statusCode === HttpStatusCode.NOT_FOUND) {
         return left(new UserNotFoundException())
       }

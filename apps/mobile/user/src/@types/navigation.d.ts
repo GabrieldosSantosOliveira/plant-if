@@ -4,7 +4,9 @@ export type AuthRoutes = {
   login: undefined
   'sing-up': undefined
   'forgot-password': undefined
-  'reset-password': undefined
+  'reset-password': {
+    email: string
+  }
 }
 declare global {
   namespace ReactNavigation {

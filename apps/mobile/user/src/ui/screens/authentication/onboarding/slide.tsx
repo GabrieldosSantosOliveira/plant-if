@@ -11,6 +11,7 @@ export interface SlideProps {
     src: ImageRequireSource
     width: number
     height: number
+    alt: string
   }
 }
 export const Slide: React.FC<SlideProps> = ({ description, image, title }) => {
@@ -30,13 +31,13 @@ export const Slide: React.FC<SlideProps> = ({ description, image, title }) => {
         source={image.src}
         height={height}
         width={width - 100}
-        alt="imagem"
+        alt={image.alt}
         resizeMode="cover"
         style={{ borderRadius: borderRadii['rounded-3xl'] }}
         accessibilityIgnoresInvertColors={false}
       />
       <Box gap="md" width="100%" paddingHorizontal="3xl">
-        <Text variant="slide" opacity={0.5}>
+        <Text role="heading" variant="slide" opacity={0.7}>
           {title}
         </Text>
         <Text variant="slide" fontSize={20}>

@@ -73,7 +73,6 @@ export const Login: React.FC<LoginProps> = ({
           control={control}
           name="email"
           placeholder="Informe seu email"
-          secureTextEntry={!showPassword}
           autoComplete="email"
           keyboardType="email-address"
           testID="input-email"

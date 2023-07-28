@@ -13,7 +13,7 @@ export const RootBase: React.FC<RootProps> = (props: RootProps) => {
   const { isFocus } = useInput()
   return (
     <Box gap="xs">
-      <Text variant="input-label">{props.label}</Text>
+      {props.label ? <Text variant="input-label">{props.label}</Text> : null}
       <Box
         borderColor={props.errorMessage ? 'error' : 'input-stroke'}
         borderWidth={isFocus ? 2 : 1}

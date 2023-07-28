@@ -27,12 +27,14 @@ export const SocialLogin: React.FC<SocialLoginProps> = ({
         icon={<Icons.facebook />}
         onPress={authWithFacebook.promptAsync}
         isLoading={authWithFacebook.isLoading}
+        accessibilityHint="Entre na aplicação utilizando o Facebook"
       />
       <LoginButton
         testID="button-sing-in-with-google"
         icon={<Icons.google />}
         onPress={authWithGoogle.promptAsync}
         isLoading={authWithGoogle.isLoading}
+        accessibilityHint="Entre na aplicação utilizando o Google"
       />
     </Box>
   )

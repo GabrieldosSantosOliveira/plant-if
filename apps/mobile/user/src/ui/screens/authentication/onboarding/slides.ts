@@ -7,6 +7,7 @@ export const slides = [
       src: require('./../assets/1/1.jpg'),
       width: 500,
       height: 500,
+      alt: 'Pessoa segurando um punhado de areia',
     },
   },
   {
@@ -16,6 +17,7 @@ export const slides = [
       src: require('./../assets/2/2.jpg'),
       width: 500,
       height: 500,
+      alt: 'Verduras sendo regadas',
     },
   },
   {
@@ -26,6 +28,7 @@ export const slides = [
       src: require('./../assets/3/3.jpg'),
       width: 500,
       height: 500,
+      alt: 'Pessoa escolhendo verduras',
     },
   },
 ]
