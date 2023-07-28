@@ -1,9 +1,11 @@
 import { AuthRoutes } from '@/@types/navigation'
+import { ResetPasswordUseCase } from '@/domain/use-cases/reset-password-use-case'
 import { Icons } from '@/ui/components/icons/icons'
 import { Box } from '@/ui/components/shared/box'
 import { Text } from '@/ui/components/shared/text'
 import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity'
 import { useTheme } from '@/ui/hooks/use-theme'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -12,23 +14,37 @@ import { Button } from '../components/button'
 import { ControlledInput } from '../components/input/controlled-input'
 import { Root } from '../components/input/root'
 import { Header } from './header'
+import { resetPasswordValidator } from './reset-password-validator'
+import { useResetPassword } from './use-reset-password'
 export interface ResetPasswordForm {
   code: string
-  passwordReset: string
+  resetPassword: string
 }
 type ResetPasswordParam = Pick<AuthRoutes, 'reset-password'>
-export const ResetPassword = () => {
+export interface ResetPasswordParams {
+  resetPasswordUseCase: ResetPasswordUseCase
+}
+export const ResetPassword: React.FC<ResetPasswordParams> = ({
+  resetPasswordUseCase,
+}) => {
   const {
     control,
     formState: { errors },
-  } = useForm<ResetPasswordForm>()
+    handleSubmit,
+  } = useForm<ResetPasswordForm>({
+    resolver: yupResolver(resetPasswordValidator),
+  })
   const [showPassword, setShowPassword] = useState(false)
   const { params } = useRoute<RouteProp<ResetPasswordParam>>()
   const { colors } = useTheme()
+  const { execute: onSubmit, isLoading } = useResetPassword({
+    resetPasswordUseCase,
+  })
   return (
     <Box
       flex={1}
       gap="md"
+      paddingVertical="lg"
       backgroundColor="main-background"
       paddingHorizontal="2xl"
     >
@@ -44,13 +60,13 @@ export const ResetPassword = () => {
           name="code"
         />
       </Root>
-      <Root errorMessage={errors.passwordReset?.message} label="Senha">
+      <Root errorMessage={errors.resetPassword?.message} label="Nova Senha">
         <Icons.lock color={colors['icon-main']} />
         <ControlledInput
           testID="input-password"
           control={control}
-          name="passwordReset"
-          placeholder="Informe sua senha"
+          name="resetPassword"
+          placeholder="Informe sua nova senha"
           secureTextEntry={!showPassword}
           autoComplete="current-password"
         />
@@ -65,7 +81,14 @@ export const ResetPassword = () => {
           )}
         </TouchableOpacity>
       </Root>
-      <Button type="primary" title="Alterar Senha" onPress={console.log} />
+      <Button
+        type="primary"
+        title="Alterar Senha"
+        isLoading={isLoading}
+        onPress={handleSubmit(async ({ code, resetPassword }) => {
+          await onSubmit({ code, email: params.email, resetPassword })
+        })}
+      />
     </Box>
   )
 }

@@ -36,6 +36,7 @@ export const ForgotPassword: React.FC<ForgotPasswordParams> = ({
       flex={1}
       gap="md"
       paddingHorizontal="2xl"
+      paddingVertical="lg"
     >
       <Header />
       <Root errorMessage={errors.email?.message} label="Email">

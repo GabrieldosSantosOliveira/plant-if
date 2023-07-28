@@ -108,6 +108,7 @@ export const ThemeDark = createTheme({
     'input-stroke': '#D8D8DD',
     'social-stroke': '#D8D8DD',
     'icon-main': '#D8D8DD',
+    'go-back-button': 'rgba(8, 30, 38, 1)',
   },
   spacing,
   textVariants: {

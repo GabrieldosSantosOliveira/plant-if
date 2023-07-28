@@ -1,7 +1,7 @@
 import { Icons } from '@/ui/components/icons/icons'
+import { RoundedIcon } from '@/ui/components/rounded-icon'
 import { Box } from '@/ui/components/shared/box'
 import { Text } from '@/ui/components/shared/text'
-import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity'
 import { useTheme } from '@/ui/hooks/use-theme'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
@@ -10,18 +10,10 @@ export const Header = () => {
   const { goBack } = useNavigation()
   const { colors } = useTheme()
   return (
-    <Box flexDirection="row" alignItems="center">
-      <TouchableOpacity
-        accessibilityRole="button"
-        width={50}
-        height={50}
-        borderRadius="rounded-full"
-        justifyContent="center"
-        alignItems="center"
-        onPress={goBack}
-      >
+    <Box>
+      <RoundedIcon onPress={goBack}>
         <Icons.arrowLeft color={colors['text-primary']} />
-      </TouchableOpacity>
+      </RoundedIcon>
       <Text variant="heading">Cadastre-se</Text>
     </Box>
   )

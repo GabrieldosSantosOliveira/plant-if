@@ -51,9 +51,8 @@ export const ColorModeProvider: FC<ColorModeProviderProps> = ({ children }) => {
       const colorModeSaveInStorage = await storage.getItem<ColorModeType>(
         keys.COLOR_MODE,
       )
-
       if (!colorModeSaveInStorage) {
-        await changeColorModeToDark()
+        await changeColorModeToAutomatic()
       } else if (colorModeSaveInStorage === 'automatic') {
         await changeColorModeToAutomatic()
       } else if (colorModeSaveInStorage === 'dark') {
