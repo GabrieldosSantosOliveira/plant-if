@@ -18,7 +18,7 @@ describe('<Onboarding />', () => {
       fireEvent.press(button)
     })
     expect(mockedNavigate).toHaveBeenCalled()
-    expect(mockedNavigate).toHaveBeenCalledWith('Login')
+    expect(mockedNavigate).toHaveBeenCalledWith('login')
   })
   describe('accessibility', () => {
     it('should has accessibilityHint in Button', () => {

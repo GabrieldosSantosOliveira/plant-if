@@ -10,20 +10,23 @@ const AuthenticationStack = createStackNavigator<AuthRoutes>()
 export const AuthenticationNavigator: React.FC = () => {
   return (
     <AuthenticationStack.Navigator
-      initialRouteName="Onboarding"
+      initialRouteName="onboarding"
       screenOptions={{ headerShown: false }}
     >
       <AuthenticationStack.Screen
-        name="Onboarding"
+        name="onboarding"
         component={MakeOnboarding}
       />
-      <AuthenticationStack.Screen name="Login" component={MakeLogin} />
-      <AuthenticationStack.Screen name="SingUp" component={MakeSingUp} />
+      <AuthenticationStack.Screen name="login" component={MakeLogin} />
+      <AuthenticationStack.Screen name="sing-up" component={MakeSingUp} />
       <AuthenticationStack.Screen
-        name="ForgotPassword"
+        name="forgot-password"
         component={MakeSingUp}
       />
-      <AuthenticationStack.Screen name="ResetPassword" component={MakeSingUp} />
+      <AuthenticationStack.Screen
+        name="reset-password"
+        component={MakeSingUp}
+      />
     </AuthenticationStack.Navigator>
   )
 }

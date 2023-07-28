@@ -65,7 +65,7 @@ export const Onboarding: React.FC = () => {
       >
         <Box flexDirection="row" gap="md">
           <Button
-            onPress={() => navigate('Login')}
+            onPress={() => navigate('login')}
             accessible
             accessibilityHint="Navega para a tela de autenticação"
             title="Continuar"

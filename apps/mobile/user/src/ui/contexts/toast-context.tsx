@@ -1,5 +1,6 @@
 import { createContext, ReactNode, FC } from 'react'
 import Toast from 'react-native-toast-message'
+
 export interface ToastOptions {
   position?: 'top' | 'bottom'
   title?: string
@@ -18,7 +19,10 @@ export const ToastContext = createContext<ToastContextProps>(
 export interface ToastProviderProps {
   children: ReactNode
 }
+
 export const ToastProviderBase: FC<ToastProviderProps> = ({ children }) => {
+  const ONE_SECOND_IN_MILLISECONDS = 1000
+  const FOUR_SECOND_IN_MILLISECONDS = ONE_SECOND_IN_MILLISECONDS * 4
   const info = (options: ToastOptions) => {
     Toast.show({
       type: 'info',
@@ -26,7 +30,7 @@ export const ToastProviderBase: FC<ToastProviderProps> = ({ children }) => {
       text1: options.title,
       text2: options.description,
       autoHide: true,
-      visibilityTime: options.duration,
+      visibilityTime: options.duration || FOUR_SECOND_IN_MILLISECONDS,
     })
   }
   const error = (options: ToastOptions) => {
@@ -36,7 +40,7 @@ export const ToastProviderBase: FC<ToastProviderProps> = ({ children }) => {
       text1: options.title,
       text2: options.description,
       autoHide: true,
-      visibilityTime: options.duration,
+      visibilityTime: options.duration || FOUR_SECOND_IN_MILLISECONDS,
     })
   }
   const success = (options: ToastOptions) => {
@@ -46,7 +50,7 @@ export const ToastProviderBase: FC<ToastProviderProps> = ({ children }) => {
       text1: options.title,
       text2: options.description,
       autoHide: true,
-      visibilityTime: options.duration,
+      visibilityTime: options.duration || FOUR_SECOND_IN_MILLISECONDS,
     })
   }
   return (

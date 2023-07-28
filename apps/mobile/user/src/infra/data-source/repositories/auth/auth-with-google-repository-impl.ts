@@ -5,7 +5,7 @@ import {
   AuthWithGoogleRepositoryResponse,
 } from '@/domain/repositories/auth-with-google-repository'
 import { Exception } from '@/domain/use-cases/errors/exception'
-import { UnexpectedError } from '@/domain/use-cases/errors/unexpected-error'
+import { UnexpectedException } from '@/domain/use-cases/errors/unexpected-exception'
 import { HttpStatusCode } from '@/helpers/http/http-status-code'
 import { Either, left, right } from '@/shared/either'
 
@@ -30,7 +30,7 @@ export class AuthWithGoogleRepositoryImpl implements AuthWithGoogleRepository {
       },
     )
     if (statusCode !== HttpStatusCode.OK) {
-      return left(new UnexpectedError())
+      return left(new UnexpectedException())
     }
     return right({
       user: UserMapper.toUI(data.user),
