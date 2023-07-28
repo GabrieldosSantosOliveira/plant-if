@@ -1,5 +1,4 @@
 import { Replace } from '../helpers/replace'
-export type UserProvider = 'email' | 'google' | 'facebook'
 export interface UserProps {
   id: string
   email: string
@@ -7,7 +6,6 @@ export interface UserProps {
   lastName: string
   image?: string
   password?: string
-  provider: UserProvider
   resetPasswordExpires?: Date
   resetPasswordToken?: string
   createdAt: Date
@@ -49,14 +47,6 @@ export class User {
 
   public set resetPasswordToken(resetPasswordToken: string | undefined) {
     this.props.resetPasswordToken = resetPasswordToken
-  }
-
-  public get provider() {
-    return this.props.provider
-  }
-
-  public set provider(provider: UserProvider) {
-    this.props.provider = provider
   }
 
   public get id() {

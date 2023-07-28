@@ -6,6 +6,7 @@ import { makeUser } from '@/test/domain/factories/make-user'
 import { makeSendMailMock } from '@/test/infra/mocks/gateways/email/send-mail'
 import { makeGenerateRandomNumberMock } from '@/test/infra/mocks/gateways/random-number/generate-random-number-mock'
 import { makeInMemoryUserRepository } from '@/test/infra/mocks/repositories/user/in-memory-user-repository'
+import { makeDateWithMoreHours } from '@/utils/date/make-date-with-more-hours'
 import { faker } from '@faker-js/faker'
 
 const makeSut = async () => {
@@ -72,14 +73,15 @@ describe('ForgotPasswordUseCaseImpl', () => {
   })
   it('should set resetPasswordToken with two hours expiration', async () => {
     const { sut, user, inMemoryUserRepository } = await makeSut()
-
+    jest.useFakeTimers()
     await sut.handle(makeRequest({ email: user.email }))
-    const dateNow = new Date(Date.now())
     const userAfterSave = await inMemoryUserRepository.findByEmail(user.email)
     const resetPasswordTokenHours =
-      userAfterSave?.resetPasswordExpires?.getHours()
+      userAfterSave?.resetPasswordExpires?.getTime()
+
     const resetPasswordTokenHasTwoHoursExpiration =
-      dateNow.getHours() + 2 === resetPasswordTokenHours
+      makeDateWithMoreHours(2).getTime() === resetPasswordTokenHours
+
     expect(resetPasswordTokenHasTwoHoursExpiration).toBeTruthy()
   })
 })

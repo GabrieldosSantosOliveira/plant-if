@@ -39,7 +39,6 @@ export class CreateUserWithEmailUseCaseImpl
       firstName: request.firstName,
       lastName: request.lastName,
       id: this.generatorUUID.randomUUID(),
-      provider: 'email',
       password: passwordHash,
     })
     await this.createUserRepository.create(user)

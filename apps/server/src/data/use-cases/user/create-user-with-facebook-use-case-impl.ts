@@ -51,7 +51,6 @@ export class CreateUserWithFacebookUseCaseImpl
       lastName: facebookUser.user.lastName,
       image: facebookUser.user.picture,
       id: this.generatorUUID.randomUUID(),
-      provider: 'facebook',
     })
     await this.createUserRepository.create(user)
     const { refreshToken } = await this.authService.generateRefreshToken(

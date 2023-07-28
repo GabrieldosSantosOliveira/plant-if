@@ -7,7 +7,7 @@ export const makeUser = (user: Partial<UserProps> = {}) => {
     lastName: faker.person.lastName(),
     image: faker.internet.avatar(),
     id: faker.string.uuid(),
-    provider: 'email',
+    password: faker.lorem.words(),
     ...user,
   })
 }

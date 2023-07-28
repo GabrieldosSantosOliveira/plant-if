@@ -9,6 +9,7 @@ import {
   ForgotPasswordUseCaseRequest,
 } from '@/domain/use-cases/user/forgot-password-use-case'
 import { Either, left, right } from '@/shared/either'
+import { makeDateWithMoreHours } from '@/utils/date/make-date-with-more-hours'
 
 export class ForgotPasswordUseCaseImpl implements ForgotPasswordUseCase {
   constructor(
@@ -27,10 +28,7 @@ export class ForgotPasswordUseCaseImpl implements ForgotPasswordUseCase {
     if (!userExists) {
       return left(new UserNotFoundException())
     }
-    const dateNow = new Date(Date.now())
-    userExists.resetPasswordExpires = new Date(
-      new Date(dateNow).setHours(dateNow.getHours() + 2),
-    )
+    userExists.resetPasswordExpires = new Date(makeDateWithMoreHours(2))
     const resetPasswordToken = (
       await this.generateRandomNumber.generate(6)
     ).toString()

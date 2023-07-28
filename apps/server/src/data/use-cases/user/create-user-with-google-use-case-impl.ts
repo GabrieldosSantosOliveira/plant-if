@@ -51,7 +51,6 @@ export class CreateUserWithGoogleUseCaseImpl
       lastName: googleUser.user.family_name,
       image: googleUser.user.picture,
       id: this.generatorUUID.randomUUID(),
-      provider: 'google',
     })
     await this.createUserRepository.create(user)
     const { refreshToken } = await this.authService.generateRefreshToken(

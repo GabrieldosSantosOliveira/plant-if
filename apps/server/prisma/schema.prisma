@@ -17,7 +17,6 @@ model User {
   lastName             String
   image                String?
   password             String?
-  provider             String
   resetPasswordExpires DateTime?
   resetPasswordToken   String?   @db.VarChar(255)
   createdAt            DateTime  @default(now())
