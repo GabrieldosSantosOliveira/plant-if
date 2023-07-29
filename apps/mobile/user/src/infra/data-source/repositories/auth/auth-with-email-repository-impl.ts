@@ -1,4 +1,3 @@
-import { makeApiUrl } from '@/constants/make-api-url'
 import { HttpClient } from '@/data/protocols/http/http-client'
 import {
   AuthWithEmailRepository,
@@ -21,36 +20,33 @@ interface Response extends AccessTokenDto, RefreshTokenDto {
   user: UserDto
 }
 export class AuthWithEmailRepositoryImpl implements AuthWithEmailRepository {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly url: string,
+    private readonly httpClient: HttpClient,
+  ) {}
+
   async execute(
     credentials: AuthWithEmailRepositoryDto,
   ): Promise<Either<Exception, AuthWithEmailRepositoryResponse>> {
-    try {
-      const response = await this.httpClient.post<Response>(
-        makeApiUrl('/api/user/auth/sing-in/email'),
-        {
-          body: {
-            email: credentials.email,
-            password: credentials.password,
-          },
-        },
-      )
-      if (response.statusCode === HttpStatusCode.NOT_FOUND) {
-        return left(new UserNotFoundException())
-      }
-      if (response.statusCode === HttpStatusCode.UNAUTHORIZED_ERROR) {
-        return left(new AccessDeniedException())
-      }
-      if (response.statusCode !== HttpStatusCode.OK) {
-        return left(new UnexpectedException())
-      }
-      return right({
-        user: UserMapper.toUI(response.data.user),
-        accessToken: response.data.accessToken,
-        refreshToken: response.data.refreshToken,
-      })
-    } catch {
+    const response = await this.httpClient.post<Response>(this.url, {
+      body: {
+        email: credentials.email,
+        password: credentials.password,
+      },
+    })
+    if (response.statusCode === HttpStatusCode.NOT_FOUND) {
+      return left(new UserNotFoundException())
+    }
+    if (response.statusCode === HttpStatusCode.UNAUTHORIZED_ERROR) {
+      return left(new AccessDeniedException())
+    }
+    if (response.statusCode !== HttpStatusCode.OK) {
       return left(new UnexpectedException())
     }
+    return right({
+      user: UserMapper.toUI(response.data.user),
+      accessToken: response.data.accessToken,
+      refreshToken: response.data.refreshToken,
+    })
   }
 }

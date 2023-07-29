@@ -1,4 +1,3 @@
-import { makeApiUrl } from '@/constants/make-api-url'
 import { HttpClient } from '@/data/protocols/http/http-client'
 import {
   AuthWithFacebookRepository,
@@ -20,12 +19,16 @@ interface Response extends AccessTokenDto, RefreshTokenDto {
 export class AuthWithFacebookRepositoryImpl
   implements AuthWithFacebookRepository
 {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly url: string,
+    private readonly httpClient: HttpClient,
+  ) {}
+
   async execute(
     accessToken: string,
   ): Promise<Either<Exception, AuthWithFacebookRepositoryResponse>> {
     const { data, statusCode } = await this.httpClient.post<Response>(
-      makeApiUrl('/api/user/auth/facebook'),
+      this.url,
       {
         body: {
           accessToken,

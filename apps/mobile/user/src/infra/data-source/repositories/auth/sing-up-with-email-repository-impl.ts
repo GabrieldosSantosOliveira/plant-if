@@ -1,4 +1,3 @@
-import { makeApiUrl } from '@/constants/make-api-url'
 import { HttpClient } from '@/data/protocols/http/http-client'
 import {
   SingUpWithEmailRepository,
@@ -21,21 +20,22 @@ interface Response extends AccessTokenDto, RefreshTokenDto {
 export class SingUpWithEmailRepositoryImpl
   implements SingUpWithEmailRepository
 {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly url: string,
+    private readonly httpClient: HttpClient,
+  ) {}
+
   async execute(
     data: SingUpWithEmailRepositoryDto,
   ): Promise<Either<Exception, SingUpWithEmailRepositoryResponse>> {
-    const response = await this.httpClient.post<Response>(
-      makeApiUrl('/api/user/auth/sing-up/email'),
-      {
-        body: {
-          email: data.email,
-          password: data.password,
-          firstName: data.firstName,
-          lastName: data.lastName,
-        },
+    const response = await this.httpClient.post<Response>(this.url, {
+      body: {
+        email: data.email,
+        password: data.password,
+        firstName: data.firstName,
+        lastName: data.lastName,
       },
-    )
+    })
     if (response.statusCode === HttpStatusCode.CONFLICT) {
       return left(new UserAlreadyExistsException())
     }

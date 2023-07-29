@@ -1,4 +1,3 @@
-import { makeApiUrl } from '@/constants/make-api-url'
 import { HttpClient } from '@/data/protocols/http/http-client'
 import {
   ResetPasswordRepository,
@@ -12,33 +11,30 @@ import { HttpStatusCode } from '@/helpers/http/http-status-code'
 import { Either, left, right } from '@/shared/either'
 
 export class ResetPasswordRepositoryImpl implements ResetPasswordRepository {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    private readonly url: string,
+    private readonly httpClient: HttpClient,
+  ) {}
+
   async execute(
     data: ResetPasswordRepositoryDto,
   ): Promise<Either<Exception, null>> {
-    try {
-      const response = await this.httpClient.post<null>(
-        makeApiUrl('/api/user/auth/reset-password'),
-        {
-          body: {
-            email: data.email,
-            code: data.code,
-            resetPassword: data.resetPassword,
-          },
-        },
-      )
-      if (response.statusCode === HttpStatusCode.NOT_FOUND) {
-        return left(new UserNotFoundException())
-      }
-      if (response.statusCode === HttpStatusCode.UNAUTHORIZED_ERROR) {
-        return left(new AccessDeniedException())
-      }
-      if (response.statusCode !== HttpStatusCode.NO_CONTENT) {
-        return left(new UnexpectedException())
-      }
-      return right(null)
-    } catch {
+    const response = await this.httpClient.post<null>(this.url, {
+      body: {
+        email: data.email,
+        code: data.code,
+        resetPassword: data.resetPassword,
+      },
+    })
+    if (response.statusCode === HttpStatusCode.NOT_FOUND) {
+      return left(new UserNotFoundException())
+    }
+    if (response.statusCode === HttpStatusCode.UNAUTHORIZED_ERROR) {
+      return left(new AccessDeniedException())
+    }
+    if (response.statusCode !== HttpStatusCode.NO_CONTENT) {
       return left(new UnexpectedException())
     }
+    return right(null)
   }
 }
