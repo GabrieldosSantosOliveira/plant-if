@@ -2,22 +2,12 @@ import { act, fireEvent, render } from '@/jest/test-utils'
 import { makeAuthWithEmailUseCaseMock } from '@/test/data/mocks/use-cases/auth/make-auth-with-email-use-case-mock'
 import { makeAuthWithFacebookUseCaseMock } from '@/test/data/mocks/use-cases/auth/make-auth-with-facebook-use-case-mock'
 import { makeAuthWithGoogleUseCaseMock } from '@/test/data/mocks/use-cases/auth/make-auth-with-google-use-case-mock'
+import {
+  mockGoBack,
+  mockNavigate,
+} from '@/test/screens/mocks/navigation/use-navigation-mock'
 import { Login } from '@/ui/screens/authentication/login/login'
 import { faker } from '@faker-js/faker'
-
-const mockGoBack = jest.fn()
-const mockNavigate = jest.fn()
-
-jest.mock('@react-navigation/native', () => {
-  const actualNav = jest.requireActual('@react-navigation/native')
-  return {
-    ...actualNav,
-    useNavigation: () => ({
-      goBack: mockGoBack,
-      navigate: mockNavigate,
-    }),
-  }
-})
 const mockUseAuthWithEmail = jest.fn()
 jest.mock('@/ui/hooks/use-auth-with-email', () => {
   return {

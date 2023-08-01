@@ -1,17 +1,10 @@
 import { act, fireEvent, render } from '@/jest/test-utils'
+import { mockGoBack } from '@/test/screens/mocks/navigation/use-navigation-mock'
 import { Header } from '@/ui/screens/authentication/forgot-password/header'
-const mockGoBack = jest.fn()
-
-jest.mock('@react-navigation/native', () => {
-  const actualNav = jest.requireActual('@react-navigation/native')
-  return {
-    ...actualNav,
-    useNavigation: () => ({
-      goBack: mockGoBack,
-    }),
-  }
-})
 describe('<Header/>', () => {
+  afterEach(() => {
+    mockGoBack.mockClear()
+  })
   it('should navigate to prev screen if user press button go back', async () => {
     const { getByTestId } = render(<Header />)
     const buttonGoBack = getByTestId('button-go-back')

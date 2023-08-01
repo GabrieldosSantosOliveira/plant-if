@@ -1,24 +1,22 @@
 import { act, fireEvent, render } from '@/jest/test-utils'
+import {
+  mockGoBack,
+  mockNavigate,
+} from '@/test/screens/mocks/navigation/use-navigation-mock'
 import { Onboarding } from '@/ui/screens/authentication/onboarding/onboarding'
-const mockedNavigate = jest.fn()
-jest.mock('@react-navigation/native', () => {
-  const actualNav = jest.requireActual('@react-navigation/native')
-  return {
-    ...actualNav,
-    useNavigation: () => ({
-      navigate: mockedNavigate,
-    }),
-  }
-})
 describe('<Onboarding />', () => {
+  afterEach(() => {
+    mockGoBack.mockClear()
+    mockNavigate.mockClear()
+  })
   it('should navigate to screen Login on user press button', async () => {
     const { getByTestId } = render(<Onboarding />)
     const button = getByTestId('button-next', { exact: false })
     await act(async () => {
       fireEvent.press(button)
     })
-    expect(mockedNavigate).toHaveBeenCalled()
-    expect(mockedNavigate).toHaveBeenCalledWith('login')
+    expect(mockNavigate).toHaveBeenCalled()
+    expect(mockNavigate).toHaveBeenCalledWith('login')
   })
   describe('accessibility', () => {
     it('should has accessibilityHint in Button', () => {
