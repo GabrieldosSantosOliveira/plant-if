@@ -2,7 +2,7 @@ import { act, fireEvent, render } from '@/jest/test-utils'
 import {
   mockGoBack,
   mockNavigate,
-} from '@/test/screens/mocks/navigation/use-navigation-mock'
+} from '@/test/screens/mocks/navigation/react-navigation-native-mock'
 import { Onboarding } from '@/ui/screens/authentication/onboarding/onboarding'
 describe('<Onboarding />', () => {
   afterEach(() => {

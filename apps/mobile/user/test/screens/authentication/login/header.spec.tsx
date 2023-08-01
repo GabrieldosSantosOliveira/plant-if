@@ -1,7 +1,6 @@
 import { act, fireEvent, render } from '@/jest/test-utils'
-import { mockGoBack } from '@/test/screens/mocks/navigation/use-navigation-mock'
+import { mockGoBack } from '@/test/screens/mocks/navigation/react-navigation-native-mock'
 import { Header } from '@/ui/screens/authentication/login/header'
-import React from 'react'
 describe('<Header />', () => {
   afterEach(() => {
     mockGoBack.mockClear()
