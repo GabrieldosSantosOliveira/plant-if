@@ -1,0 +1,33 @@
+{
+  "presets": [
+    "@babel/preset-typescript",
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "18"
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "babel-plugin-module-resolver",
+      {
+        "alias": {
+          "test": "./test",
+          "@/data": "./src/data",
+          "@/domain": "./src/domain",
+          "@/infra": "./src/infra",
+          "@/main": "./src/main",
+          "@/presentation": "./src/presentation",
+          "@/shared": "./src/shared",
+          "@/utils": "./src/utils",
+          "@/test": "./test"
+        }
+      }
+    ]
+  ],
+  "ignore": ["**/*.spec.ts"]
+
+}
