@@ -13,9 +13,8 @@ export class AuthWithFacebookUseCaseImpl implements AuthWithFacebookUseCase {
   ) {}
 
   async execute(accessToken: string): Promise<Either<Exception, UserUiModel>> {
-    const userOrException = await this.authWithFacebookRepository.execute(
-      accessToken,
-    )
+    const userOrException =
+      await this.authWithFacebookRepository.execute(accessToken)
 
     if (userOrException.isLeft()) {
       return left(userOrException.value)

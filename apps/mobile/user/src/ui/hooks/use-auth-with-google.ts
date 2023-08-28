@@ -21,6 +21,7 @@ export const useAuthWithGoogle = ({
   const toast = useToast()
   useEffect(() => {
     GoogleSignin.configure({
+      scopes: ['profile', 'email'],
       offlineAccess: true,
       iosClientId: env.GOOGLE_CLIENT_ID_IOS,
       webClientId: CLIENT_ID,

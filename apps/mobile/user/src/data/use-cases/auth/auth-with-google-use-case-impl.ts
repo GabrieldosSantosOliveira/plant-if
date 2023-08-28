@@ -13,9 +13,8 @@ export class AuthWithGoogleUseCaseImpl implements AuthWithGoogleUseCase {
   ) {}
 
   async execute(accessToken: string): Promise<Either<Exception, UserUiModel>> {
-    const userOrException = await this.authWithGoogleRepository.execute(
-      accessToken,
-    )
+    const userOrException =
+      await this.authWithGoogleRepository.execute(accessToken)
     if (userOrException.isLeft()) {
       return left(userOrException.value)
     }

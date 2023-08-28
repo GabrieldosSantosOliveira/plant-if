@@ -1,7 +1,7 @@
 {
   "extends": [
-    "plugin:react/jsx-runtime",
     "@rocketseat/eslint-config/react",
+    "plugin:react/jsx-runtime",
     "@react-native-community",
     "plugin:react-native-a11y/all"
   ],
