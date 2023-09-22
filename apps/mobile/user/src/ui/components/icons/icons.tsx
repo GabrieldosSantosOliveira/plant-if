@@ -1,9 +1,11 @@
 import { Feather, AntDesign, MaterialIcons } from '@expo/vector-icons'
 
 import { AppleIcon } from './apple-icon'
+import { ArrowLeft } from './arrow-left'
 import { Email } from './email'
 import { FacebookIcon } from './facebook-icon'
 import { GoogleIcon } from './google-icon'
+import { Tractor } from './tractor'
 export interface IconProps {
   size?: number
   color: string
@@ -22,7 +24,7 @@ export const Icons = {
     <Email height={size} width={size} color={color} />
   ),
   arrowLeft: ({ size = 24, color }: IconProps) => (
-    <AntDesign name="arrowleft" size={size} color={color} />
+    <ArrowLeft width={size} height={size} fill={color} />
   ),
   errorOutline: ({ size = 24, color }: IconProps) => (
     <MaterialIcons name="error-outline" size={size} color={color} />
@@ -38,5 +40,8 @@ export const Icons = {
   ),
   eyeOff: ({ size = 24, color }: IconProps) => (
     <Feather name="eye-off" size={size} color={color} />
+  ),
+  tractor: ({ size = 24, color }: IconProps) => (
+    <Tractor width={size} height={size} color={color} />
   ),
 }

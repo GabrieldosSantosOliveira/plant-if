@@ -8,6 +8,9 @@ export type AuthRoutes = {
     email: string
   }
 }
+export type AppRoutes = {
+  home: undefined
+}
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends AuthRoutes {}

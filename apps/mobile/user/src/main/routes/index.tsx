@@ -1,10 +1,10 @@
-import { Loading } from '@/ui/components/loading'
 import { useAuth } from '@/ui/hooks/use-auth'
 import { useColorMode } from '@/ui/hooks/use-color-mode'
 import { useTheme } from '@/ui/hooks/use-theme'
 import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
 
+import { AppRoutesNavigator } from './app.routes'
 import { AuthenticationNavigator } from './auth-routes'
 
 export const Routes = () => {
@@ -25,7 +25,7 @@ export const Routes = () => {
         dark: theme === 'dark',
       }}
     >
-      {user ? <Loading /> : <AuthenticationNavigator />}
+      {user ? <AppRoutesNavigator /> : <AuthenticationNavigator />}
     </NavigationContainer>
   )
 }
