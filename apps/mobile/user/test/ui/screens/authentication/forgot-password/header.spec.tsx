@@ -1,5 +1,5 @@
 import { act, fireEvent, render } from '@/jest/test-utils'
-import { mockGoBack } from '@/test/screens/mocks/navigation/react-navigation-native-mock'
+import { mockGoBack } from '@/test/ui/mocks/navigation/react-navigation-native-mock'
 import { Header } from '@/ui/screens/authentication/forgot-password/header'
 describe('<Header/>', () => {
   afterEach(() => {

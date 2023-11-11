@@ -5,7 +5,7 @@ import { makeAuthWithGoogleUseCaseMock } from '@/test/data/mocks/use-cases/auth/
 import {
   mockGoBack,
   mockNavigate,
-} from '@/test/screens/mocks/navigation/react-navigation-native-mock'
+} from '@/test/ui/mocks/navigation/react-navigation-native-mock'
 import { Login } from '@/ui/screens/authentication/login/login'
 import { faker } from '@faker-js/faker'
 const mockUseAuthWithEmail = jest.fn()
