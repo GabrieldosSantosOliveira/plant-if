@@ -6,8 +6,7 @@ export interface UserProps {
   lastName: string
   image?: string
   password?: string
-  resetPasswordExpires?: Date
-  resetPasswordToken?: string
+  resetPasswordSecret?: string
   createdAt: Date
   updatedAt: Date
 }
@@ -33,20 +32,12 @@ export class User {
     this.props.password = password
   }
 
-  public get resetPasswordExpires() {
-    return this.props.resetPasswordExpires
+  public get resetPasswordSecret() {
+    return this.props.resetPasswordSecret
   }
 
-  public set resetPasswordExpires(resetPasswordExpires: Date | undefined) {
-    this.props.resetPasswordExpires = resetPasswordExpires
-  }
-
-  public get resetPasswordToken() {
-    return this.props.resetPasswordToken
-  }
-
-  public set resetPasswordToken(resetPasswordToken: string | undefined) {
-    this.props.resetPasswordToken = resetPasswordToken
+  public set resetPasswordSecret(resetPasswordSecret: string | undefined) {
+    this.props.resetPasswordSecret = resetPasswordSecret
   }
 
   public get id() {

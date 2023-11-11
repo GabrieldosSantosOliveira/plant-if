@@ -11,8 +11,7 @@ export class PrismaUserMapper {
       image: rawUser.image || undefined,
       updatedAt: rawUser.updatedAt,
       password: rawUser.password || undefined,
-      resetPasswordExpires: rawUser.resetPasswordExpires || undefined,
-      resetPasswordToken: rawUser.resetPasswordToken || undefined,
+      resetPasswordSecret: rawUser.resetPasswordSecret || undefined,
     })
   }
 
@@ -26,8 +25,7 @@ export class PrismaUserMapper {
       lastName: user.lastName,
       updatedAt: user.updatedAt,
       password: user.password || null,
-      resetPasswordExpires: user.resetPasswordExpires || null,
-      resetPasswordToken: user.resetPasswordToken || null,
+      resetPasswordSecret: user.resetPasswordSecret || null,
     }
   }
 }

@@ -11,16 +11,15 @@ datasource db {
 }
 
 model User {
-  id                   String    @id
-  email                String    @unique
-  firstName            String
-  lastName             String
-  image                String?
-  password             String?
-  resetPasswordExpires DateTime?
-  resetPasswordToken   String?   @db.VarChar(255)
-  createdAt            DateTime  @default(now())
-  updatedAt            DateTime  @updatedAt
+  id                  String   @id
+  email               String   @unique
+  firstName           String
+  lastName            String
+  image               String?
+  password            String?
+  resetPasswordSecret String?  @db.VarChar(255)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 
   ProjectUser ProjectUser[]
 }

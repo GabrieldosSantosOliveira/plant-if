@@ -1,5 +1,5 @@
+import { TimeBasedOnTimePassword } from '@/data/protocols/cryptography/time-based-one-time-password'
 import { SendMail } from '@/domain/contracts/gateways/email/send-mail'
-import { GenerateRandomNumber } from '@/domain/contracts/gateways/random-number/generate-random-number'
 import { LoadUserByEmailRepository } from '@/domain/contracts/repositories/user/load-user-by-email-repository'
 import { UpdateUserRepository } from '@/domain/contracts/repositories/user/update-user-repository'
 import { Exception } from '@/domain/use-cases/errors/exception'
@@ -9,14 +9,13 @@ import {
   ForgotPasswordUseCaseRequest,
 } from '@/domain/use-cases/user/forgot-password-use-case'
 import { Either, left, right } from '@/shared/either'
-import { makeDateWithMoreHours } from '@/utils/date/make-date-with-more-hours'
-
 export class ForgotPasswordUseCaseImpl implements ForgotPasswordUseCase {
+  private readonly PASSWORD_DURATION_IN_SECONDS = 60
   constructor(
     private readonly loadUserByEmailRepository: LoadUserByEmailRepository,
     private readonly updateUserRepository: UpdateUserRepository,
     private readonly sendEmail: SendMail,
-    private readonly generateRandomNumber: GenerateRandomNumber,
+    private readonly timeBasedOnTimePassword: TimeBasedOnTimePassword,
   ) {}
 
   async handle(
@@ -28,20 +27,21 @@ export class ForgotPasswordUseCaseImpl implements ForgotPasswordUseCase {
     if (!userExists) {
       return left(new UserNotFoundException())
     }
-    userExists.resetPasswordExpires = new Date(makeDateWithMoreHours(2))
-    const resetPasswordToken = (
-      await this.generateRandomNumber.generate(6)
-    ).toString()
+    const secret = await this.timeBasedOnTimePassword.generateSecret()
 
-    userExists.resetPasswordToken = resetPasswordToken
+    userExists.resetPasswordSecret = secret
     await this.updateUserRepository.save(userExists)
+    const password = await this.timeBasedOnTimePassword.generatePassword(
+      secret,
+      this.PASSWORD_DURATION_IN_SECONDS,
+    )
     await this.sendEmail.send({
-      body: `Código para troca de senha ${userExists.resetPasswordToken}`,
+      body: `Código para troca de senha ${password}`,
       from: {
         name: 'Equipe de suporte',
         email: '<no_reply@plantif.com>',
       },
-      subject: 'Esqueceu a senha',
+      subject: 'PlantIf: recuperação de senha, confira seu código de acesso.',
       to: userExists.email,
     })
     return right(null)
