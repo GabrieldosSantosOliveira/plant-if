@@ -34,19 +34,19 @@ export class AuthWithEmailRepositoryImpl implements AuthWithEmailRepository {
         password: credentials.password,
       },
     })
-    if (response.statusCode === HttpStatusCode.NOT_FOUND) {
-      return left(new UserNotFoundException())
+    switch (response.statusCode) {
+      case HttpStatusCode.OK:
+        return right({
+          user: UserMapper.toUI(response.data.user),
+          accessToken: response.data.accessToken,
+          refreshToken: response.data.refreshToken,
+        })
+      case HttpStatusCode.NOT_FOUND:
+        return left(new UserNotFoundException())
+      case HttpStatusCode.UNAUTHORIZED_ERROR:
+        return left(new AccessDeniedException())
+      default:
+        return left(new UnexpectedException())
     }
-    if (response.statusCode === HttpStatusCode.UNAUTHORIZED_ERROR) {
-      return left(new AccessDeniedException())
-    }
-    if (response.statusCode !== HttpStatusCode.OK) {
-      return left(new UnexpectedException())
-    }
-    return right({
-      user: UserMapper.toUI(response.data.user),
-      accessToken: response.data.accessToken,
-      refreshToken: response.data.refreshToken,
-    })
   }
 }

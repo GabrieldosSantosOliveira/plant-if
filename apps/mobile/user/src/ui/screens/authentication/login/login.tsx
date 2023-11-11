@@ -1,24 +1,24 @@
-import { AuthRoutes } from '@/@types/navigation'
 import { AuthWithEmailUseCase } from '@/domain/use-cases/auth-with-email-use-case'
 import { AuthWithFacebookUseCase } from '@/domain/use-cases/auth-with-facebook-use-case'
 import { AuthWithGoogleUseCase } from '@/domain/use-cases/auth-with-google-use-case'
 import { Icons } from '@/ui/components/icons/icons'
 import { Box } from '@/ui/components/shared/box'
 import { ScrollView } from '@/ui/components/shared/scroll-view'
-import { Text } from '@/ui/components/shared/text'
 import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity'
 import { useAuthWithEmail } from '@/ui/hooks/use-auth-with-email'
 import { useTheme } from '@/ui/hooks/use-theme'
 import { ControlledInput } from '@/ui/screens/authentication/components/input/controlled-input'
 import { Root } from '@/ui/screens/authentication/components/input/root'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from './../components/button'
+import { ButtonForgotPassword } from './button-forgot-password'
+import { ContinueWith } from './continue-with'
 import { Header } from './header'
 import { loginValidator } from './login-validator'
+import { NoHaveAccount } from './no-have-account'
 import { SocialLogin } from './social-login'
 
 export interface LoginProps {
@@ -38,8 +38,6 @@ export const Login: React.FC<LoginProps> = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false)
   const { colors } = useTheme()
-
-  const { navigate } = useNavigation<NavigationProp<AuthRoutes>>()
 
   const authWithEmail = useAuthWithEmail({
     authWithEmailUseCase,
@@ -101,17 +99,7 @@ export const Login: React.FC<LoginProps> = ({
             )}
           </TouchableOpacity>
         </Root>
-        <Box flexDirection="row" justifyContent="space-between">
-          <TouchableOpacity
-            accessibilityRole="button"
-            testID="button-forgot-password"
-            onPress={() => navigate('forgot-password')}
-          >
-            <Text variant="text-placeholder" color="attention">
-              Esqueceu sua senha?
-            </Text>
-          </TouchableOpacity>
-        </Box>
+        <ButtonForgotPassword />
         <Button
           title="Entrar"
           onPress={handleSubmit(onSubmit)}
@@ -119,28 +107,12 @@ export const Login: React.FC<LoginProps> = ({
           type="primary"
           testID="button-submit"
         />
-        <Box flexDirection="row" alignItems="center" gap="md" opacity={0.4}>
-          <Box flex={1} height={1} bg="text-primary" />
-          <Text variant="input-label">ou continuar com</Text>
-          <Box flex={1} height={1} bg="text-primary" />
-        </Box>
+        <ContinueWith />
         <SocialLogin
           authWithFacebookUseCase={authWithFacebookUseCase}
           authWithGoogleUseCase={authWithGoogleUseCase}
         />
-        <TouchableOpacity
-          testID="button-sing-up"
-          accessibilityRole="button"
-          alignItems="center"
-          onPress={() => navigate('sing-up')}
-        >
-          <Box flexDirection="row" gap="xs">
-            <Text variant="text-placeholder">Não tem uma conta?</Text>
-            <Text variant="text-placeholder" color="attention">
-              Cadastre-se
-            </Text>
-          </Box>
-        </TouchableOpacity>
+        <NoHaveAccount />
       </Box>
     </ScrollView>
   )

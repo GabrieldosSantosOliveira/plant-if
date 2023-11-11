@@ -1,5 +1,6 @@
 import { UserUiModel } from '@/domain/ui-model/user-ui-model'
-import React, { createContext, ReactNode, FC, useState } from 'react'
+import { AuthRecoverySessionUseCase } from '@/domain/use-cases/auth-recovery-session-use-case'
+import React, { createContext, ReactNode, FC, useState, useEffect } from 'react'
 export interface AuthContextProps {
   user: UserUiModel | null
   setUser: (user: UserUiModel | null) => void
@@ -9,10 +10,18 @@ export const AuthContext = createContext<AuthContextProps>(
 )
 export interface AuthProviderProps {
   children: ReactNode
+  authRecoverySessionUseCase: AuthRecoverySessionUseCase
 }
 
-export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider: FC<AuthProviderProps> = ({
+  children,
+  authRecoverySessionUseCase,
+}) => {
   const [user, setUser] = useState<UserUiModel | null>(null)
+  useEffect(() => {
+    async function recoverySession() {}
+    recoverySession()
+  }, [])
   return (
     <AuthContext.Provider
       value={{

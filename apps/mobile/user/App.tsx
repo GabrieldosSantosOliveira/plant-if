@@ -1,3 +1,4 @@
+import { MakeAuthRecoverySessionUseCase } from '@/main/factories/data/use-cases/auth/make-auth-recovery-session-use-case'
 import { Routes } from '@/main/routes'
 import { Loading } from '@/ui/components/loading'
 import { StatusBar } from '@/ui/components/status-bar'
@@ -33,7 +34,9 @@ export default function App() {
           <ColorModeProvider>
             <HttpClientProvider>
               <GestureHandlerRootView style={styles.container}>
-                <AuthProvider>
+                <AuthProvider
+                  authRecoverySessionUseCase={MakeAuthRecoverySessionUseCase()}
+                >
                   <StatusBar />
                   {isFontsLoaded ? <Routes /> : <Loading />}
                 </AuthProvider>

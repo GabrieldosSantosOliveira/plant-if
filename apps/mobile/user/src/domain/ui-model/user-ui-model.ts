@@ -8,7 +8,7 @@ export interface UserUiModelProps {
 }
 export class UserUiModel {
   constructor(private readonly props: UserUiModelProps) {}
-  public copyWith(props: Partial<UserUiModelProps>) {
+  copyWith(props: Partial<UserUiModelProps>) {
     return new UserUiModel({ ...this.props, ...props })
   }
 

@@ -22,7 +22,6 @@ export const Onboarding: React.FC = () => {
   const onScroll = useAnimatedScrollHandler(({ contentOffset }) => {
     x.value = contentOffset.x
   })
-
   const currentIndex = useDerivedValue(() => x.value / width)
   return (
     <Box flex={1} backgroundColor="main-background" paddingBottom="3xl">
