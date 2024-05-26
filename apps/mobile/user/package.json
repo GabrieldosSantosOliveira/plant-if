@@ -56,7 +56,6 @@
     "@testing-library/react-native": "^12.1.2",
     "@types/jest": "^29.5.2",
     "@types/react": "~18.2.79",
-    "babel-plugin-module-resolver": "^5.0.0",
     "eslint-config-expo": "^7.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
