@@ -1,16 +1,15 @@
-import { useAuth } from '@/ui/hooks/use-auth'
-import { useColorMode } from '@/ui/hooks/use-color-mode'
-import { useTheme } from '@/ui/hooks/use-theme'
-import { NavigationContainer } from '@react-navigation/native'
-import React from 'react'
+import { useAuth } from '@/ui/hooks/use-auth';
+import { useColorMode } from '@/ui/hooks/use-color-mode';
+import { useTheme } from '@/ui/hooks/use-theme';
+import { NavigationContainer } from '@react-navigation/native';
 
-import { AppRoutesNavigator } from './app.routes'
-import { AuthenticationNavigator } from './auth-routes'
+import { AppRoutesNavigator } from './app.routes';
+import { AuthenticationNavigator } from './auth-routes';
 
 export const Routes = () => {
-  const { user } = useAuth()
-  const { colors } = useTheme()
-  const { theme } = useColorMode()
+  const { user } = useAuth();
+  const { colors } = useTheme();
+  const { theme } = useColorMode();
   return (
     <NavigationContainer
       theme={{
@@ -27,5 +26,5 @@ export const Routes = () => {
     >
       {user ? <AppRoutesNavigator /> : <AuthenticationNavigator />}
     </NavigationContainer>
-  )
-}
+  );
+};

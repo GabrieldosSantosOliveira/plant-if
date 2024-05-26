@@ -1,68 +1,68 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { keys } from '@/constants/keys'
-import { useStorage } from '@/ui/hooks/use-storage'
-import { ThemeDark, ThemeLight } from '@/ui/styles/theme'
-import { ThemeProvider } from '@shopify/restyle'
-import { ReactNode, createContext, FC, useState, useEffect } from 'react'
-import { Appearance, useColorScheme } from 'react-native'
-export type ThemeType = 'light' | 'dark'
-export type ColorModeType = 'light' | 'dark' | 'automatic'
+import { keys } from '@/constants/keys';
+import { useStorage } from '@/ui/hooks/use-storage';
+import { ThemeDark, ThemeLight } from '@/ui/styles/theme';
+import { ThemeProvider } from '@shopify/restyle';
+import { ReactNode, createContext, FC, useState, useEffect } from 'react';
+import { Appearance, useColorScheme } from 'react-native';
+export type ThemeType = 'light' | 'dark';
+export type ColorModeType = 'light' | 'dark' | 'automatic';
 export interface ColorModeContextProps {
-  theme: ThemeType
-  colorMode: ColorModeType
-  changeColorModeToDark(): Promise<void>
-  changeColorModeToLight(): Promise<void>
-  changeColorModeToAutomatic(): Promise<void>
+  theme: ThemeType;
+  colorMode: ColorModeType;
+  changeColorModeToDark(): Promise<void>;
+  changeColorModeToLight(): Promise<void>;
+  changeColorModeToAutomatic(): Promise<void>;
 }
 export const ColorModeContext = createContext<ColorModeContextProps>(
   {} as ColorModeContextProps,
-)
+);
 export interface ColorModeProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 export const ColorModeProvider: FC<ColorModeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<ThemeType>('light')
-  const [colorMode, setColorMode] = useState<ColorModeType>('light')
-  const colorScheme = useColorScheme()
-  const { storage } = useStorage()
+  const [theme, setTheme] = useState<ThemeType>('light');
+  const [colorMode, setColorMode] = useState<ColorModeType>('light');
+  const colorScheme = useColorScheme();
+  const { storage } = useStorage();
   Appearance.addChangeListener((preferences) => {
     if (colorMode === 'automatic' && preferences.colorScheme) {
-      setTheme(preferences.colorScheme)
+      setTheme(preferences.colorScheme);
     }
-  })
+  });
   const changeColorModeToAutomatic = async () => {
-    setColorMode('automatic')
-    setTheme(colorScheme || 'dark')
-    await storage.setItem<ColorModeType>(keys.COLOR_MODE, 'automatic')
-  }
+    setColorMode('automatic');
+    setTheme(colorScheme || 'dark');
+    await storage.setItem<ColorModeType>(keys.COLOR_MODE, 'automatic');
+  };
   const changeColorModeToDark = async () => {
-    setTheme('dark')
-    setColorMode('dark')
-    await storage.setItem<ColorModeType>(keys.COLOR_MODE, 'dark')
-  }
+    setTheme('dark');
+    setColorMode('dark');
+    await storage.setItem<ColorModeType>(keys.COLOR_MODE, 'dark');
+  };
   const changeColorModeToLight = async () => {
-    setTheme('light')
-    setColorMode('light')
-    await storage.setItem<ColorModeType>(keys.COLOR_MODE, 'light')
-  }
+    setTheme('light');
+    setColorMode('light');
+    await storage.setItem<ColorModeType>(keys.COLOR_MODE, 'light');
+  };
 
   useEffect(() => {
     const loadThemeStorage = async () => {
       const colorModeSaveInStorage = await storage.getItem<ColorModeType>(
         keys.COLOR_MODE,
-      )
+      );
       if (!colorModeSaveInStorage) {
-        await changeColorModeToAutomatic()
+        await changeColorModeToAutomatic();
       } else if (colorModeSaveInStorage === 'automatic') {
-        await changeColorModeToAutomatic()
+        await changeColorModeToAutomatic();
       } else if (colorModeSaveInStorage === 'dark') {
-        await changeColorModeToDark()
+        await changeColorModeToDark();
       } else if (colorModeSaveInStorage === 'light') {
-        await changeColorModeToLight()
+        await changeColorModeToLight();
       }
-    }
-    loadThemeStorage()
-  }, [])
+    };
+    loadThemeStorage();
+  }, []);
   return (
     <ColorModeContext.Provider
       value={{
@@ -77,5 +77,5 @@ export const ColorModeProvider: FC<ColorModeProviderProps> = ({ children }) => {
         {children}
       </ThemeProvider>
     </ColorModeContext.Provider>
-  )
-}
+  );
+};

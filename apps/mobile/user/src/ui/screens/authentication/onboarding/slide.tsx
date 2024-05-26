@@ -1,24 +1,24 @@
-import { Box } from '@/ui/components/shared/box'
-import { Image } from '@/ui/components/shared/image'
-import { Text } from '@/ui/components/shared/text'
-import { Theme } from '@/ui/styles/theme'
-import { useTheme } from '@shopify/restyle'
-import { ImageRequireSource, useWindowDimensions } from 'react-native'
+import { Box } from '@/ui/components/shared/box';
+import { Image } from '@/ui/components/shared/image';
+import { Text } from '@/ui/components/shared/text';
+import { Theme } from '@/ui/styles/theme';
+import { useTheme } from '@shopify/restyle';
+import { ImageRequireSource, useWindowDimensions } from 'react-native';
 export interface SlideProps {
-  title: string
-  description: string
+  title: string;
+  description: string;
   image: {
-    src: ImageRequireSource
-    width: number
-    height: number
-    alt: string
-  }
+    src: ImageRequireSource;
+    width: number;
+    height: number;
+    alt: string;
+  };
 }
 export const Slide: React.FC<SlideProps> = ({ description, image, title }) => {
-  const { width } = useWindowDimensions()
-  const { borderRadii } = useTheme<Theme>()
-  const ratio = image.height / image.width
-  const height = width * ratio
+  const { width } = useWindowDimensions();
+  const { borderRadii } = useTheme<Theme>();
+  const ratio = image.height / image.width;
+  const height = width * ratio;
   return (
     <Box
       width={width}
@@ -45,5 +45,5 @@ export const Slide: React.FC<SlideProps> = ({ description, image, title }) => {
         </Text>
       </Box>
     </Box>
-  )
-}
+  );
+};

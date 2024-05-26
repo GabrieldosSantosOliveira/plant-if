@@ -1,28 +1,28 @@
-import { Box } from '@/ui/components/shared/box'
-import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { useWindowDimensions } from 'react-native'
+import { Box } from '@/ui/components/shared/box';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { useWindowDimensions } from 'react-native';
 import Animated, {
   useAnimatedRef,
   useAnimatedScrollHandler,
   useDerivedValue,
   useSharedValue,
-} from 'react-native-reanimated'
+} from 'react-native-reanimated';
 
-import { Button } from './../components/button'
-import { Dot } from './dot'
-import { Slide } from './slide'
-import { slides } from './slides'
+import { Button } from './../components/button';
+import { Dot } from './dot';
+import { Slide } from './slide';
+import { slides } from './slides';
 
 export const Onboarding: React.FC = () => {
-  const { navigate } = useNavigation()
-  const { width } = useWindowDimensions()
-  const x = useSharedValue(0)
-  const scrollRef = useAnimatedRef<Animated.ScrollView>()
+  const { navigate } = useNavigation();
+  const { width } = useWindowDimensions();
+  const x = useSharedValue(0);
+  const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const onScroll = useAnimatedScrollHandler(({ contentOffset }) => {
-    x.value = contentOffset.x
-  })
-  const currentIndex = useDerivedValue(() => x.value / width)
+    x.value = contentOffset.x;
+  });
+  const currentIndex = useDerivedValue(() => x.value / width);
   return (
     <Box flex={1} backgroundColor="main-background" paddingBottom="3xl">
       <Animated.ScrollView
@@ -74,5 +74,5 @@ export const Onboarding: React.FC = () => {
         </Box>
       </Box>
     </Box>
-  )
-}
+  );
+};

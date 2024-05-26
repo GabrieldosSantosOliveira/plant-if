@@ -1,14 +1,14 @@
-import { Feather, AntDesign, MaterialIcons } from '@expo/vector-icons'
+import { Feather, AntDesign, MaterialIcons } from '@expo/vector-icons';
 
-import { AppleIcon } from './apple-icon'
-import { ArrowLeft } from './arrow-left'
-import { Email } from './email'
-import { FacebookIcon } from './facebook-icon'
-import { GoogleIcon } from './google-icon'
-import { Tractor } from './tractor'
+import { AppleIcon } from './apple-icon';
+import { ArrowLeft } from './arrow-left';
+import { Email } from './email';
+import { FacebookIcon } from './facebook-icon';
+import { GoogleIcon } from './google-icon';
+import { Tractor } from './tractor';
 export interface IconProps {
-  size?: number
-  color: string
+  size?: number;
+  color: string;
 }
 export const Icons = {
   google: ({ size = 24 }: Pick<IconProps, 'size'>) => (
@@ -44,4 +44,4 @@ export const Icons = {
   tractor: ({ size = 24, color }: IconProps) => (
     <Tractor width={size} height={size} color={color} />
   ),
-}
+};

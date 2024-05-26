@@ -1,5 +1,5 @@
-import { ReactNativeMMKVAdapter } from '@/infra/storage/react-native-mmkv-adapter'
+import { ReactNativeMMKVAdapter } from '@/infra/storage/react-native-mmkv-adapter';
 
-import { MakeJson } from '../json/make-json'
+import { MakeJson } from '../json/make-json';
 
-export const MakeStorage = () => new ReactNativeMMKVAdapter(MakeJson())
+export const MakeStorage = () => new ReactNativeMMKVAdapter(MakeJson());

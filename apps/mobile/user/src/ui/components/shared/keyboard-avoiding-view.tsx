@@ -1,4 +1,4 @@
-import { Theme } from '@/ui/styles/theme'
+import { Theme } from '@/ui/styles/theme';
 import {
   createRestyleComponent,
   ColorProps,
@@ -23,12 +23,12 @@ import {
   border,
   shadow,
   position,
-} from '@shopify/restyle'
-import React from 'react'
+} from '@shopify/restyle';
+import React from 'react';
 import {
   KeyboardAvoidingViewProps as RNKeyboardAvoidingViewProps,
   KeyboardAvoidingView as RNKeyboardAvoidingView,
-} from 'react-native'
+} from 'react-native';
 export type BaseKeyboardAvoidingViewProps = ColorProps<Theme> &
   VisibleProps<Theme> &
   TypographyProps<Theme> &
@@ -39,7 +39,7 @@ export type BaseKeyboardAvoidingViewProps = ColorProps<Theme> &
   LayoutProps<Theme> &
   BorderProps<Theme> &
   ShadowProps<Theme> &
-  PositionProps<Theme>
+  PositionProps<Theme>;
 export const KeyboardAvoidingView = createRestyleComponent<
   RNKeyboardAvoidingViewProps & BaseKeyboardAvoidingViewProps,
   Theme
@@ -58,7 +58,7 @@ export const KeyboardAvoidingView = createRestyleComponent<
     position,
   ],
   RNKeyboardAvoidingView,
-)
+);
 export type KeyboardAvoidingViewProps = React.ComponentProps<
   typeof KeyboardAvoidingView
->
+>;

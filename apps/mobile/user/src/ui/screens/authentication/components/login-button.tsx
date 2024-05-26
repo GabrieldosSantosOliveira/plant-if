@@ -1,22 +1,22 @@
-import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity'
-import { Theme } from '@/ui/styles/theme'
-import { useTheme } from '@shopify/restyle'
-import { ReactNode, FC } from 'react'
-import { AccessibilityProps, ActivityIndicator } from 'react-native'
+import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity';
+import { Theme } from '@/ui/styles/theme';
+import { useTheme } from '@shopify/restyle';
+import { ReactNode } from 'react';
+import { AccessibilityProps, ActivityIndicator } from 'react-native';
 
 export interface LoginButtonProps extends AccessibilityProps {
-  icon: ReactNode
-  isLoading?: boolean
-  onPress: () => void
-  testID?: string
+  icon: ReactNode;
+  isLoading?: boolean;
+  onPress: () => void;
+  testID?: string;
 }
-export const LoginButton: FC<LoginButtonProps> = ({
+export const LoginButton: React.FC<LoginButtonProps> = ({
   icon,
   onPress,
   isLoading = false,
   ...props
 }) => {
-  const { colors } = useTheme<Theme>()
+  const { colors } = useTheme<Theme>();
   return (
     <TouchableOpacity
       testID="id-button"
@@ -44,5 +44,5 @@ export const LoginButton: FC<LoginButtonProps> = ({
         icon
       )}
     </TouchableOpacity>
-  )
-}
+  );
+};

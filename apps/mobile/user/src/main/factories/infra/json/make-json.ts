@@ -1,3 +1,3 @@
-import { JSONAdapter } from '@/infra/json/json-adapter'
+import { JSONAdapter } from '@/infra/json/json-adapter';
 
-export const MakeJson = () => new JSONAdapter()
+export const MakeJson = () => new JSONAdapter();

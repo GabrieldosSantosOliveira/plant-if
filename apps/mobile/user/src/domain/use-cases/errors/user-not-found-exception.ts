@@ -1,8 +1,8 @@
-import { Exception } from './exception'
+import { Exception } from './exception';
 
 export class UserNotFoundException extends Error implements Exception {
   constructor() {
-    super('Usuário não encontrado')
-    this.name = 'UserNotFoundException'
+    super('Usuário não encontrado');
+    this.name = 'UserNotFoundException';
   }
 }

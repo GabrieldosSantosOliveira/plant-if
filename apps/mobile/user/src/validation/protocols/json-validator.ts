@@ -1,3 +1,3 @@
 export interface JsonValidator {
-  isValidJSON(text: string): boolean
+  isValidJSON(text: string): boolean;
 }

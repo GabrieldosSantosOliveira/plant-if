@@ -1,5 +1,5 @@
-import { Theme } from '@/ui/styles/theme'
-import { createText } from '@shopify/restyle'
-import React from 'react'
-export const Text = createText<Theme>()
-export type TextProps = React.ComponentProps<typeof Text>
+import { Theme } from '@/ui/styles/theme';
+import { createText } from '@shopify/restyle';
+import React from 'react';
+export const Text = createText<Theme>();
+export type TextProps = React.ComponentProps<typeof Text>;

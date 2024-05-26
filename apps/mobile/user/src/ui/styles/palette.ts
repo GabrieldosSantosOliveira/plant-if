@@ -11,4 +11,4 @@ export const palette = {
   red: {
     500: '#ef4444',
   },
-}
+};

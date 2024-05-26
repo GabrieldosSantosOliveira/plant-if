@@ -1,25 +1,24 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-import { ThemeLight } from '@/ui/styles/theme'
-import { ThemeProvider } from '@shopify/restyle'
-import { ReactNode, createContext, FC } from 'react'
-export type ThemeType = 'light' | 'dark'
-export type ColorModeMockType = 'light' | 'dark' | 'automatic'
+import { ThemeLight } from '@/ui/styles/theme';
+import { ThemeProvider } from '@shopify/restyle';
+import { ReactNode, createContext } from 'react';
+export type ThemeType = 'light' | 'dark';
+export type ColorModeMockType = 'light' | 'dark' | 'automatic';
 export interface ColorModeMockContextProps {
-  theme: ThemeType
-  ColorModeMock: ColorModeMockType
-  changeColorModeToDark(): Promise<void>
-  changeColorModeToLight(): Promise<void>
-  changeColorModeToAutomatic(): Promise<void>
+  theme: ThemeType;
+  ColorModeMock: ColorModeMockType;
+  changeColorModeToDark(): Promise<void>;
+  changeColorModeToLight(): Promise<void>;
+  changeColorModeToAutomatic(): Promise<void>;
 }
 export const ColorModeMockContext = createContext<ColorModeMockContextProps>(
   {} as ColorModeMockContextProps,
-)
+);
 export interface ColorModeMockProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
-export const ColorModeMockMockProvider: FC<ColorModeMockProviderProps> = ({
-  children,
-}) => {
+export const ColorModeMockMockProvider: React.FC<
+  ColorModeMockProviderProps
+> = ({ children }) => {
   return (
     <ColorModeMockContext.Provider
       value={{
@@ -32,5 +31,5 @@ export const ColorModeMockMockProvider: FC<ColorModeMockProviderProps> = ({
     >
       <ThemeProvider theme={ThemeLight}>{children}</ThemeProvider>
     </ColorModeMockContext.Provider>
-  )
-}
+  );
+};

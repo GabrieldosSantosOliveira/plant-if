@@ -2,9 +2,9 @@ import {
   HttpClient,
   HttpClientOptions,
   HttpClientResponse,
-} from '@/data/protocols/http/http-client'
-import { Json } from '@/data/protocols/json/json'
-import { JsonValidator } from '@/validation/protocols/json-validator'
+} from '@/data/protocols/http/http-client';
+import { Json } from '@/data/protocols/json/json';
+import { JsonValidator } from '@/validation/protocols/json-validator';
 enum HttpMethod {
   GET = 'GET',
   PATCH = 'PATCH',
@@ -30,13 +30,13 @@ export class FetchHttpAdapter implements HttpClient {
         'Content-Type':
           options?.headers?.['Content-Type'] || 'application/json',
       },
-    })
-    const text = await response.text()
+    });
+    const text = await response.text();
     if (this.jsonValidator.isValidJSON(text)) {
-      const data = await this.json.parse<T>(text)
-      return { data, statusCode: response.status }
+      const data = await this.json.parse<T>(text);
+      return { data, statusCode: response.status };
     }
-    return { data: undefined as T, statusCode: response.status }
+    return { data: undefined as T, statusCode: response.status };
   }
 
   async post<T = unknown>(
@@ -51,13 +51,13 @@ export class FetchHttpAdapter implements HttpClient {
         'Content-Type':
           options?.headers?.['Content-Type'] || 'application/json',
       },
-    })
-    const text = await response.text()
+    });
+    const text = await response.text();
     if (this.jsonValidator.isValidJSON(text)) {
-      const data = await this.json.parse<T>(text)
-      return { data, statusCode: response.status }
+      const data = await this.json.parse<T>(text);
+      return { data, statusCode: response.status };
     }
-    return { data: undefined as T, statusCode: response.status }
+    return { data: undefined as T, statusCode: response.status };
   }
 
   async put<T = unknown>(
@@ -72,13 +72,13 @@ export class FetchHttpAdapter implements HttpClient {
         'Content-Type':
           options?.headers?.['Content-Type'] || 'application/json',
       },
-    })
-    const text = await response.text()
+    });
+    const text = await response.text();
     if (this.jsonValidator.isValidJSON(text)) {
-      const data = await this.json.parse<T>(text)
-      return { data, statusCode: response.status }
+      const data = await this.json.parse<T>(text);
+      return { data, statusCode: response.status };
     }
-    return { data: undefined as T, statusCode: response.status }
+    return { data: undefined as T, statusCode: response.status };
   }
 
   async patch<T = unknown>(
@@ -93,13 +93,13 @@ export class FetchHttpAdapter implements HttpClient {
         'Content-Type':
           options?.headers?.['Content-Type'] || 'application/json',
       },
-    })
-    const text = await response.text()
+    });
+    const text = await response.text();
     if (this.jsonValidator.isValidJSON(text)) {
-      const data = await this.json.parse<T>(text)
-      return { data, statusCode: response.status }
+      const data = await this.json.parse<T>(text);
+      return { data, statusCode: response.status };
     }
-    return { data: undefined as T, statusCode: response.status }
+    return { data: undefined as T, statusCode: response.status };
   }
 
   async delete<T = unknown>(
@@ -114,12 +114,12 @@ export class FetchHttpAdapter implements HttpClient {
         'Content-Type':
           options?.headers?.['Content-Type'] || 'application/json',
       },
-    })
-    const text = await response.text()
+    });
+    const text = await response.text();
     if (this.jsonValidator.isValidJSON(text)) {
-      const data = await this.json.parse<T>(text)
-      return { data, statusCode: response.status }
+      const data = await this.json.parse<T>(text);
+      return { data, statusCode: response.status };
     }
-    return { data: undefined as T, statusCode: response.status }
+    return { data: undefined as T, statusCode: response.status };
   }
 }

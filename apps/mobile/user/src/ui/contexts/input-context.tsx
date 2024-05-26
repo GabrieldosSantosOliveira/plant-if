@@ -1,31 +1,31 @@
-import { createContext, FC, ReactNode, useState } from 'react'
+import { createContext, FC, ReactNode, useState } from 'react';
 export interface InputContextProps {
-  isFocus: boolean
-  withFocus: () => void
-  withoutFocus: () => void
+  isFocus: boolean;
+  withFocus: () => void;
+  withoutFocus: () => void;
 }
 export const InputContext = createContext<InputContextProps>(
   {} as InputContextProps,
-)
+);
 export interface InputProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 export const InputProvider: FC<InputProviderProps> = ({ children }) => {
-  const [isFocus, setIsFocus] = useState(false)
+  const [isFocus, setIsFocus] = useState(false);
 
   return (
     <InputContext.Provider
       value={{
         isFocus,
         withFocus() {
-          setIsFocus(true)
+          setIsFocus(true);
         },
         withoutFocus() {
-          setIsFocus(false)
+          setIsFocus(false);
         },
       }}
     >
       {children}
     </InputContext.Provider>
-  )
-}
+  );
+};

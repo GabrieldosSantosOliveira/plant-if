@@ -1,27 +1,24 @@
-import { UserUiModel } from '@/domain/ui-model/user-ui-model'
-import { AuthRecoverySessionUseCase } from '@/domain/use-cases/auth-recovery-session-use-case'
-import React, { createContext, ReactNode, FC, useState, useEffect } from 'react'
+import { UserUiModel } from '@/domain/ui-model/user-ui-model';
+import { AuthRecoverySessionUseCase } from '@/domain/use-cases/auth-recovery-session-use-case';
+import React, { createContext, ReactNode, useState, useEffect } from 'react';
 export interface AuthContextProps {
-  user: UserUiModel | null
-  setUser: (user: UserUiModel | null) => void
+  user: UserUiModel | null;
+  setUser: (user: UserUiModel | null) => void;
 }
 export const AuthContext = createContext<AuthContextProps>(
   {} as AuthContextProps,
-)
+);
 export interface AuthProviderProps {
-  children: ReactNode
-  authRecoverySessionUseCase: AuthRecoverySessionUseCase
+  children: ReactNode;
+  authRecoverySessionUseCase: AuthRecoverySessionUseCase;
 }
 
-export const AuthProvider: FC<AuthProviderProps> = ({
-  children,
-  authRecoverySessionUseCase,
-}) => {
-  const [user, setUser] = useState<UserUiModel | null>(null)
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<UserUiModel | null>(null);
   useEffect(() => {
     async function recoverySession() {}
-    recoverySession()
-  }, [])
+    recoverySession();
+  }, []);
   return (
     <AuthContext.Provider
       value={{
@@ -31,5 +28,5 @@ export const AuthProvider: FC<AuthProviderProps> = ({
     >
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};

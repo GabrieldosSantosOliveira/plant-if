@@ -1,4 +1,4 @@
-import { Theme } from '@/ui/styles/theme'
+import { Theme } from '@/ui/styles/theme';
 import {
   createRestyleComponent,
   ColorProps,
@@ -25,12 +25,12 @@ import {
   position,
   createVariant,
   VariantProps,
-} from '@shopify/restyle'
-import React from 'react'
+} from '@shopify/restyle';
+import React from 'react';
 import {
   TextInputProps as RNTextInputProps,
   TextInput as RNTextInput,
-} from 'react-native'
+} from 'react-native';
 export type BaseTextInputProps = ColorProps<Theme> &
   VisibleProps<Theme> &
   TypographyProps<Theme> &
@@ -42,7 +42,7 @@ export type BaseTextInputProps = ColorProps<Theme> &
   BorderProps<Theme> &
   ShadowProps<Theme> &
   PositionProps<Theme> &
-  VariantProps<Theme, 'textVariants'>
+  VariantProps<Theme, 'textVariants'>;
 
 export const TextInput = createRestyleComponent<
   RNTextInputProps & BaseTextInputProps,
@@ -63,5 +63,5 @@ export const TextInput = createRestyleComponent<
     createVariant({ themeKey: 'textVariants' }),
   ],
   RNTextInput,
-)
-export type TextInputProps = React.ComponentProps<typeof TextInput>
+);
+export type TextInputProps = React.ComponentProps<typeof TextInput>;

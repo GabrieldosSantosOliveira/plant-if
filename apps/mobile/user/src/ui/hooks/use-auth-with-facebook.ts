@@ -1,26 +1,26 @@
-import { AuthWithFacebookUseCase } from '@/domain/use-cases/auth-with-facebook-use-case'
-import { useState } from 'react'
-import { AccessToken, LoginManager } from 'react-native-fbsdk-next'
+import { AuthWithFacebookUseCase } from '@/domain/use-cases/auth-with-facebook-use-case';
+import { useState } from 'react';
+import { AccessToken, LoginManager } from 'react-native-fbsdk-next';
 
-import { useAuth } from './use-auth'
-import { useToast } from './use-toast'
+import { useAuth } from './use-auth';
+import { useToast } from './use-toast';
 export interface UseAuthWithGoogleProps {
-  authWithFacebookUseCase: AuthWithFacebookUseCase
+  authWithFacebookUseCase: AuthWithFacebookUseCase;
 }
 export const useAuthWithFacebook = ({
   authWithFacebookUseCase,
 }: UseAuthWithGoogleProps) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { setUser } = useAuth()
-  const toast = useToast()
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { setUser } = useAuth();
+  const toast = useToast();
   const promptAsync = async () => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       const result = await LoginManager.logInWithPermissions([
         'public_profile',
         'email',
-      ])
-      const accessToken = await AccessToken.getCurrentAccessToken()
+      ]);
+      const accessToken = await AccessToken.getCurrentAccessToken();
       if (
         !result.isCancelled &&
         result.grantedPermissions?.includes('public_profile') &&
@@ -29,19 +29,19 @@ export const useAuthWithFacebook = ({
       ) {
         const userOrError = await authWithFacebookUseCase.execute(
           accessToken.accessToken,
-        )
+        );
         if (userOrError.isRight()) {
-          setUser(userOrError.value)
+          setUser(userOrError.value);
         }
         if (userOrError.isLeft()) {
           toast.error({
             title: userOrError.value.message,
-          })
+          });
         }
       }
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
-  return { promptAsync, isLoading }
-}
+  };
+  return { promptAsync, isLoading };
+};

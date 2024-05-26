@@ -1,17 +1,19 @@
-import { AuthProvider } from '@/ui/contexts/auth-context'
-import { HttpClientProvider } from '@/ui/contexts/http-client-context'
-import { StorageProvider } from '@/ui/contexts/storage-context'
-import { ToastProvider } from '@/ui/contexts/toast-context'
-import { NavigationContainer } from '@react-navigation/native'
-import { render, RenderOptions } from '@testing-library/react-native'
-import React, { ReactNode, FC, ReactElement } from 'react'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { AuthProvider } from '@/ui/contexts/auth-context';
+import { HttpClientProvider } from '@/ui/contexts/http-client-context';
+import { StorageProvider } from '@/ui/contexts/storage-context';
+import { ToastProvider } from '@/ui/contexts/toast-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { render, RenderOptions } from '@testing-library/react-native';
+import React, { ReactNode, ReactElement } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { ColorModeMockMockProvider } from './mocks/color-mode-mock'
+import { ColorModeMockMockProvider } from './mocks/color-mode-mock';
 export interface AllTheProvidersProps {
-  children: ReactNode
+  children: ReactNode;
 }
-export const AllTheProviders: FC<AllTheProvidersProps> = ({ children }) => {
+export const AllTheProviders: React.FC<AllTheProvidersProps> = ({
+  children,
+}) => {
   return (
     <GestureHandlerRootView>
       <ToastProvider>
@@ -26,13 +28,13 @@ export const AllTheProviders: FC<AllTheProvidersProps> = ({ children }) => {
         </HttpClientProvider>
       </ToastProvider>
     </GestureHandlerRootView>
-  )
-}
+  );
+};
 
 function customRender<T>(ui: ReactElement<T>, options?: RenderOptions) {
-  return render(ui, { wrapper: AllTheProviders, ...options })
+  return render(ui, { wrapper: AllTheProviders, ...options });
 }
 
-export * from '@testing-library/react-native'
+export * from '@testing-library/react-native';
 
-export { customRender as render }
+export { customRender as render };

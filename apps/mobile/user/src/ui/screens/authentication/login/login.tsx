@@ -1,34 +1,34 @@
-import { AuthWithEmailUseCase } from '@/domain/use-cases/auth-with-email-use-case'
-import { AuthWithFacebookUseCase } from '@/domain/use-cases/auth-with-facebook-use-case'
-import { AuthWithGoogleUseCase } from '@/domain/use-cases/auth-with-google-use-case'
-import { Icons } from '@/ui/components/icons/icons'
-import { Box } from '@/ui/components/shared/box'
-import { ScrollView } from '@/ui/components/shared/scroll-view'
-import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity'
-import { useAuthWithEmail } from '@/ui/hooks/use-auth-with-email'
-import { useTheme } from '@/ui/hooks/use-theme'
-import { ControlledInput } from '@/ui/screens/authentication/components/input/controlled-input'
-import { Root } from '@/ui/screens/authentication/components/input/root'
-import { yupResolver } from '@hookform/resolvers/yup'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { AuthWithEmailUseCase } from '@/domain/use-cases/auth-with-email-use-case';
+import { AuthWithFacebookUseCase } from '@/domain/use-cases/auth-with-facebook-use-case';
+import { AuthWithGoogleUseCase } from '@/domain/use-cases/auth-with-google-use-case';
+import { Icons } from '@/ui/components/icons/icons';
+import { Box } from '@/ui/components/shared/box';
+import { ScrollView } from '@/ui/components/shared/scroll-view';
+import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity';
+import { useAuthWithEmail } from '@/ui/hooks/use-auth-with-email';
+import { useTheme } from '@/ui/hooks/use-theme';
+import { ControlledInput } from '@/ui/screens/authentication/components/input/controlled-input';
+import { Root } from '@/ui/screens/authentication/components/input/root';
+import { yupResolver } from '@hookform/resolvers/yup';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import { Button } from './../components/button'
-import { ButtonForgotPassword } from './button-forgot-password'
-import { ContinueWith } from './continue-with'
-import { Header } from './header'
-import { loginValidator } from './login-validator'
-import { NoHaveAccount } from './no-have-account'
-import { SocialLogin } from './social-login'
+import { Button } from './../components/button';
+import { ButtonForgotPassword } from './button-forgot-password';
+import { ContinueWith } from './continue-with';
+import { Header } from './header';
+import { loginValidator } from './login-validator';
+import { NoHaveAccount } from './no-have-account';
+import { SocialLogin } from './social-login';
 
 export interface LoginProps {
-  authWithGoogleUseCase: AuthWithGoogleUseCase
-  authWithFacebookUseCase: AuthWithFacebookUseCase
-  authWithEmailUseCase: AuthWithEmailUseCase
+  authWithGoogleUseCase: AuthWithGoogleUseCase;
+  authWithFacebookUseCase: AuthWithFacebookUseCase;
+  authWithEmailUseCase: AuthWithEmailUseCase;
 }
 export interface LoginForm {
-  password: string
-  email: string
+  password: string;
+  email: string;
 }
 
 export const Login: React.FC<LoginProps> = ({
@@ -36,12 +36,12 @@ export const Login: React.FC<LoginProps> = ({
   authWithFacebookUseCase,
   authWithEmailUseCase,
 }) => {
-  const [showPassword, setShowPassword] = useState(false)
-  const { colors } = useTheme()
+  const [showPassword, setShowPassword] = useState(false);
+  const { colors } = useTheme();
 
   const authWithEmail = useAuthWithEmail({
     authWithEmailUseCase,
-  })
+  });
 
   const {
     control,
@@ -49,14 +49,14 @@ export const Login: React.FC<LoginProps> = ({
     formState: { errors },
   } = useForm<LoginForm>({
     resolver: yupResolver(loginValidator),
-  })
+  });
 
   const onSubmit = async ({ email, password }: LoginForm) => {
     await authWithEmail.execute({
       email,
       password,
-    })
-  }
+    });
+  };
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Box
@@ -115,5 +115,5 @@ export const Login: React.FC<LoginProps> = ({
         <NoHaveAccount />
       </Box>
     </ScrollView>
-  )
-}
+  );
+};

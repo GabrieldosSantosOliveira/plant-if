@@ -1,4 +1,4 @@
-import { Onboarding } from '@/ui/screens/authentication/onboarding/onboarding'
+import { Onboarding } from '@/ui/screens/authentication/onboarding/onboarding';
 export const MakeOnboarding: React.FC = () => {
-  return <Onboarding />
-}
+  return <Onboarding />;
+};

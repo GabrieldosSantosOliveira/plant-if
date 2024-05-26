@@ -1,8 +1,8 @@
-import type { AppRoutes } from '@/@types/navigation'
-import { Home } from '@/ui/screens/home/home'
-import { createStackNavigator } from '@react-navigation/stack'
+import type { AppRoutes } from '@/@types/navigation';
+import { Home } from '@/ui/screens/home/home';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const AppRoutesNavigatorStack = createStackNavigator<AppRoutes>()
+const AppRoutesNavigatorStack = createStackNavigator<AppRoutes>();
 
 export const AppRoutesNavigator: React.FC = () => {
   return (
@@ -12,5 +12,5 @@ export const AppRoutesNavigator: React.FC = () => {
     >
       <AppRoutesNavigatorStack.Screen name="home" component={Home} />
     </AppRoutesNavigatorStack.Navigator>
-  )
-}
+  );
+};

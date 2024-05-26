@@ -1,6 +1,6 @@
 export class WithoutProviderError extends Error {
   constructor(message: string) {
-    super(message)
-    this.name = 'WithoutProviderError'
+    super(message);
+    this.name = 'WithoutProviderError';
   }
 }

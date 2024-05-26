@@ -1,12 +1,12 @@
-import { JsonValidator } from '@/validation/protocols/json-validator'
+import { JsonValidator } from '@/validation/protocols/json-validator';
 
 export class JsonValidatorAdapter implements JsonValidator {
   isValidJSON(text: string): boolean {
     try {
-      JSON.parse(text)
-      return true
+      JSON.parse(text);
+      return true;
     } catch {
-      return false
+      return false;
     }
   }
 }

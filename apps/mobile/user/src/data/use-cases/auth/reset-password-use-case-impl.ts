@@ -1,10 +1,10 @@
-import { ResetPasswordRepository } from '@/domain/repositories/reset-password-repository'
-import { Exception } from '@/domain/use-cases/errors/exception'
+import { ResetPasswordRepository } from '@/domain/repositories/reset-password-repository';
+import { Exception } from '@/domain/use-cases/errors/exception';
 import {
   ResetPasswordUseCase,
   ResetPasswordUseCaseDto,
-} from '@/domain/use-cases/reset-password-use-case'
-import { Either, left } from '@/shared/either'
+} from '@/domain/use-cases/reset-password-use-case';
+import { Either, left } from '@/shared/either';
 
 export class ResetPasswordUseCaseImpl implements ResetPasswordUseCase {
   constructor(
@@ -14,10 +14,10 @@ export class ResetPasswordUseCaseImpl implements ResetPasswordUseCase {
   async execute(
     data: ResetPasswordUseCaseDto,
   ): Promise<Either<Exception, null>> {
-    const successOrFails = await this.resetPasswordRepository.execute(data)
+    const successOrFails = await this.resetPasswordRepository.execute(data);
     if (successOrFails.isLeft()) {
-      return left(successOrFails.value)
+      return left(successOrFails.value);
     }
-    return successOrFails
+    return successOrFails;
   }
 }

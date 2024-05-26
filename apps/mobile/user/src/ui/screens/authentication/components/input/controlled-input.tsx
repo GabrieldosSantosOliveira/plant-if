@@ -1,10 +1,10 @@
-import { Controller, UseControllerProps, FieldValues } from 'react-hook-form'
+import { Controller, UseControllerProps, FieldValues } from 'react-hook-form';
 
-import { Input, InputProps } from './input'
+import { Input, InputProps } from './input';
 export type ControlledInputProps<T extends FieldValues> = InputProps &
   UseControllerProps<T> & {
-    onChangeTextFormat?: (text: string) => string
-  }
+    onChangeTextFormat?: (text: string) => string;
+  };
 export function ControlledInput<FormType extends FieldValues>({
   control,
   defaultValue,
@@ -26,19 +26,19 @@ export function ControlledInput<FormType extends FieldValues>({
       render={({ field }) => (
         <Input
           onBlur={(e) => {
-            field.onBlur()
+            field.onBlur();
             if (onBlur) {
-              onBlur(e)
+              onBlur(e);
             }
           }}
           onChangeText={(text) => {
             if (onChangeTextFormat) {
-              field.onChange(onChangeTextFormat(text))
+              field.onChange(onChangeTextFormat(text));
             } else {
-              field.onChange(text)
+              field.onChange(text);
             }
             if (onChangeText) {
-              onChangeText(text)
+              onChangeText(text);
             }
           }}
           value={field.value}
@@ -46,5 +46,5 @@ export function ControlledInput<FormType extends FieldValues>({
         />
       )}
     />
-  )
+  );
 }

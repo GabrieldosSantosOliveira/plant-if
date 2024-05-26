@@ -1,5 +1,5 @@
-import { ParamListBase } from '@react-navigation/native'
-import { StackScreenProps } from '@react-navigation/stack'
+import { ParamListBase } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
 
 export const MakeNavigationRouteMock = <
   ParamList extends ParamListBase,
@@ -17,5 +17,5 @@ export const MakeNavigationRouteMock = <
       name: '' as Extract<keyof ParamList, string>,
       ...route,
     },
-  }
-}
+  };
+};

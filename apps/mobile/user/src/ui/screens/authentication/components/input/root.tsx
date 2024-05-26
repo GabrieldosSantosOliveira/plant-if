@@ -1,16 +1,16 @@
-import { InputProvider } from '@/ui/contexts/input-context'
-import { useInput } from '@/ui/hooks/use-input'
-import { memo } from 'react'
+import { InputProvider } from '@/ui/contexts/input-context';
+import { useInput } from '@/ui/hooks/use-input';
+import { memo } from 'react';
 
-import { Box, BoxProps } from '../../../../components/shared/box'
-import { Text } from '../../../../components/shared/text'
+import { Box, BoxProps } from '../../../../components/shared/box';
+import { Text } from '../../../../components/shared/text';
 
 export type RootProps = BoxProps & {
-  errorMessage?: string
-  label?: string
-}
+  errorMessage?: string;
+  label?: string;
+};
 export const RootBase: React.FC<RootProps> = (props: RootProps) => {
-  const { isFocus } = useInput()
+  const { isFocus } = useInput();
   return (
     <Box gap="xs">
       {props.label ? <Text variant="input-label">{props.label}</Text> : null}
@@ -29,12 +29,12 @@ export const RootBase: React.FC<RootProps> = (props: RootProps) => {
         <Text variant="error">{props.errorMessage}</Text>
       ) : null}
     </Box>
-  )
-}
+  );
+};
 export const Root = memo((props: RootProps) => {
   return (
     <InputProvider>
       <RootBase {...props} />
     </InputProvider>
-  )
-})
+  );
+});

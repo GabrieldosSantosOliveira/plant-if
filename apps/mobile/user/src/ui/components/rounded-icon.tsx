@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
 import {
   TouchableOpacity,
   TouchableOpacityProps,
-} from './shared/touchable-opacity'
+} from './shared/touchable-opacity';
 
-export type RoundedIconProps = TouchableOpacityProps
+export type RoundedIconProps = TouchableOpacityProps;
 export const RoundedIcon: React.FC<RoundedIconProps> = (props) => {
   return (
     <TouchableOpacity
@@ -18,5 +18,5 @@ export const RoundedIcon: React.FC<RoundedIconProps> = (props) => {
       backgroundColor="go-back-button"
       {...props}
     />
-  )
-}
+  );
+};

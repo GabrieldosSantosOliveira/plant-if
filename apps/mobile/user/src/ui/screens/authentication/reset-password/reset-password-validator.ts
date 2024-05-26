@@ -1,4 +1,4 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 export const resetPasswordValidator = yup.object({
   code: yup
     .string()
@@ -10,4 +10,4 @@ export const resetPasswordValidator = yup.object({
     .trim()
     .min(4, 'A senha precisa ter no mínimo 4 caracteres')
     .required('Informe uma nova senha'),
-})
+});

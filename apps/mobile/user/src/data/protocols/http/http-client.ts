@@ -1,34 +1,34 @@
 export interface HttpClientResponse<T> {
-  data: T
-  statusCode: number
+  data: T;
+  statusCode: number;
 }
 export interface HttpClientOptions {
-  body?: unknown
-  headers?: HttpClientOptionsHeaders
+  body?: unknown;
+  headers?: HttpClientOptionsHeaders;
 }
 export interface HttpClientOptionsHeaders {
-  [key: string]: string
-  'Content-Type': string
+  [key: string]: string;
+  'Content-Type': string;
 }
 export interface HttpClient {
   get<T = unknown>(
     url: string,
     options?: HttpClientOptions,
-  ): Promise<HttpClientResponse<T>>
+  ): Promise<HttpClientResponse<T>>;
   post<T = unknown>(
     url: string,
     options?: HttpClientOptions,
-  ): Promise<HttpClientResponse<T>>
+  ): Promise<HttpClientResponse<T>>;
   put<T = unknown>(
     url: string,
     options?: HttpClientOptions,
-  ): Promise<HttpClientResponse<T>>
+  ): Promise<HttpClientResponse<T>>;
   patch<T = unknown>(
     url: string,
     options?: HttpClientOptions,
-  ): Promise<HttpClientResponse<T>>
+  ): Promise<HttpClientResponse<T>>;
   delete<T = unknown>(
     url: string,
     options?: HttpClientOptions,
-  ): Promise<HttpClientResponse<T>>
+  ): Promise<HttpClientResponse<T>>;
 }

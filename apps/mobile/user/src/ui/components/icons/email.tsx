@@ -1,6 +1,6 @@
-import { Svg, Path, SvgProps } from 'react-native-svg'
+import { Svg, Path, SvgProps } from 'react-native-svg';
 export interface EmailProps extends SvgProps {
-  color: string
+  color: string;
 }
 export const Email: React.FC<EmailProps> = (props) => {
   return (
@@ -20,5 +20,5 @@ export const Email: React.FC<EmailProps> = (props) => {
         stroke-linejoin="round"
       />
     </Svg>
-  )
-}
+  );
+};

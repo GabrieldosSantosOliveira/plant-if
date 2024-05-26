@@ -1,23 +1,23 @@
-import { ForgotPasswordUseCase } from '@/domain/use-cases/forgot-password-use-case'
-import { Icons } from '@/ui/components/icons/icons'
-import { Box } from '@/ui/components/shared/box'
-import { ScrollView } from '@/ui/components/shared/scroll-view'
-import { useTheme } from '@/ui/hooks/use-theme'
-import { yupResolver } from '@hookform/resolvers/yup'
-import React from 'react'
-import { useForm } from 'react-hook-form'
+import { ForgotPasswordUseCase } from '@/domain/use-cases/forgot-password-use-case';
+import { Icons } from '@/ui/components/icons/icons';
+import { Box } from '@/ui/components/shared/box';
+import { ScrollView } from '@/ui/components/shared/scroll-view';
+import { useTheme } from '@/ui/hooks/use-theme';
+import { yupResolver } from '@hookform/resolvers/yup';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 
-import { Button } from '../components/button'
-import { ControlledInput } from '../components/input/controlled-input'
-import { Root } from '../components/input/root'
-import { forgotPasswordValidator } from './forgot-password-validator'
-import { Header } from './header'
-import { useForgotPassword } from './use-forgot-password'
+import { Button } from '../components/button';
+import { ControlledInput } from '../components/input/controlled-input';
+import { Root } from '../components/input/root';
+import { forgotPasswordValidator } from './forgot-password-validator';
+import { Header } from './header';
+import { useForgotPassword } from './use-forgot-password';
 export interface ForgotPasswordForm {
-  email: string
+  email: string;
 }
 export interface ForgotPasswordParams {
-  forgotPasswordUseCase: ForgotPasswordUseCase
+  forgotPasswordUseCase: ForgotPasswordUseCase;
 }
 export const ForgotPassword: React.FC<ForgotPasswordParams> = ({
   forgotPasswordUseCase,
@@ -28,9 +28,9 @@ export const ForgotPassword: React.FC<ForgotPasswordParams> = ({
     handleSubmit,
   } = useForm<ForgotPasswordForm>({
     resolver: yupResolver(forgotPasswordValidator),
-  })
-  const { colors } = useTheme()
-  const forgotPassword = useForgotPassword({ forgotPasswordUseCase })
+  });
+  const { colors } = useTheme();
+  const forgotPassword = useForgotPassword({ forgotPasswordUseCase });
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Box
@@ -63,5 +63,5 @@ export const ForgotPassword: React.FC<ForgotPasswordParams> = ({
         />
       </Box>
     </ScrollView>
-  )
-}
+  );
+};

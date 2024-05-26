@@ -1,5 +1,5 @@
-import { ParamListBase } from '@react-navigation/native'
-import { StackScreenProps } from '@react-navigation/stack'
+import { ParamListBase } from '@react-navigation/native';
+import { StackScreenProps } from '@react-navigation/stack';
 
 export const MakeNavigationMock = <
   ParamList extends ParamListBase,
@@ -30,5 +30,5 @@ export const MakeNavigationMock = <
       setParams: jest.fn(),
       ...navigation,
     },
-  }
-}
+  };
+};

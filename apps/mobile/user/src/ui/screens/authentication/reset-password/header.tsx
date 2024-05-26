@@ -1,13 +1,12 @@
-import { Icons } from '@/ui/components/icons/icons'
-import { RoundedIcon } from '@/ui/components/rounded-icon'
-import { Box } from '@/ui/components/shared/box'
-import { useNavigation } from '@react-navigation/native'
-import { useTheme } from '@shopify/restyle'
-import React from 'react'
+import { Icons } from '@/ui/components/icons/icons';
+import { RoundedIcon } from '@/ui/components/rounded-icon';
+import { Box } from '@/ui/components/shared/box';
+import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '@shopify/restyle';
 
 export const Header = () => {
-  const { goBack } = useNavigation()
-  const { colors } = useTheme()
+  const { goBack } = useNavigation();
+  const { colors } = useTheme();
   return (
     <Box>
       <RoundedIcon
@@ -18,5 +17,5 @@ export const Header = () => {
         <Icons.arrowLeft color={colors['text-primary']} />
       </RoundedIcon>
     </Box>
-  )
-}
+  );
+};

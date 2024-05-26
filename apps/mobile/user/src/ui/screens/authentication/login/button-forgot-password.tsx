@@ -1,10 +1,10 @@
-import { Box } from '@/ui/components/shared/box'
-import { Text } from '@/ui/components/shared/text'
-import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity'
-import { useNavigation } from '@react-navigation/native'
+import { Box } from '@/ui/components/shared/box';
+import { Text } from '@/ui/components/shared/text';
+import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity';
+import { useNavigation } from '@react-navigation/native';
 
 export const ButtonForgotPassword = () => {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation();
   return (
     <Box flexDirection="row" justifyContent="space-between">
       <TouchableOpacity
@@ -17,5 +17,5 @@ export const ButtonForgotPassword = () => {
         </Text>
       </TouchableOpacity>
     </Box>
-  )
-}
+  );
+};

@@ -1,5 +1,4 @@
-import * as React from 'react'
-import Svg, { SvgProps, G, Path, Defs, ClipPath } from 'react-native-svg'
+import Svg, { SvgProps, G, Path, Defs, ClipPath } from 'react-native-svg';
 export const Tractor = (props: SvgProps) => (
   <Svg width={24} height={24} fill="none" {...props}>
     <G fill="#57C555" clipPath="url(#a)">
@@ -12,4 +11,4 @@ export const Tractor = (props: SvgProps) => (
       </ClipPath>
     </Defs>
   </Svg>
-)
+);

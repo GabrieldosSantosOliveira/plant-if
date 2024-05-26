@@ -1,9 +1,9 @@
-import { Either } from '@/shared/either'
+import { Either } from '@/shared/either';
 
-import { Exception } from './errors/exception'
+import { Exception } from './errors/exception';
 export interface ForgotPasswordUseCaseDto {
-  email: string
+  email: string;
 }
 export interface ForgotPasswordUseCase {
-  execute(data: ForgotPasswordUseCaseDto): Promise<Either<Exception, null>>
+  execute(data: ForgotPasswordUseCaseDto): Promise<Either<Exception, null>>;
 }

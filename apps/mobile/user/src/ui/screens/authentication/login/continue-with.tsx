@@ -1,5 +1,5 @@
-import { Box } from '@/ui/components/shared/box'
-import { Text } from '@/ui/components/shared/text'
+import { Box } from '@/ui/components/shared/box';
+import { Text } from '@/ui/components/shared/text';
 
 export const ContinueWith = () => {
   return (
@@ -8,5 +8,5 @@ export const ContinueWith = () => {
       <Text variant="input-label">ou continuar com</Text>
       <Box flex={1} height={1} bg="text-primary" />
     </Box>
-  )
-}
+  );
+};

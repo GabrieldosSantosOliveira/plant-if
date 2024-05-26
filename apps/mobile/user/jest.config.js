@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { pathsToModuleNameMapper } = require('ts-jest')
+const { pathsToModuleNameMapper } = require('ts-jest');
 
-const { compilerOptions } = require('./tsconfig.json')
+const { compilerOptions } = require('./tsconfig.json');
 /** @type {import('jest').Config} */
 module.exports = {
   collectCoverage: true,
@@ -18,4 +17,4 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)',
   ],
-}
+};

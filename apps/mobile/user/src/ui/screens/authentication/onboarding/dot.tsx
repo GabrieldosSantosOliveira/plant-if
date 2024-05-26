@@ -1,16 +1,16 @@
-import { useTheme } from '@/ui/hooks/use-theme'
-import { StyleSheet } from 'react-native'
+import { useTheme } from '@/ui/hooks/use-theme';
+import { StyleSheet } from 'react-native';
 import Animated, {
   Extrapolate,
   interpolate,
   useAnimatedStyle,
-} from 'react-native-reanimated'
+} from 'react-native-reanimated';
 export interface DotProps {
-  currentIndex: Animated.SharedValue<number>
-  index: number
+  currentIndex: Animated.SharedValue<number>;
+  index: number;
 }
 export const Dot: React.FC<DotProps> = ({ currentIndex, index }) => {
-  const { colors } = useTheme()
+  const { colors } = useTheme();
   const opacity = useAnimatedStyle(() => ({
     opacity: interpolate(
       currentIndex.value,
@@ -18,7 +18,7 @@ export const Dot: React.FC<DotProps> = ({ currentIndex, index }) => {
       [0.2, 1, 0.2],
       Extrapolate.CLAMP,
     ),
-  }))
+  }));
   const scale = useAnimatedStyle(() => ({
     transform: [
       {
@@ -30,7 +30,7 @@ export const Dot: React.FC<DotProps> = ({ currentIndex, index }) => {
         ),
       },
     ],
-  }))
+  }));
   return (
     <Animated.View
       style={[
@@ -40,12 +40,12 @@ export const Dot: React.FC<DotProps> = ({ currentIndex, index }) => {
         { backgroundColor: colors['text-primary'] },
       ]}
     />
-  )
-}
+  );
+};
 const styles = StyleSheet.create({
   container: {
     width: 8,
     height: 8,
     borderRadius: 8,
   },
-})
+});

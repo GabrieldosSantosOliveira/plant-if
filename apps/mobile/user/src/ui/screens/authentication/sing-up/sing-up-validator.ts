@@ -1,4 +1,4 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 export const singUpValidator = yup.object({
   firstName: yup
     .string()
@@ -20,4 +20,4 @@ export const singUpValidator = yup.object({
     .trim()
     .min(4, 'A senha precisa ter no mínimo 4 caracteres')
     .required('Informe uma senha'),
-})
+});

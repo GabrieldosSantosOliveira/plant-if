@@ -1,16 +1,15 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
 export type AuthRoutes = {
-  onboarding: undefined
-  login: undefined
-  'sing-up': undefined
-  'forgot-password': undefined
+  onboarding: undefined;
+  login: undefined;
+  'sing-up': undefined;
+  'forgot-password': undefined;
   'reset-password': {
-    email: string
-  }
-}
+    email: string;
+  };
+};
 export type AppRoutes = {
-  home: undefined
-}
+  home: undefined;
+};
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends AuthRoutes {}

@@ -1,16 +1,16 @@
-import { HttpClient } from '@/data/protocols/http/http-client'
-import { FetchHttpAdapter } from '@/infra/http/fetch-http-adapter'
-import { JSONAdapter } from '@/infra/json/json-adapter'
-import { JsonValidatorAdapter } from '@/infra/validators/json-validator-adapter'
-import { createContext, FC, ReactNode } from 'react'
+import { HttpClient } from '@/data/protocols/http/http-client';
+import { FetchHttpAdapter } from '@/infra/http/fetch-http-adapter';
+import { JSONAdapter } from '@/infra/json/json-adapter';
+import { JsonValidatorAdapter } from '@/infra/validators/json-validator-adapter';
+import { createContext, FC, ReactNode } from 'react';
 export interface HttpClientContextProps {
-  httpClient: HttpClient
+  httpClient: HttpClient;
 }
 export const HttpClientContext = createContext<HttpClientContextProps>(
   {} as HttpClientContextProps,
-)
+);
 export interface HttpClientProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 export const HttpClientProvider: FC<HttpClientProviderProps> = ({
   children,
@@ -18,10 +18,10 @@ export const HttpClientProvider: FC<HttpClientProviderProps> = ({
   const httpClient = new FetchHttpAdapter(
     new JsonValidatorAdapter(),
     new JSONAdapter(),
-  )
+  );
   return (
     <HttpClientContext.Provider value={{ httpClient }}>
       {children}
     </HttpClientContext.Provider>
-  )
-}
+  );
+};

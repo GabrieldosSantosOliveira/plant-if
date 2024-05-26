@@ -1,6 +1,6 @@
-import { createTheme } from '@shopify/restyle'
+import { createTheme } from '@shopify/restyle';
 
-import { palette } from './palette'
+import { palette } from './palette';
 const spacing = {
   none: 0,
   '2xs': 2,
@@ -17,8 +17,8 @@ const spacing = {
   '7xl': 44,
   '8xl': 48,
   '9xl': 52,
-}
-const zIndices = { 0: 0, 10: 10, 20: 20, 30: 30, 40: 40, 50: 50 }
+};
+const zIndices = { 0: 0, 10: 10, 20: 20, 30: 30, 40: 40, 50: 50 };
 const borderRadii = {
   'rounded-none': 0,
   'rounded-px': 1,
@@ -30,7 +30,7 @@ const borderRadii = {
   'rounded-2xl': 16,
   'rounded-3xl': 24,
   'rounded-full': 9999,
-}
+};
 export const ThemeLight = createTheme({
   colors: {
     'main-background': palette.white,
@@ -94,7 +94,7 @@ export const ThemeLight = createTheme({
   borderRadii,
   breakpoints: {},
   zIndices,
-})
+});
 export const ThemeDark = createTheme({
   colors: {
     'main-background': palette.blue[900],
@@ -158,5 +158,5 @@ export const ThemeDark = createTheme({
   borderRadii,
   breakpoints: {},
   zIndices,
-})
-export type Theme = typeof ThemeLight
+});
+export type Theme = typeof ThemeLight;

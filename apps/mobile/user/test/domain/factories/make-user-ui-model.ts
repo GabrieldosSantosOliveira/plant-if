@@ -1,6 +1,6 @@
-import { UserUiModel } from '@/domain/ui-model/user-ui-model'
-import { makeFaker } from '@/test/mock/faker'
-const { faker } = makeFaker()
+import { UserUiModel } from '@/domain/ui-model/user-ui-model';
+import { makeFaker } from '@/test/mock/faker';
+const { faker } = makeFaker();
 export const makeUserUiModel = () => {
   return new UserUiModel({
     firstName: faker.person.firstName(),
@@ -9,5 +9,5 @@ export const makeUserUiModel = () => {
     updatedAt: new Date().toISOString(),
     email: faker.internet.email(),
     id: faker.string.uuid(),
-  })
-}
+  });
+};

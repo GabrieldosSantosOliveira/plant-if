@@ -1,11 +1,10 @@
-import React from 'react'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator } from 'react-native';
 
-import { useTheme } from '../hooks/use-theme'
-import { Box } from './shared/box'
+import { useTheme } from '../hooks/use-theme';
+import { Box } from './shared/box';
 
 export const Loading = () => {
-  const { colors } = useTheme()
+  const { colors } = useTheme();
   return (
     <Box
       flex={1}
@@ -15,5 +14,5 @@ export const Loading = () => {
     >
       <ActivityIndicator size="large" color={colors['icon-main']} />
     </Box>
-  )
-}
+  );
+};

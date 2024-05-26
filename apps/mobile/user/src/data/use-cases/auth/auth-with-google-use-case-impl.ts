@@ -1,10 +1,10 @@
-import { keys } from '@/constants/keys'
-import { SecureStorage } from '@/data/protocols/storage/secure-storage'
-import { AuthWithGoogleRepository } from '@/domain/repositories/auth-with-google-repository'
-import { UserUiModel } from '@/domain/ui-model/user-ui-model'
-import { AuthWithGoogleUseCase } from '@/domain/use-cases/auth-with-google-use-case'
-import { Exception } from '@/domain/use-cases/errors/exception'
-import { Either, left, right } from '@/shared/either'
+import { keys } from '@/constants/keys';
+import { SecureStorage } from '@/data/protocols/storage/secure-storage';
+import { AuthWithGoogleRepository } from '@/domain/repositories/auth-with-google-repository';
+import { UserUiModel } from '@/domain/ui-model/user-ui-model';
+import { AuthWithGoogleUseCase } from '@/domain/use-cases/auth-with-google-use-case';
+import { Exception } from '@/domain/use-cases/errors/exception';
+import { Either, left, right } from '@/shared/either';
 
 export class AuthWithGoogleUseCaseImpl implements AuthWithGoogleUseCase {
   constructor(
@@ -14,9 +14,9 @@ export class AuthWithGoogleUseCaseImpl implements AuthWithGoogleUseCase {
 
   async execute(accessToken: string): Promise<Either<Exception, UserUiModel>> {
     const userOrException =
-      await this.authWithGoogleRepository.execute(accessToken)
+      await this.authWithGoogleRepository.execute(accessToken);
     if (userOrException.isLeft()) {
-      return left(userOrException.value)
+      return left(userOrException.value);
     }
     await Promise.all([
       this.secureStorage.setItem(
@@ -27,7 +27,7 @@ export class AuthWithGoogleUseCaseImpl implements AuthWithGoogleUseCase {
         keys.REFRESH_TOKEN,
         userOrException.value.refreshToken,
       ),
-    ])
-    return right(userOrException.value.user)
+    ]);
+    return right(userOrException.value.user);
   }
 }

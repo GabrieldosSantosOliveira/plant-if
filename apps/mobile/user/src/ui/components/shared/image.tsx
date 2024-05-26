@@ -1,4 +1,4 @@
-import { Theme } from '@/ui/styles/theme'
+import { Theme } from '@/ui/styles/theme';
 import {
   createRestyleComponent,
   ColorProps,
@@ -23,9 +23,9 @@ import {
   border,
   shadow,
   position,
-} from '@shopify/restyle'
-import React from 'react'
-import { ImageProps as RNImageProps, Image as RNImage } from 'react-native'
+} from '@shopify/restyle';
+import React from 'react';
+import { ImageProps as RNImageProps, Image as RNImage } from 'react-native';
 export type BaseImageProps = ColorProps<Theme> &
   VisibleProps<Theme> &
   TypographyProps<Theme> &
@@ -36,7 +36,7 @@ export type BaseImageProps = ColorProps<Theme> &
   LayoutProps<Theme> &
   BorderProps<Theme> &
   ShadowProps<Theme> &
-  PositionProps<Theme>
+  PositionProps<Theme>;
 export const Image = createRestyleComponent<
   RNImageProps & BaseImageProps,
   Theme
@@ -55,5 +55,5 @@ export const Image = createRestyleComponent<
     position,
   ],
   RNImage,
-)
-export type ImageProps = React.ComponentProps<typeof Image>
+);
+export type ImageProps = React.ComponentProps<typeof Image>;

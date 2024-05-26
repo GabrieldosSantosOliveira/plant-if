@@ -1,10 +1,10 @@
-import { Box } from '@/ui/components/shared/box'
-import { Text } from '@/ui/components/shared/text'
-import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity'
-import { useNavigation } from '@react-navigation/native'
+import { Box } from '@/ui/components/shared/box';
+import { Text } from '@/ui/components/shared/text';
+import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity';
+import { useNavigation } from '@react-navigation/native';
 
 export const NoHaveAccount = () => {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation();
   return (
     <TouchableOpacity
       testID="button-sing-up"
@@ -19,5 +19,5 @@ export const NoHaveAccount = () => {
         </Text>
       </Box>
     </TouchableOpacity>
-  )
-}
+  );
+};

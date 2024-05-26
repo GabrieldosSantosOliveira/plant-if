@@ -1,14 +1,14 @@
-import { Box } from '@/ui/components/shared/box'
-import { Text } from '@/ui/components/shared/text'
-import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity'
-import { useTheme } from '@/ui/hooks/use-theme'
-import React from 'react'
-import { AccessibilityProps, ActivityIndicator } from 'react-native'
+import { Box } from '@/ui/components/shared/box';
+import { Text } from '@/ui/components/shared/text';
+import { TouchableOpacity } from '@/ui/components/shared/touchable-opacity';
+import { useTheme } from '@/ui/hooks/use-theme';
+import React from 'react';
+import { AccessibilityProps, ActivityIndicator } from 'react-native';
 export interface ButtonProps extends AccessibilityProps {
-  onPress: () => void
-  title: string
-  isLoading?: boolean
-  testID?: string
+  onPress: () => void;
+  title: string;
+  isLoading?: boolean;
+  testID?: string;
 }
 export const Button: React.FC<ButtonProps> = ({
   onPress,
@@ -16,8 +16,8 @@ export const Button: React.FC<ButtonProps> = ({
   isLoading = false,
   ...props
 }) => {
-  const { colors } = useTheme()
-  const color = colors['text-secondary']
+  const { colors } = useTheme();
+  const color = colors['text-secondary'];
   return (
     <TouchableOpacity
       disabled={isLoading}
@@ -46,5 +46,5 @@ export const Button: React.FC<ButtonProps> = ({
         )}
       </Box>
     </TouchableOpacity>
-  )
-}
+  );
+};

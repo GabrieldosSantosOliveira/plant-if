@@ -1,6 +1,6 @@
-import { UserUiModel } from '@/domain/ui-model/user-ui-model'
+import { UserUiModel } from '@/domain/ui-model/user-ui-model';
 
-import { UserDto } from '../dtos/user-dto'
+import { UserDto } from '../dtos/user-dto';
 
 export class UserMapper {
   static toUI(userDto: UserDto): UserUiModel {
@@ -11,6 +11,6 @@ export class UserMapper {
       firstName: userDto.firstName,
       lastName: userDto.lastName,
       updatedAt: userDto.updatedAt,
-    })
+    });
   }
 }

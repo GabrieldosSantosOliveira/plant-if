@@ -1,9 +1,9 @@
-import { keys } from '@/constants/keys'
-import { SecureStorage } from '@/data/protocols/storage/secure-storage'
+import { keys } from '@/constants/keys';
+import { SecureStorage } from '@/data/protocols/storage/secure-storage';
 import {
   AuthRecoverySessionUseCase,
   AuthRecoverySessionUseCaseResponse,
-} from '@/domain/use-cases/auth-recovery-session-use-case'
+} from '@/domain/use-cases/auth-recovery-session-use-case';
 
 export class AuthRecoverySessionUseCaseImpl
   implements AuthRecoverySessionUseCase
@@ -13,10 +13,10 @@ export class AuthRecoverySessionUseCaseImpl
     const [accessToken, refreshToken] = await Promise.all([
       this.secureStorage.getItem<string>(keys.ACCESS_TOKEN),
       this.secureStorage.getItem<string>(keys.REFRESH_TOKEN),
-    ])
+    ]);
     if (!accessToken || !refreshToken) {
-      return null
+      return null;
     }
-    return { accessToken, refreshToken }
+    return { accessToken, refreshToken };
   }
 }

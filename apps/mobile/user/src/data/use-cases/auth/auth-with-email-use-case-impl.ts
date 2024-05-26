@@ -1,13 +1,13 @@
-import { keys } from '@/constants/keys'
-import { SecureStorage } from '@/data/protocols/storage/secure-storage'
-import { AuthWithEmailRepository } from '@/domain/repositories/auth-with-email-repository'
-import { UserUiModel } from '@/domain/ui-model/user-ui-model'
+import { keys } from '@/constants/keys';
+import { SecureStorage } from '@/data/protocols/storage/secure-storage';
+import { AuthWithEmailRepository } from '@/domain/repositories/auth-with-email-repository';
+import { UserUiModel } from '@/domain/ui-model/user-ui-model';
 import {
   AuthWithEmailUseCase,
   AuthWithEmailUseCaseDto,
-} from '@/domain/use-cases/auth-with-email-use-case'
-import { Exception } from '@/domain/use-cases/errors/exception'
-import { Either, left, right } from '@/shared/either'
+} from '@/domain/use-cases/auth-with-email-use-case';
+import { Exception } from '@/domain/use-cases/errors/exception';
+import { Either, left, right } from '@/shared/either';
 
 export class AuthUserWithEmailUseCaseImpl implements AuthWithEmailUseCase {
   constructor(
@@ -21,9 +21,9 @@ export class AuthUserWithEmailUseCaseImpl implements AuthWithEmailUseCase {
     const successOrFails = await this.authWithEmailRepository.execute({
       email: data.email,
       password: data.password,
-    })
+    });
     if (successOrFails.isLeft()) {
-      return left(successOrFails.value)
+      return left(successOrFails.value);
     }
     await Promise.all([
       this.secureStorage.setItem(
@@ -34,8 +34,8 @@ export class AuthUserWithEmailUseCaseImpl implements AuthWithEmailUseCase {
         keys.REFRESH_TOKEN,
         successOrFails.value.refreshToken,
       ),
-    ])
+    ]);
 
-    return right(successOrFails.value.user)
+    return right(successOrFails.value.user);
   }
 }

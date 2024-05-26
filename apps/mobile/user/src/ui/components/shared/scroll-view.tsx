@@ -1,4 +1,4 @@
-import { Theme } from '@/ui/styles/theme'
+import { Theme } from '@/ui/styles/theme';
 import {
   createRestyleComponent,
   ColorProps,
@@ -23,12 +23,12 @@ import {
   border,
   shadow,
   position,
-} from '@shopify/restyle'
-import React from 'react'
+} from '@shopify/restyle';
+import React from 'react';
 import {
   ScrollViewProps as RNScrollViewProps,
   ScrollView as RNScrollView,
-} from 'react-native'
+} from 'react-native';
 export type BaseScrollViewProps = ColorProps<Theme> &
   VisibleProps<Theme> &
   TypographyProps<Theme> &
@@ -39,7 +39,7 @@ export type BaseScrollViewProps = ColorProps<Theme> &
   LayoutProps<Theme> &
   BorderProps<Theme> &
   ShadowProps<Theme> &
-  PositionProps<Theme>
+  PositionProps<Theme>;
 export const ScrollView = createRestyleComponent<
   RNScrollViewProps & BaseScrollViewProps,
   Theme
@@ -58,5 +58,5 @@ export const ScrollView = createRestyleComponent<
     position,
   ],
   RNScrollView,
-)
-export type ScrollViewProps = React.ComponentProps<typeof ScrollView>
+);
+export type ScrollViewProps = React.ComponentProps<typeof ScrollView>;

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC } from 'react';
 import Svg, {
   SvgProps,
   Circle,
@@ -6,7 +6,7 @@ import Svg, {
   Defs,
   LinearGradient,
   Stop,
-} from 'react-native-svg'
+} from 'react-native-svg';
 export const FacebookIcon: FC<SvgProps> = (props) => (
   <Svg width={800} height={800} fill="none" viewBox="0 0 32 32" {...props}>
     <Circle cx={16} cy={16} r={14} fill="url(#a)" />
@@ -28,4 +28,4 @@ export const FacebookIcon: FC<SvgProps> = (props) => (
       </LinearGradient>
     </Defs>
   </Svg>
-)
+);
