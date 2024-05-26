@@ -1,5 +1,5 @@
-import { NodemalierSendMail } from '@/infra/gateways/email/nodemalier-send-mail'
-import { env } from '@/main/config/env'
+import { NodemalierSendMail } from "@/infra/gateways/email/nodemalier-send-mail";
+import { env } from "@/main/config/env";
 
 export const makeSendMail = () =>
   new NodemalierSendMail({
@@ -10,4 +10,4 @@ export const makeSendMail = () =>
       user: env.MAIL_AUTH_USER,
       pass: env.MAIL_AUTH_PASS,
     },
-  })
+  });

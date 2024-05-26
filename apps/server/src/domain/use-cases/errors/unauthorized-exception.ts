@@ -1,13 +1,13 @@
-import { HttpStatusCode } from '@/presentation/helpers/http/http-status-code'
+import { HttpStatusCode } from "@/presentation/helpers/http/http-status-code";
 
-import { HttpException } from './http-exception'
+import { HttpException } from "./http-exception";
 
 export class UnauthorizedException extends HttpException {
   constructor() {
     super({
-      message: 'Unauthorized',
+      message: "Unauthorized",
       statusCode: HttpStatusCode.UNAUTHORIZED_ERROR,
-    })
-    this.name = 'UnauthorizedException'
+    });
+    this.name = "UnauthorizedException";
   }
 }

@@ -1,4 +1,4 @@
-import { User } from '@/domain/entities/user'
+import { User } from "@/domain/entities/user";
 
 export class UserViewModel {
   static toHTTP(user: User) {
@@ -10,6 +10,6 @@ export class UserViewModel {
       email: user.email,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
-    }
+    };
   }
 }

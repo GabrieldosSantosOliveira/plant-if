@@ -1,12 +1,12 @@
 export interface SendEmailData {
-  to: string
+  to: string;
   from: {
-    name: string
-    email: string
-  }
-  subject: string
-  body: string
+    name: string;
+    email: string;
+  };
+  subject: string;
+  body: string;
 }
 export interface SendMail {
-  send(data: SendEmailData): Promise<void>
+  send(data: SendEmailData): Promise<void>;
 }

@@ -1,15 +1,15 @@
-import { AuthService } from '@/data/protocols/auth/auth-service'
-import { HashComparer } from '@/data/protocols/cryptography/hash-comparer'
-import { LoadUserByEmailRepository } from '@/domain/contracts/repositories/user/load-user-by-email-repository'
-import { Exception } from '@/domain/use-cases/errors/exception'
-import { UnauthorizedException } from '@/domain/use-cases/errors/unauthorized-exception'
-import { UserNotFoundException } from '@/domain/use-cases/errors/user-not-found-exception'
+import { AuthService } from "@/data/protocols/auth/auth-service";
+import { HashComparer } from "@/data/protocols/cryptography/hash-comparer";
+import { LoadUserByEmailRepository } from "@/domain/contracts/repositories/user/load-user-by-email-repository";
+import { Exception } from "@/domain/use-cases/errors/exception";
+import { UnauthorizedException } from "@/domain/use-cases/errors/unauthorized-exception";
+import { UserNotFoundException } from "@/domain/use-cases/errors/user-not-found-exception";
 import {
   AuthenticateUserWithEmailUseCase,
   AuthenticateUserWithEmailUseCaseRequest,
   AuthenticateUserWithEmailUseCaseResponse,
-} from '@/domain/use-cases/user/authenticate-user-with-email-use-case'
-import { Either, left, right } from '@/shared/either'
+} from "@/domain/use-cases/user/authenticate-user-with-email-use-case";
+import { Either, left, right } from "@/shared/either";
 
 export class AuthenticateUserWithEmailUseCaseImpl
   implements AuthenticateUserWithEmailUseCase
@@ -25,30 +25,30 @@ export class AuthenticateUserWithEmailUseCaseImpl
   ): Promise<Either<Exception, AuthenticateUserWithEmailUseCaseResponse>> {
     const userExists = await this.loadUserByEmailRepository.findByEmail(
       credentials.email,
-    )
+    );
     if (!userExists) {
-      return left(new UserNotFoundException())
+      return left(new UserNotFoundException());
     }
     if (!userExists.password) {
-      return left(new UnauthorizedException())
+      return left(new UnauthorizedException());
     }
     const passwordMatch = await this.hashComparer.compare(
       credentials.password,
       userExists.password,
-    )
+    );
     if (!passwordMatch) {
-      return left(new UnauthorizedException())
+      return left(new UnauthorizedException());
     }
     const { accessToken } = await this.authService.generateAccessToken(
       userExists.id,
-    )
+    );
     const { refreshToken } = await this.authService.generateRefreshToken(
       userExists.id,
-    )
+    );
     return right({
       accessToken,
       refreshToken,
       user: userExists,
-    })
+    });
   }
 }

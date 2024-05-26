@@ -1,5 +1,5 @@
-import { User } from '@/domain/entities/user'
+import { User } from "@/domain/entities/user";
 
 export interface CreateUserRepository {
-  create(user: User): Promise<void>
+  create(user: User): Promise<void>;
 }

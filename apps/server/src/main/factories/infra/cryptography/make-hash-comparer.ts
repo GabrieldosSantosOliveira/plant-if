@@ -1,3 +1,3 @@
-import { BcryptAdapter } from '@/infra/cryptography/bcrypt-adapter'
+import { BcryptAdapter } from "@/infra/cryptography/bcrypt-adapter";
 
-export const makeHashComparer = () => new BcryptAdapter(12)
+export const makeHashComparer = () => new BcryptAdapter(12);

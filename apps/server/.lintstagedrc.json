@@ -1,6 +1,5 @@
 {
   "*.ts": [
-    "npm run format",
     "npm run lint -- --max-warnings=0",
     "npm run test:staged"
   ]

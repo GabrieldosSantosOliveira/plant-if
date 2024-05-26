@@ -1,5 +1,5 @@
-import { Project, ProjectProps } from '@/domain/entities/project'
-import { faker } from '@faker-js/faker'
+import { Project, ProjectProps } from "@/domain/entities/project";
+import { faker } from "@faker-js/faker";
 
 export const makeProject = (project: Partial<ProjectProps> = {}) => {
   return new Project({
@@ -12,5 +12,5 @@ export const makeProject = (project: Partial<ProjectProps> = {}) => {
     codeShareForTeachers: faker.string.uuid(),
     id: faker.string.uuid(),
     ...project,
-  })
-}
+  });
+};

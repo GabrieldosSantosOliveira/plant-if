@@ -3,16 +3,16 @@ import {
   OptionsDecrypt,
   OptionsEncrypt,
   Payload,
-} from '@/data/protocols/auth/jwt'
-import { Either, left, right } from '@/shared/either'
-import jwt from 'jsonwebtoken'
+} from "@/data/protocols/auth/jwt";
+import { Either, left, right } from "@/shared/either";
+import jwt from "jsonwebtoken";
 
 export class JwtImpl implements Jwt {
   async encrypt(payload: Payload, options: OptionsEncrypt): Promise<string> {
     const token = jwt.sign(payload, options.secret, {
       expiresIn: options.expire,
-    })
-    return token
+    });
+    return token;
   }
 
   async decrypt(
@@ -20,10 +20,10 @@ export class JwtImpl implements Jwt {
     options: OptionsDecrypt,
   ): Promise<Either<Error, Payload>> {
     try {
-      const payload = jwt.verify(encryptText, options.secret) as Payload
-      return right(payload)
+      const payload = jwt.verify(encryptText, options.secret) as Payload;
+      return right(payload);
     } catch {
-      return left(new Error('Invalid token'))
+      return left(new Error("Invalid token"));
     }
   }
 }

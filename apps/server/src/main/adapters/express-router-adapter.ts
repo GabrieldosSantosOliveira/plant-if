@@ -1,6 +1,6 @@
-import { Controller } from '@/presentation/protocols/controller/controller'
-import { HttpRequest } from '@/presentation/protocols/http/http-request'
-import { Request, Response } from 'express'
+import { Controller } from "@/presentation/protocols/controller/controller";
+import { HttpRequest } from "@/presentation/protocols/http/http-request";
+import { Request, Response } from "express";
 
 export const makeExpressRouterAdapter = (controller: Controller) => {
   return async (request: Request, response: Response) => {
@@ -8,9 +8,9 @@ export const makeExpressRouterAdapter = (controller: Controller) => {
       body: request.body,
       params: request.params,
       query: request.query,
-    }
+    };
 
-    const httpResponse = await controller.handle(httpRequest)
-    response.status(httpResponse.statusCode).json(httpResponse.body)
-  }
-}
+    const httpResponse = await controller.handle(httpRequest);
+    response.status(httpResponse.statusCode).json(httpResponse.body);
+  };
+};

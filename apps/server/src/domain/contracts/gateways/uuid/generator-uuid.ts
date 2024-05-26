@@ -1,3 +1,3 @@
 export interface GeneratorUUID {
-  randomUUID(): string
+  randomUUID(): string;
 }

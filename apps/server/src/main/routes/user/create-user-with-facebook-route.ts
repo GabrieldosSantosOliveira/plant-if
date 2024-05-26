@@ -1,10 +1,10 @@
-import { makeExpressRouterAdapter } from '@/main/adapters/express-router-adapter'
-import { makeCreateUserWithFacebookController } from '@/main/factories/presentation/controllers/make-create-user-with-facebook-controller'
-import { Router } from 'express'
+import { makeExpressRouterAdapter } from "@/main/adapters/express-router-adapter";
+import { makeCreateUserWithFacebookController } from "@/main/factories/presentation/controllers/make-create-user-with-facebook-controller";
+import { Router } from "express";
 
 export default function CreateUserWithFacebookRoute(router: Router) {
   router.post(
-    '/user/auth/facebook',
+    "/user/auth/facebook",
     makeExpressRouterAdapter(makeCreateUserWithFacebookController()),
-  )
+  );
 }

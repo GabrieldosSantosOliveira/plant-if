@@ -1,17 +1,17 @@
 import {
   SendEmailData,
   SendMail,
-} from '@/domain/contracts/gateways/email/send-mail'
-import { Transporter, createTransport } from 'nodemailer'
-import SMTPTransport from 'nodemailer/lib/smtp-transport'
+} from "@/domain/contracts/gateways/email/send-mail";
+import { Transporter, createTransport } from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 export class NodemalierSendMail implements SendMail {
-  private transporter: Transporter
+  private transporter: Transporter;
   constructor(
     transport?: SMTPTransport | SMTPTransport.Options | string,
     defaults?: SMTPTransport.Options,
   ) {
-    this.transporter = createTransport(transport, defaults)
+    this.transporter = createTransport(transport, defaults);
   }
 
   async send(data: SendEmailData): Promise<void> {
@@ -23,6 +23,6 @@ export class NodemalierSendMail implements SendMail {
       to: data.to,
       subject: data.subject,
       html: data.body,
-    })
+    });
   }
 }

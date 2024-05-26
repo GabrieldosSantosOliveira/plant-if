@@ -1,17 +1,17 @@
-import { User } from '@/domain/entities/user'
-import { Either } from '@/shared/either'
+import { User } from "@/domain/entities/user";
+import { Either } from "@/shared/either";
 
-import { Exception } from '../errors/exception'
+import { Exception } from "../errors/exception";
 export interface CreateUserWithGoogleUseCaseRequest {
-  accessToken: string
+  accessToken: string;
 }
 export interface CreateUserWithGoogleUseCaseResponse {
-  accessToken: string
-  refreshToken: string
-  user: User
+  accessToken: string;
+  refreshToken: string;
+  user: User;
 }
 export interface CreateUserWithGoogleUseCase {
   handle(
     request: CreateUserWithGoogleUseCaseRequest,
-  ): Promise<Either<Exception, CreateUserWithGoogleUseCaseResponse>>
+  ): Promise<Either<Exception, CreateUserWithGoogleUseCaseResponse>>;
 }

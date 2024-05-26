@@ -1,3 +1,3 @@
-import { SpeakeasyAdapter } from '@/infra/cryptography/speakeasy-adapter'
+import { SpeakeasyAdapter } from "@/infra/cryptography/speakeasy-adapter";
 
-export const makeTimeBasedOneTimePassword = () => new SpeakeasyAdapter()
+export const makeTimeBasedOneTimePassword = () => new SpeakeasyAdapter();

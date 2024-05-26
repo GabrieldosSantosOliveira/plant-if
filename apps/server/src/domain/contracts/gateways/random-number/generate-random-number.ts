@@ -1,3 +1,3 @@
 export interface GenerateRandomNumber {
-  generate(length: number): Promise<number>
+  generate(length: number): Promise<number>;
 }

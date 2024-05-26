@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "lib": ["ES2023"],
+    "module": "node16",
+    "target": "ES2022",
     "strictPropertyInitialization": false,
     "strict": true,
     "allowUnreachableCode": true,
@@ -13,7 +15,6 @@
     "noUnusedParameters": true,
     "outDir": "dist",
     "removeComments": true,
-    "target": "es6",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",

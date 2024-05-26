@@ -1,8 +1,8 @@
-import { LoadUserByEmailRepository } from '@/domain/contracts/repositories/user/load-user-by-email-repository'
-import { User } from '@/domain/entities/user'
+import { LoadUserByEmailRepository } from "@/domain/contracts/repositories/user/load-user-by-email-repository";
+import { User } from "@/domain/entities/user";
 
-import { PrismaUserMapper } from '../mappers/prisma-user-mapper'
-import { PrismaService } from '../prisma-service'
+import { PrismaUserMapper } from "../mappers/prisma-user-mapper";
+import { PrismaService } from "../prisma-service";
 
 export class PrismaLoadUserByEmailRepository
   implements LoadUserByEmailRepository
@@ -11,9 +11,9 @@ export class PrismaLoadUserByEmailRepository
   async findByEmail(email: string): Promise<User | null> {
     const rawUser = await this.prismaService.user.findUnique({
       where: { email },
-    })
+    });
 
-    if (!rawUser) return null
-    return PrismaUserMapper.toDomain(rawUser)
+    if (!rawUser) return null;
+    return PrismaUserMapper.toDomain(rawUser);
   }
 }

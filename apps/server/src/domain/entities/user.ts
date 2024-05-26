@@ -1,17 +1,17 @@
-import { Replace } from '../helpers/replace'
+import { Replace } from "../helpers/replace";
 export interface UserProps {
-  id: string
-  email: string
-  firstName: string
-  lastName: string
-  image?: string
-  password?: string
-  resetPasswordSecret?: string
-  createdAt: Date
-  updatedAt: Date
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  image?: string;
+  password?: string;
+  resetPasswordSecret?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 export class User {
-  private props: UserProps
+  private props: UserProps;
   constructor({
     createdAt,
     updatedAt,
@@ -21,70 +21,70 @@ export class User {
       createdAt: createdAt || new Date(),
       updatedAt: updatedAt || new Date(),
       ...props,
-    }
+    };
   }
 
   public get password() {
-    return this.props.password
+    return this.props.password;
   }
 
   public set password(password: string | undefined) {
-    this.props.password = password
+    this.props.password = password;
   }
 
   public get resetPasswordSecret() {
-    return this.props.resetPasswordSecret
+    return this.props.resetPasswordSecret;
   }
 
   public set resetPasswordSecret(resetPasswordSecret: string | undefined) {
-    this.props.resetPasswordSecret = resetPasswordSecret
+    this.props.resetPasswordSecret = resetPasswordSecret;
   }
 
   public get id() {
-    return this.props.id
+    return this.props.id;
   }
 
   public get email() {
-    return this.props.email
+    return this.props.email;
   }
 
   public set email(email: string) {
-    this.props.email = email
+    this.props.email = email;
   }
 
   public get firstName() {
-    return this.props.firstName
+    return this.props.firstName;
   }
 
   public set firstName(firstName: string) {
-    this.props.firstName = firstName
+    this.props.firstName = firstName;
   }
 
   public get lastName() {
-    return this.props.lastName
+    return this.props.lastName;
   }
 
   public set lastName(lastName: string) {
-    this.props.lastName = lastName
+    this.props.lastName = lastName;
   }
 
   public get image() {
-    return this.props.image
+    return this.props.image;
   }
 
   public set image(image: string | undefined) {
-    this.props.image = image
+    this.props.image = image;
   }
 
   public get createdAt() {
-    return this.props.createdAt
+    return this.props.createdAt;
   }
 
   public get updatedAt() {
-    return this.props.updatedAt
+    return this.props.updatedAt;
   }
 
   public set updatedAt(updatedAt: Date) {
-    this.props.updatedAt = updatedAt
+    this.props.updatedAt = updatedAt;
   }
 }

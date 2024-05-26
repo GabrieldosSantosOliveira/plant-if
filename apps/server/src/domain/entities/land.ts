@@ -1,22 +1,22 @@
 export interface LandProps {
-  id: string
-  name: string
+  id: string;
+  name: string;
 }
 export class Land {
-  private props: LandProps
+  private props: LandProps;
   constructor(props: LandProps) {
-    this.props = props
+    this.props = props;
   }
 
   public get id() {
-    return this.props.id
+    return this.props.id;
   }
 
   public get name() {
-    return this.props.name
+    return this.props.name;
   }
 
   public set name(name: string) {
-    this.props.name = name
+    this.props.name = name;
   }
 }

@@ -1,12 +1,12 @@
-import { GenerateRandomNumber } from '@/domain/contracts/gateways/random-number/generate-random-number'
+import { GenerateRandomNumber } from "@/domain/contracts/gateways/random-number/generate-random-number";
 
 export class GenerateRandomNumberMock implements GenerateRandomNumber {
-  public response = 999
+  public response = 999;
   async generate(): Promise<number> {
-    return this.response
+    return this.response;
   }
 }
 export const makeGenerateRandomNumberMock = () => {
-  const generateRandomNumberMock = new GenerateRandomNumberMock()
-  return { generateRandomNumberMock }
-}
+  const generateRandomNumberMock = new GenerateRandomNumberMock();
+  return { generateRandomNumberMock };
+};

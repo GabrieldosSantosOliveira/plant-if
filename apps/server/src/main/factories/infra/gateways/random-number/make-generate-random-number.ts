@@ -1,3 +1,3 @@
-import { GenerateRandomNumberImpl } from '@/infra/gateways/random-number/generate-random-number-impl'
+import { GenerateRandomNumberImpl } from "@/infra/gateways/random-number/generate-random-number-impl";
 
-export const makeGenerateRandomNumber = () => new GenerateRandomNumberImpl()
+export const makeGenerateRandomNumber = () => new GenerateRandomNumberImpl();
