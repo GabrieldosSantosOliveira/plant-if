@@ -19,7 +19,9 @@
   "rules": {
     "prettier/prettier": [
       "error",
-      {}
+      {
+        "singleQuotes": false
+      }
     ]
   }
 }
