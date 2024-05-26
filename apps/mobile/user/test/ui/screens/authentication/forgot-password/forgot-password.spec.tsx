@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@/jest/test-utils';
+import { act, fireEvent, render, screen } from '@/jest/test-utils';
 import { makeForgotPasswordUseCaseMock } from '@/test/data/mocks/use-cases/auth/make-forgot-password-use-case';
 import { ForgotPassword } from '@/ui/screens/authentication/forgot-password/forgot-password';
 import { faker } from '@faker-js/faker';
@@ -18,44 +18,40 @@ jest.mock(
 );
 const makeSut = () => {
   const { forgotPasswordUseCaseMock } = makeForgotPasswordUseCaseMock();
-  const sut = render(
-    <ForgotPassword forgotPasswordUseCase={forgotPasswordUseCaseMock} />,
-  );
-  return { sut, forgotPasswordUseCaseMock };
+  render(<ForgotPassword forgotPasswordUseCase={forgotPasswordUseCaseMock} />);
+  return { forgotPasswordUseCaseMock };
 };
 describe('<ForgotPassword />', () => {
   afterEach(() => {
     mockUseForgotPassword.mockClear();
   });
   it('should show message if submit without email', async () => {
-    const { sut } = makeSut();
-    const buttonSubmit = sut.getByTestId('button-submit');
+    makeSut();
+    const buttonSubmit = screen.getByTestId('button-submit');
     await act(async () => {
       fireEvent.press(buttonSubmit);
     });
-    expect(sut.queryByText('Informe seu email')).toBeTruthy();
+    expect(screen.getByText('Informe seu email')).toBeTruthy();
   });
   it('should show message if submit with invalid email', async () => {
-    const { sut } = makeSut();
+    makeSut();
     const invalidEmail = faker.lorem.words();
-    const inputEmail = sut.getByTestId('input-email');
-    const buttonSubmit = sut.getByTestId('button-submit');
+    const inputEmail = screen.getByTestId('input-email');
+    const buttonSubmit = screen.getByTestId('button-submit');
     await act(async () => {
       fireEvent.changeText(inputEmail, invalidEmail);
     });
     await act(async () => {
       fireEvent.press(buttonSubmit);
     });
-    expect(sut.queryByText('Informe um email válido')).toBeTruthy();
+    expect(screen.getByText('Informe um email válido')).toBeTruthy();
   });
   it('should call useForgotPassword with correct params', async () => {
-    const { sut } = makeSut();
+    makeSut();
     const validEmail = faker.internet.email();
-    const inputEmail = sut.getByTestId('input-email');
-    const buttonSubmit = sut.getByTestId('button-submit');
-    await act(async () => {
-      fireEvent.changeText(inputEmail, validEmail);
-    });
+    const inputEmail = screen.getByTestId('input-email');
+    const buttonSubmit = screen.getByTestId('button-submit');
+    fireEvent.changeText(inputEmail, validEmail);
     await act(async () => {
       fireEvent.press(buttonSubmit);
     });

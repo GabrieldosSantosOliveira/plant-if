@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@/jest/test-utils';
+import { fireEvent, render, screen } from '@/jest/test-utils';
 import {
   mockGoBack,
   mockNavigate,
@@ -10,18 +10,16 @@ describe('<Onboarding />', () => {
     mockNavigate.mockClear();
   });
   it('should navigate to screen Login on user press button', async () => {
-    const { getByTestId } = render(<Onboarding />);
-    const button = getByTestId('button-next', { exact: false });
-    await act(async () => {
-      fireEvent.press(button);
-    });
+    render(<Onboarding />);
+    const button = screen.getByTestId('button-next', { exact: false });
+    fireEvent.press(button);
     expect(mockNavigate).toHaveBeenCalled();
     expect(mockNavigate).toHaveBeenCalledWith('login');
   });
   describe('accessibility', () => {
     it('should has accessibilityHint in Button', () => {
-      const { getByTestId } = render(<Onboarding />);
-      const button = getByTestId('button-next', { exact: false });
+      render(<Onboarding />);
+      const button = screen.getByTestId('button-next', { exact: false });
       expect(button).toHaveProp('accessibilityHint');
     });
   });

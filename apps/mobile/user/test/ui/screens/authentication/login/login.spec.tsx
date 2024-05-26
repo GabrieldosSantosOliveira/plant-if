@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@/jest/test-utils';
+import { act, fireEvent, render, screen } from '@/jest/test-utils';
 import { makeAuthWithEmailUseCaseMock } from '@/test/data/mocks/use-cases/auth/make-auth-with-email-use-case-mock';
 import { makeAuthWithFacebookUseCaseMock } from '@/test/data/mocks/use-cases/auth/make-auth-with-facebook-use-case-mock';
 import { makeAuthWithGoogleUseCaseMock } from '@/test/data/mocks/use-cases/auth/make-auth-with-google-use-case-mock';
@@ -21,7 +21,7 @@ const makeSut = () => {
   const { authWithEmailUseCaseMock } = makeAuthWithEmailUseCaseMock();
   const { authWithFacebookUseCaseMock } = makeAuthWithFacebookUseCaseMock();
   const { authWithGoogleUseCaseMock } = makeAuthWithGoogleUseCaseMock();
-  const sut = render(
+  render(
     <Login
       authWithGoogleUseCase={authWithGoogleUseCaseMock}
       authWithEmailUseCase={authWithEmailUseCaseMock}
@@ -29,7 +29,6 @@ const makeSut = () => {
     />,
   );
   return {
-    sut,
     authWithEmailUseCaseMock,
     authWithFacebookUseCaseMock,
     authWithGoogleUseCaseMock,
@@ -42,25 +41,21 @@ describe('<Login />', () => {
     mockUseAuthWithEmail.mockClear();
   });
   it('should navigate to screen forgot-password if user press button', async () => {
-    const { sut } = makeSut();
-    const buttonForgotPassword = sut.getByTestId('button-forgot-password');
-    await act(async () => {
-      fireEvent.press(buttonForgotPassword);
-    });
+    makeSut();
+    const buttonForgotPassword = screen.getByTestId('button-forgot-password');
+    fireEvent.press(buttonForgotPassword);
     expect(mockNavigate).toHaveBeenCalledWith('forgot-password');
   });
   it('should navigate to screen sing-up if user press button', async () => {
-    const { sut } = makeSut();
-    const buttonForgotPassword = sut.getByTestId('button-sing-up');
-    await act(async () => {
-      fireEvent.press(buttonForgotPassword);
-    });
+    makeSut();
+    const buttonForgotPassword = screen.getByTestId('button-sing-up');
+    fireEvent.press(buttonForgotPassword);
     expect(mockNavigate).toHaveBeenCalledWith('sing-up');
   });
   it('should show message if user submit form with invalid email', async () => {
-    const { sut } = makeSut();
-    const inputEmail = sut.getByTestId('input-email');
-    const buttonSubmit = sut.getByTestId('button-submit');
+    makeSut();
+    const inputEmail = screen.getByTestId('input-email');
+    const buttonSubmit = screen.getByTestId('button-submit');
 
     await act(async () => {
       fireEvent.changeText(inputEmail, 'invalid_email');
@@ -69,22 +64,22 @@ describe('<Login />', () => {
       fireEvent.press(buttonSubmit);
     });
 
-    expect(sut.queryByText('Informe um email válido')).toBeTruthy();
+    expect(screen.getByText('Informe um email válido')).toBeTruthy();
   });
   it('should show message if user submit form without email', async () => {
-    const { sut } = makeSut();
-    const buttonSubmit = sut.getByTestId('button-submit');
+    makeSut();
+    const buttonSubmit = screen.getByTestId('button-submit');
 
     await act(async () => {
       fireEvent.press(buttonSubmit);
     });
 
-    expect(sut.queryByText('Informe seu email')).toBeTruthy();
+    expect(screen.getByText('Informe seu email')).toBeTruthy();
   });
   it('should show message if user submit form with password less 4 characters', async () => {
-    const { sut } = makeSut();
-    const buttonSubmit = sut.getByTestId('button-submit');
-    const inputPassword = sut.getByTestId('input-password');
+    makeSut();
+    const buttonSubmit = screen.getByTestId('button-submit');
+    const inputPassword = screen.getByTestId('input-password');
     await act(async () => {
       fireEvent.changeText(inputPassword, 'a'.repeat(3));
     });
@@ -93,32 +88,28 @@ describe('<Login />', () => {
     });
 
     expect(
-      sut.queryByText('A senha precisa ter no mínimo 4 caracteres'),
+      screen.getByText('A senha precisa ter no mínimo 4 caracteres'),
     ).toBeTruthy();
   });
   it('should show message if user submit form without password', async () => {
-    const { sut } = makeSut();
-    const buttonSubmit = sut.getByTestId('button-submit');
+    makeSut();
+    const buttonSubmit = screen.getByTestId('button-submit');
 
     await act(async () => {
       fireEvent.press(buttonSubmit);
     });
 
-    expect(sut.queryByText('Informe sua senha')).toBeTruthy();
+    expect(screen.getByText('Informe sua senha')).toBeTruthy();
   });
   it('should call useAuthWithEmail if success', async () => {
-    const { sut } = makeSut();
-    const buttonSubmit = sut.getByTestId('button-submit');
-    const inputPassword = sut.getByTestId('input-password');
-    const inputEmail = sut.getByTestId('input-email');
+    makeSut();
+    const buttonSubmit = screen.getByTestId('button-submit');
+    const inputPassword = screen.getByTestId('input-password');
+    const inputEmail = screen.getByTestId('input-email');
     const validEmail = faker.internet.email();
     const validPassword = faker.internet.password({ length: 30 });
-    await act(async () => {
-      fireEvent.changeText(inputPassword, validPassword);
-    });
-    await act(async () => {
-      fireEvent.changeText(inputEmail, validEmail);
-    });
+    fireEvent.changeText(inputPassword, validPassword);
+    fireEvent.changeText(inputEmail, validEmail);
     await act(async () => {
       fireEvent.press(buttonSubmit);
     });

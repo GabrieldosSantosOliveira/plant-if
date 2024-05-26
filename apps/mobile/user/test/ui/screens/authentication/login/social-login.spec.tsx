@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@/jest/test-utils';
+import { fireEvent, render, screen } from '@/jest/test-utils';
 import { makeAuthWithFacebookUseCaseMock } from '@/test/data/mocks/use-cases/auth/make-auth-with-facebook-use-case-mock';
 import { makeAuthWithGoogleUseCaseMock } from '@/test/data/mocks/use-cases/auth/make-auth-with-google-use-case-mock';
 import { SocialLogin } from '@/ui/screens/authentication/login/social-login';
@@ -20,37 +20,33 @@ jest.mock('@/ui/hooks/use-auth-with-facebook', () => ({
 const makeSut = () => {
   const { authWithFacebookUseCaseMock } = makeAuthWithFacebookUseCaseMock();
   const { authWithGoogleUseCaseMock } = makeAuthWithGoogleUseCaseMock();
-  const sut = render(
+  render(
     <SocialLogin
       authWithGoogleUseCase={authWithGoogleUseCaseMock}
       authWithFacebookUseCase={authWithFacebookUseCaseMock}
     />,
   );
   return {
-    sut,
     authWithFacebookUseCaseMock,
     authWithGoogleUseCaseMock,
   };
 };
 describe('<SocialLogin />', () => {
   it('should auth with google if user press button sing in with google', async () => {
-    const { sut } = makeSut();
-    const buttonSingInWithGoogle = sut.getByTestId(
+    makeSut();
+    const buttonSingInWithGoogle = screen.getByTestId(
       'button-sing-in-with-google',
     );
-    await act(async () => {
-      fireEvent.press(buttonSingInWithGoogle);
-    });
+    fireEvent.press(buttonSingInWithGoogle);
     expect(mockAuthWithGoogle).toHaveBeenCalled();
   });
   it('should auth with facebook if user press button sing in with facebook', async () => {
-    const { sut } = makeSut();
-    const buttonSingInWithFacebook = sut.getByTestId(
+    makeSut();
+    const buttonSingInWithFacebook = screen.getByTestId(
       'button-sing-in-with-facebook',
     );
-    await act(async () => {
-      fireEvent.press(buttonSingInWithFacebook);
-    });
+    fireEvent.press(buttonSingInWithFacebook);
+
     expect(mockAuthWithFacebook).toHaveBeenCalled();
   });
 });

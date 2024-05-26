@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@/jest/test-utils';
+import { fireEvent, render, screen } from '@/jest/test-utils';
 import { mockGoBack } from '@/test/ui/mocks/navigation/react-navigation-native-mock';
 import { Header } from '@/ui/screens/authentication/login/header';
 describe('<Header />', () => {
@@ -6,17 +6,17 @@ describe('<Header />', () => {
     mockGoBack.mockClear();
   });
   it('should navigate to prev screen if user press button go back', async () => {
-    const { getByTestId } = render(<Header />);
-    const buttonGoBack = getByTestId('button-go-back');
-    await act(async () => {
-      fireEvent.press(buttonGoBack);
-    });
+    render(<Header />);
+    const buttonGoBack = screen.getByTestId('button-go-back');
+
+    fireEvent.press(buttonGoBack);
+
     expect(mockGoBack).toHaveBeenCalled();
   });
   describe('accessibility', () => {
     it('should has accessibilityHint into button go back', () => {
-      const { getByTestId } = render(<Header />);
-      const buttonGoBack = getByTestId('button-go-back');
+      render(<Header />);
+      const buttonGoBack = screen.getByTestId('button-go-back');
       expect(buttonGoBack).toHaveProp('accessibilityHint');
     });
   });
