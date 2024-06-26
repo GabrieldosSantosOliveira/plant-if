@@ -1,3 +1,3 @@
 import { BcryptAdapter } from "@/infra/cryptography/bcrypt-adapter";
 
-export const makeHasher = () => new BcryptAdapter(12);
+export const makeBcrypt = () => new BcryptAdapter(12);

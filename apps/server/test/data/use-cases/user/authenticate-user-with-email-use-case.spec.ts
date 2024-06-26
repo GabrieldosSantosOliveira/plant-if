@@ -5,28 +5,28 @@ import { AuthenticateUserWithEmailUseCaseRequest } from "@/domain/use-cases/user
 import { left, right } from "@/shared/either";
 import { makeUser } from "@/test/domain/factories/make-user";
 import { makeAuthServiceMock } from "@/test/infra/mocks/auth/auth-service-mock";
-import { makeHashComparerMock } from "@/test/infra/mocks/cryptography/make-hash-comparer";
+import { makeBcryptMock } from "@/test/infra/mocks/cryptography/make-bcrypt-mock";
 import { makeInMemoryUserRepository } from "@/test/infra/mocks/repositories/user/in-memory-user-repository";
 import { faker } from "@faker-js/faker";
 
 const makeSut = () => {
   const { inMemoryUserRepository } = makeInMemoryUserRepository();
-  const { hashComparerMock } = makeHashComparerMock();
+  const { bcryptMock } = makeBcryptMock();
   const { authServiceMock } = makeAuthServiceMock();
   const sut = new AuthenticateUserWithEmailUseCaseImpl(
     inMemoryUserRepository,
-    hashComparerMock,
+    bcryptMock,
     authServiceMock,
   );
-  return { sut, authServiceMock, inMemoryUserRepository, hashComparerMock };
+  return { sut, authServiceMock, inMemoryUserRepository, bcryptMock };
 };
 const makeSutWithUser = async () => {
   const { inMemoryUserRepository } = makeInMemoryUserRepository();
-  const { hashComparerMock } = makeHashComparerMock();
+  const { bcryptMock } = makeBcryptMock();
   const { authServiceMock } = makeAuthServiceMock();
   const sut = new AuthenticateUserWithEmailUseCaseImpl(
     inMemoryUserRepository,
-    hashComparerMock,
+    bcryptMock,
     authServiceMock,
   );
   const user = makeUser();
@@ -35,7 +35,7 @@ const makeSutWithUser = async () => {
     sut,
     authServiceMock,
     inMemoryUserRepository,
-    hashComparerMock,
+    bcryptMock,
     user,
   };
 };
@@ -69,8 +69,8 @@ describe("AuthenticateUserWithEmailUseCaseImpl", () => {
     );
   });
   it("should return exception if password not match", async () => {
-    const { sut, user, hashComparerMock } = await makeSutWithUser();
-    hashComparerMock.isValid = false;
+    const { sut, user, bcryptMock } = await makeSutWithUser();
+    bcryptMock.isValid = false;
     const exception = await sut.handle(makeCredentials({ email: user.email }));
     expect(exception).toEqual(left(new UnauthorizedException()));
   });
@@ -96,8 +96,8 @@ describe("AuthenticateUserWithEmailUseCaseImpl", () => {
     );
   });
   it("should call HashComparer with correct password and hash", async () => {
-    const { sut, hashComparerMock, user } = await makeSutWithUser();
-    const hashComparerSpy = jest.spyOn(hashComparerMock, "compare");
+    const { sut, bcryptMock, user } = await makeSutWithUser();
+    const hashComparerSpy = jest.spyOn(bcryptMock, "compare");
     const credentials = makeCredentials({
       email: user.email,
       password: user.password,

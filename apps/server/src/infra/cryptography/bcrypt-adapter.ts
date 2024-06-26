@@ -1,7 +1,6 @@
-import { HashComparer } from "@/data/protocols/cryptography/hash-comparer";
-import { Hasher } from "@/data/protocols/cryptography/hasher";
+import { Bcrypt } from "@/data/protocols/cryptography/bcrypt";
 import * as bcrypt from "bcryptjs";
-export class BcryptAdapter implements Hasher, HashComparer {
+export class BcryptAdapter implements Bcrypt {
   constructor(private readonly salt: number) {}
   async compare(plaintext: string, digest: string): Promise<boolean> {
     return bcrypt.compare(plaintext, digest);

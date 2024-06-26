@@ -1,5 +1,5 @@
 import { AuthService } from "@/data/protocols/auth/auth-service";
-import { Hasher } from "@/data/protocols/cryptography/hasher";
+import { Bcrypt } from "@/data/protocols/cryptography/bcrypt";
 import { GeneratorUUID } from "@/domain/contracts/gateways/uuid/generator-uuid";
 import { CreateUserRepository } from "@/domain/contracts/repositories/user/create-user-repository";
 import { LoadUserByEmailRepository } from "@/domain/contracts/repositories/user/load-user-by-email-repository";
@@ -21,7 +21,7 @@ export class CreateUserWithEmailUseCaseImpl
     private readonly authService: AuthService,
     private readonly createUserRepository: CreateUserRepository,
     private readonly generatorUUID: GeneratorUUID,
-    private readonly hasher: Hasher,
+    private readonly bcrypt: Bcrypt,
   ) {}
 
   async handle(
@@ -33,7 +33,7 @@ export class CreateUserWithEmailUseCaseImpl
     if (userExists) {
       return left(new UserAlreadyExistsException());
     }
-    const passwordHash = await this.hasher.hash(request.password);
+    const passwordHash = await this.bcrypt.hash(request.password);
     const user = new User({
       email: request.email,
       firstName: request.firstName,

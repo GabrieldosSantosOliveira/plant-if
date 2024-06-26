@@ -1,5 +1,5 @@
 import { AuthService } from "@/data/protocols/auth/auth-service";
-import { HashComparer } from "@/data/protocols/cryptography/hash-comparer";
+import { Bcrypt } from "@/data/protocols/cryptography/bcrypt";
 import { LoadUserByEmailRepository } from "@/domain/contracts/repositories/user/load-user-by-email-repository";
 import { Exception } from "@/domain/use-cases/errors/exception";
 import { UnauthorizedException } from "@/domain/use-cases/errors/unauthorized-exception";
@@ -16,7 +16,7 @@ export class AuthenticateUserWithEmailUseCaseImpl
 {
   constructor(
     private readonly loadUserByEmailRepository: LoadUserByEmailRepository,
-    private readonly hashComparer: HashComparer,
+    private readonly bcrypt: Bcrypt,
     private readonly authService: AuthService,
   ) {}
 
@@ -32,7 +32,7 @@ export class AuthenticateUserWithEmailUseCaseImpl
     if (!userExists.password) {
       return left(new UnauthorizedException());
     }
-    const passwordMatch = await this.hashComparer.compare(
+    const passwordMatch = await this.bcrypt.compare(
       credentials.password,
       userExists.password,
     );

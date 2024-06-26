@@ -4,19 +4,19 @@ import { UserNotFoundException } from "@/domain/use-cases/errors/user-not-found-
 import { ResetPasswordUseCaseRequest } from "@/domain/use-cases/user/reset-password-use-case";
 import { left } from "@/shared/either";
 import { makeUser } from "@/test/domain/factories/make-user";
-import { makeHasherMock } from "@/test/infra/mocks/cryptography/make-hasher-mock";
+import { makeBcryptMock } from "@/test/infra/mocks/cryptography/make-bcrypt-mock";
 import { makeTimeBasedOnTimePasswordMock } from "@/test/infra/mocks/cryptography/make-time-based-one-time-password-mock";
 import { makeInMemoryUserRepository } from "@/test/infra/mocks/repositories/user/in-memory-user-repository";
 import { faker } from "@faker-js/faker";
 
 const makeSut = async () => {
   const { inMemoryUserRepository } = makeInMemoryUserRepository();
-  const { hasherMock } = makeHasherMock();
+  const { bcryptMock } = makeBcryptMock();
   const { timeBasedOnTimePasswordMock } = makeTimeBasedOnTimePasswordMock();
   const sut = new ResetPasswordUseCaseImpl(
     inMemoryUserRepository,
     inMemoryUserRepository,
-    hasherMock,
+    bcryptMock,
     timeBasedOnTimePasswordMock,
   );
   const user = makeUser();
@@ -24,27 +24,27 @@ const makeSut = async () => {
   return {
     sut,
     inMemoryUserRepository,
-    hasherMock,
+    bcryptMock,
     user,
     timeBasedOnTimePasswordMock,
   };
 };
 const makeSutWithoutCreateUser = () => {
   const { inMemoryUserRepository } = makeInMemoryUserRepository();
-  const { hasherMock } = makeHasherMock();
+  const { bcryptMock } = makeBcryptMock();
   const { timeBasedOnTimePasswordMock } = makeTimeBasedOnTimePasswordMock();
 
   const sut = new ResetPasswordUseCaseImpl(
     inMemoryUserRepository,
     inMemoryUserRepository,
-    hasherMock,
+    bcryptMock,
     timeBasedOnTimePasswordMock,
   );
 
   return {
     sut,
     inMemoryUserRepository,
-    hasherMock,
+    bcryptMock,
     timeBasedOnTimePasswordMock,
   };
 };
@@ -79,7 +79,7 @@ describe("ResetPasswordUseCaseImpl", () => {
     expect(exception).toEqual(left(new UnauthorizedException()));
   });
   it("should save user with hash password if success", async () => {
-    const { sut, user, inMemoryUserRepository, hasherMock } = await makeSut();
+    const { sut, user, inMemoryUserRepository, bcryptMock } = await makeSut();
     user.resetPasswordSecret = faker.lorem.words();
     await inMemoryUserRepository.save(user);
 
@@ -90,6 +90,6 @@ describe("ResetPasswordUseCaseImpl", () => {
       user.email,
     );
 
-    expect(userAfterSaveInDatabase?.password).toEqual(hasherMock.response);
+    expect(userAfterSaveInDatabase?.password).toEqual(bcryptMock.response);
   });
 });

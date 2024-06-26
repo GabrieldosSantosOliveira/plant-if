@@ -2,26 +2,26 @@ import { CreateUserWithEmailUseCaseImpl } from "@/data/use-cases/user/create-use
 import { UserAlreadyExistsException } from "@/domain/use-cases/errors/user-already-exists-exception";
 import { CreateUserWithEmailUseCaseRequest } from "@/domain/use-cases/user/create-user-with-email-use-case";
 import { makeAuthServiceMock } from "@/test/infra/mocks/auth/auth-service-mock";
-import { makeHasherMock } from "@/test/infra/mocks/cryptography/make-hasher-mock";
 import { makeGeneratorUUIDMock } from "@/test/infra/mocks/gateways/uuid/make-generator-uuid";
 import { faker } from "@faker-js/faker";
 
 import { makeUser } from "../../../domain/factories/make-user";
 import { makeInMemoryUserRepository } from "../../../infra/mocks/repositories/user/in-memory-user-repository";
+import { makeBcryptMock } from "@/test/infra/mocks/cryptography/make-bcrypt-mock";
 
 const makeSut = () => {
   const { authServiceMock } = makeAuthServiceMock();
   const { inMemoryUserRepository } = makeInMemoryUserRepository();
   const { generatorUUIDMock } = makeGeneratorUUIDMock();
-  const { hasherMock } = makeHasherMock();
+  const { bcryptMock } = makeBcryptMock();
   const sut = new CreateUserWithEmailUseCaseImpl(
     inMemoryUserRepository,
     authServiceMock,
     inMemoryUserRepository,
     generatorUUIDMock,
-    hasherMock,
+    bcryptMock,
   );
-  return { sut, inMemoryUserRepository, authServiceMock, hasherMock };
+  return { sut, inMemoryUserRepository, authServiceMock, bcryptMock };
 };
 
 const makeRequest = (
@@ -78,18 +78,18 @@ describe("CreateUserWithEmailUseCaseImpl", () => {
     expect(generateAccessTokenSpy).toHaveBeenCalledWith(user?.id);
   });
   it("should save user with hash password", async () => {
-    const { sut, inMemoryUserRepository, hasherMock } = makeSut();
+    const { sut, inMemoryUserRepository, bcryptMock } = makeSut();
     const email = faker.internet.email();
 
     await sut.handle(makeRequest({ email }));
     const user = await inMemoryUserRepository.findByEmail(email);
-    expect(user?.password).toBe(hasherMock.response);
+    expect(user?.password).toBe(bcryptMock.response);
   });
   it("should call Hasher with correct password", async () => {
-    const { sut, hasherMock } = makeSut();
+    const { sut, bcryptMock } = makeSut();
     const email = faker.internet.email();
     const password = faker.lorem.words();
-    const hasherSpy = jest.spyOn(hasherMock, "hash");
+    const hasherSpy = jest.spyOn(bcryptMock, "hash");
     await sut.handle(makeRequest({ email, password }));
     expect(hasherSpy).toHaveBeenCalledWith(password);
   });

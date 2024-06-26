@@ -1,4 +1,4 @@
-import { Hasher } from "@/data/protocols/cryptography/hasher";
+import { Bcrypt } from "@/data/protocols/cryptography/bcrypt";
 import { TimeBasedOnTimePassword } from "@/data/protocols/cryptography/time-based-one-time-password";
 import { LoadUserByEmailRepository } from "@/domain/contracts/repositories/user/load-user-by-email-repository";
 import { UpdateUserRepository } from "@/domain/contracts/repositories/user/update-user-repository";
@@ -17,7 +17,7 @@ export class ResetPasswordUseCaseImpl implements ResetPasswordUseCase {
   constructor(
     private readonly loadUserByEmailRepository: LoadUserByEmailRepository,
     private readonly updateUserRepository: UpdateUserRepository,
-    private readonly hasher: Hasher,
+    private readonly bcrypt: Bcrypt,
     private readonly timeBasedOnTimePassword: TimeBasedOnTimePassword,
   ) {}
 
@@ -39,7 +39,7 @@ export class ResetPasswordUseCaseImpl implements ResetPasswordUseCase {
     if (!isValidPassword) {
       return left(new UnauthorizedException());
     }
-    const passwordHash = await this.hasher.hash(data.resetPassword);
+    const passwordHash = await this.bcrypt.hash(data.resetPassword);
     user.password = passwordHash;
     await this.updateUserRepository.save(user);
 
