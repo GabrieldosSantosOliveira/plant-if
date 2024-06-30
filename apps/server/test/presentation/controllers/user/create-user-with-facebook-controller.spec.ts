@@ -1,15 +1,15 @@
 import {
   CreateUserWithFacebookController,
-  type CreateUserWithFacebookControllerRequest,
-} from "@/presentation/controllers/user/create-user-with-facebook-controller";
-import { HttpStatusCode } from "@/presentation/helpers/http/http-status-code";
-import { type HttpRequest } from "@/presentation/protocols/http/http-request";
+  CreateUserWithFacebookControllerRequest,
+} from "../../../../src/presentation/controllers/user/create-user-with-facebook-controller";
+import { HttpStatusCode } from "../../../../src/presentation/helpers/http/http-status-code";
+import { HttpRequest } from "../../../../src/presentation/protocols/http/http-request";
 import {
   makeCreateUserWithFacebookUseCaseMock,
   makeCreateUserWithFacebookUseCaseMockWithError,
   makeCreateUserWithFacebookUseCaseMockWithException,
-} from "@/test/data/mocks/user/create-user-with-facebook-use-case-mock";
-import { faker } from "@faker-js/faker";
+} from "../../../data/mocks/user/create-user-with-facebook-use-case-mock";
+import { mockValues } from "../../../mock/mock-values";
 
 const makeSut = () => {
   const { createUserWithFacebookUseCaseMock } =
@@ -60,20 +60,18 @@ describe("CreateUserWithFacebookController", () => {
     const httpResponse = await sut.handle(makeRequest());
     expect(httpResponse.statusCode).toBe(HttpStatusCode.OK);
   });
-  it("should return 500 if CreateUserWithFacebookUseCase throw error", async () => {
+  it("should throw error if CreateUserWithFacebookUseCase throw error", async () => {
     const { sut } = makeSutWithError();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.SERVER_ERROR);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
-  it("should return 401 if CreateUserWithFacebookUseCase return exception", async () => {
+  it("should throw exception if CreateUserWithFacebookUseCase throw exception", async () => {
     const { sut } = makeSutWithException();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.UNAUTHORIZED_ERROR);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
 
   it("should call CreateUserWithFacebookUseCase with correct params", async () => {
     const { sut, createUserWithFacebookUseCaseMock } = makeSut();
-    const accessToken = faker.lorem.slug();
+    const accessToken = mockValues.slug;
     const createUserWithFacebookUseCaseMockSpy = jest.spyOn(
       createUserWithFacebookUseCaseMock,
       "handle",

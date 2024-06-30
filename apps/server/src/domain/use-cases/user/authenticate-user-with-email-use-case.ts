@@ -1,18 +1,18 @@
-import { User } from "@/domain/entities/user";
-import { Either } from "@/shared/either";
+import { UserModel } from "../../entities/user";
 
-import { Exception } from "../errors/exception";
-export interface AuthenticateUserWithEmailUseCaseRequest {
-  email: string;
-  password: string;
-}
-export interface AuthenticateUserWithEmailUseCaseResponse {
-  accessToken: string;
-  refreshToken: string;
-  user: User;
-}
 export interface AuthenticateUserWithEmailUseCase {
   handle(
-    credentials: AuthenticateUserWithEmailUseCaseRequest,
-  ): Promise<Either<Exception, AuthenticateUserWithEmailUseCaseResponse>>;
+    credentials: AuthenticateUserWithEmailUseCase.Params,
+  ): Promise<AuthenticateUserWithEmailUseCase.Response>;
+}
+export declare module AuthenticateUserWithEmailUseCase {
+  export interface Params {
+    email: string;
+    password: string;
+  }
+  export interface Response {
+    accessToken: string;
+    refreshToken: string;
+    user: UserModel;
+  }
 }

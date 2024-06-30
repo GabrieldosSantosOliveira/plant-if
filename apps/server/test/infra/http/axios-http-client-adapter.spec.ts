@@ -7,7 +7,7 @@ jest.mock("axios", () => {
     post: mockPostAxios,
   };
 });
-import { AxiosHttpClientAdapter } from "@/infra/http/axios-http-client-adapter";
+import { AxiosHttpClientAdapter } from "../../../src/infra/http/axios-http-client-adapter";
 
 const makeSut = () => {
   const sut = new AxiosHttpClientAdapter();

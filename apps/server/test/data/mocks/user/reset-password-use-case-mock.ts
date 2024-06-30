@@ -1,19 +1,15 @@
-import { Exception } from "@/domain/use-cases/errors/exception";
-import { UserNotFoundException } from "@/domain/use-cases/errors/user-not-found-exception";
-import { ResetPasswordUseCase } from "@/domain/use-cases/user/reset-password-use-case";
-import { Either, left, right } from "@/shared/either";
+import { UserNotFoundException } from "../../../../src/domain/use-cases/errors/user-not-found-exception";
+import { ResetPasswordUseCase } from "../../../../src/domain/use-cases/user/reset-password-use-case";
 
 export class ResetPasswordUseCaseMock implements ResetPasswordUseCase {
-  async handle(): Promise<Either<Exception, null>> {
-    return right(null);
-  }
+  async handle(): Promise<ResetPasswordUseCase.Response> {}
 }
 export const makeResetPasswordUseCaseMock = () => {
   const resetPasswordUseCaseMock = new ResetPasswordUseCaseMock();
   return { resetPasswordUseCaseMock };
 };
 export class ResetPasswordUseCaseMockWithError implements ResetPasswordUseCase {
-  async handle(): Promise<Either<Exception, null>> {
+  async handle(): Promise<ResetPasswordUseCase.Response> {
     throw new Error();
   }
 }
@@ -25,8 +21,8 @@ export const makeResetPasswordUseCaseMockWithError = () => {
 export class ResetPasswordUseCaseMockWithException
   implements ResetPasswordUseCase
 {
-  async handle(): Promise<Either<Exception, null>> {
-    return left(new UserNotFoundException());
+  async handle(): Promise<ResetPasswordUseCase.Response> {
+    throw new UserNotFoundException();
   }
 }
 export const makeResetPasswordUseCaseMockWithException = () => {

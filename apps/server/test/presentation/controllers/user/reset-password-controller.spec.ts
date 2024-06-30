@@ -1,15 +1,15 @@
 import {
   ResetPasswordController,
-  type ResetPasswordControllerRequestBody,
-} from "@/presentation/controllers/user/reset-password-controller";
-import { HttpStatusCode } from "@/presentation/helpers/http/http-status-code";
-import { type HttpRequest } from "@/presentation/protocols/http/http-request";
+  ResetPasswordControllerRequestBody,
+} from "../../../../src/presentation/controllers/user/reset-password-controller";
+import { HttpStatusCode } from "../../../../src/presentation/helpers/http/http-status-code";
+import { HttpRequest } from "../../../../src/presentation/protocols/http/http-request";
 import {
   makeResetPasswordUseCaseMock,
   makeResetPasswordUseCaseMockWithError,
   makeResetPasswordUseCaseMockWithException,
-} from "@/test/data/mocks/user/reset-password-use-case-mock";
-import { faker } from "@faker-js/faker";
+} from "../../../data/mocks/user/reset-password-use-case-mock";
+import { mockValues } from "../../../mock/mock-values";
 
 const makeSut = () => {
   const { resetPasswordUseCaseMock } = makeResetPasswordUseCaseMock();
@@ -35,9 +35,9 @@ const makeRequest = (
 ): HttpRequest<ResetPasswordControllerRequestBody, unknown, unknown> => {
   return {
     body: {
-      email: faker.internet.email(),
-      code: faker.lorem.words(),
-      resetPassword: faker.lorem.words(),
+      email: mockValues.email,
+      code: mockValues.slug,
+      resetPassword: mockValues.slug,
       ...body,
     },
     params: {},
@@ -68,15 +68,13 @@ describe("ResetPasswordController", () => {
     const httpResponse = await sut.handle(makeRequest());
     expect(httpResponse.statusCode).toBe(HttpStatusCode.NO_CONTENT);
   });
-  it("should return 500 if ResetPasswordUseCase throw error", async () => {
+  it("should throw error if ResetPasswordUseCase throw error", async () => {
     const { sut } = makeSutWithError();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.SERVER_ERROR);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
-  it("should return 404 if ResetPasswordUseCase return exception user not found", async () => {
+  it("should throw exception if ResetPasswordUseCase throw exception user not found", async () => {
     const { sut } = makeSutWithException();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.NOT_FOUND);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
 
   it("should call ResetPasswordUseCase with correct params", async () => {

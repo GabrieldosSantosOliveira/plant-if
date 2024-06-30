@@ -1,28 +1,22 @@
-import { Exception } from "@/domain/use-cases/errors/exception";
-import { UnauthorizedException } from "@/domain/use-cases/errors/unauthorized-exception";
-import {
-  CreateUserWithGoogleUseCase,
-  CreateUserWithGoogleUseCaseRequest,
-  CreateUserWithGoogleUseCaseResponse,
-} from "@/domain/use-cases/user/create-user-with-google-use-case";
-import { Either, left, right } from "@/shared/either";
-import { makeUser } from "@/test/domain/factories/make-user";
+import { UnauthorizedException } from "../../../../src/domain/use-cases/errors/unauthorized-exception";
+import { CreateUserWithGoogleUseCase } from "../../../../src/domain/use-cases/user/create-user-with-google-use-case";
+import { makeUser } from "../../../domain/factories/make-user";
 
 export class CreateUserWithGoogleUseCaseMock
   implements CreateUserWithGoogleUseCase
 {
-  public request: CreateUserWithGoogleUseCaseRequest;
-  public response: CreateUserWithGoogleUseCaseResponse;
+  public request: CreateUserWithGoogleUseCase.Params;
+  public response: CreateUserWithGoogleUseCase.Response;
   async handle(
-    request: CreateUserWithGoogleUseCaseRequest,
-  ): Promise<Either<Exception, CreateUserWithGoogleUseCaseResponse>> {
+    request: CreateUserWithGoogleUseCase.Params,
+  ): Promise<CreateUserWithGoogleUseCase.Response> {
     this.request = request;
     this.response = {
       accessToken: "any_access_token",
       refreshToken: "any_refresh_token",
       user: makeUser(),
     };
-    return right(this.response);
+    return this.response;
   }
 }
 export const makeCreateUserWithGoogleUseCaseMock = () => {
@@ -32,9 +26,7 @@ export const makeCreateUserWithGoogleUseCaseMock = () => {
 export class CreateUserWithGoogleUseCaseMockWithError
   implements CreateUserWithGoogleUseCase
 {
-  async handle(): Promise<
-    Either<Exception, CreateUserWithGoogleUseCaseResponse>
-  > {
+  async handle(): Promise<CreateUserWithGoogleUseCase.Response> {
     throw new Error();
   }
 }
@@ -46,10 +38,8 @@ export const makeCreateUserWithGoogleUseCaseMockWithError = () => {
 export class CreateUserWithGoogleUseCaseMockWithException
   implements CreateUserWithGoogleUseCase
 {
-  async handle(): Promise<
-    Either<Exception, CreateUserWithGoogleUseCaseResponse>
-  > {
-    return left(new UnauthorizedException());
+  async handle(): Promise<CreateUserWithGoogleUseCase.Response> {
+    throw new UnauthorizedException();
   }
 }
 export const makeCreateUserWithGoogleUseCaseMockWithException = () => {

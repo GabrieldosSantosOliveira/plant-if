@@ -1,5 +1,5 @@
-import { TimeBasedOnTimePassword } from "@/data/protocols/cryptography/time-based-one-time-password";
 import * as speakeasy from "speakeasy";
+import { TimeBasedOnTimePassword } from "../../data/protocols/cryptography/time-based-one-time-password";
 export class SpeakeasyAdapter implements TimeBasedOnTimePassword {
   async generateSecret(): Promise<string> {
     return speakeasy.generateSecret().base32;

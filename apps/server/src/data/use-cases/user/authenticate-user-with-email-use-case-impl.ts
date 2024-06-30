@@ -1,15 +1,9 @@
-import { AuthService } from "@/data/protocols/auth/auth-service";
-import { Bcrypt } from "@/data/protocols/cryptography/bcrypt";
-import { LoadUserByEmailRepository } from "@/domain/contracts/repositories/user/load-user-by-email-repository";
-import { Exception } from "@/domain/use-cases/errors/exception";
-import { UnauthorizedException } from "@/domain/use-cases/errors/unauthorized-exception";
-import { UserNotFoundException } from "@/domain/use-cases/errors/user-not-found-exception";
-import {
-  AuthenticateUserWithEmailUseCase,
-  AuthenticateUserWithEmailUseCaseRequest,
-  AuthenticateUserWithEmailUseCaseResponse,
-} from "@/domain/use-cases/user/authenticate-user-with-email-use-case";
-import { Either, left, right } from "@/shared/either";
+import { LoadUserByEmailRepository } from "../../../domain/contracts/repositories/user/load-user-by-email-repository";
+import { UnauthorizedException } from "../../../domain/use-cases/errors/unauthorized-exception";
+import { UserNotFoundException } from "../../../domain/use-cases/errors/user-not-found-exception";
+import { AuthenticateUserWithEmailUseCase } from "../../../domain/use-cases/user/authenticate-user-with-email-use-case";
+import { AuthFacade } from "../../protocols/auth/auth-facade";
+import { Bcrypt } from "../../protocols/cryptography/bcrypt";
 
 export class AuthenticateUserWithEmailUseCaseImpl
   implements AuthenticateUserWithEmailUseCase
@@ -17,38 +11,38 @@ export class AuthenticateUserWithEmailUseCaseImpl
   constructor(
     private readonly loadUserByEmailRepository: LoadUserByEmailRepository,
     private readonly bcrypt: Bcrypt,
-    private readonly authService: AuthService,
+    private readonly authFacade: AuthFacade,
   ) {}
 
   async handle(
-    credentials: AuthenticateUserWithEmailUseCaseRequest,
-  ): Promise<Either<Exception, AuthenticateUserWithEmailUseCaseResponse>> {
+    credentials: AuthenticateUserWithEmailUseCase.Params,
+  ): Promise<AuthenticateUserWithEmailUseCase.Response> {
     const userExists = await this.loadUserByEmailRepository.findByEmail(
       credentials.email,
     );
     if (!userExists) {
-      return left(new UserNotFoundException());
+      throw new UserNotFoundException();
     }
     if (!userExists.password) {
-      return left(new UnauthorizedException());
+      throw new UnauthorizedException();
     }
     const passwordMatch = await this.bcrypt.compare(
       credentials.password,
       userExists.password,
     );
     if (!passwordMatch) {
-      return left(new UnauthorizedException());
+      throw new UnauthorizedException();
     }
-    const { accessToken } = await this.authService.generateAccessToken(
+    const { accessToken } = await this.authFacade.signAccessToken(
       userExists.id,
     );
-    const { refreshToken } = await this.authService.generateRefreshToken(
+    const { refreshToken } = await this.authFacade.signRefreshToken(
       userExists.id,
     );
-    return right({
+    return {
       accessToken,
       refreshToken,
       user: userExists,
-    });
+    };
   }
 }

@@ -1,9 +1,9 @@
+import { Transporter, createTransport } from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 import {
   SendEmailData,
   SendMail,
-} from "@/domain/contracts/gateways/email/send-mail";
-import { Transporter, createTransport } from "nodemailer";
-import SMTPTransport from "nodemailer/lib/smtp-transport";
+} from "../../../domain/contracts/gateways/email/send-mail";
 
 export class NodemalierSendMail implements SendMail {
   private transporter: Transporter;

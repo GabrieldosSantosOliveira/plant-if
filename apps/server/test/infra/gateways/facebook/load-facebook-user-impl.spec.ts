@@ -1,6 +1,5 @@
-import { LoadFacebookUserImpl } from "@/infra/gateways/facebook/load-facebook-user-impl";
-import { faker } from "@faker-js/faker";
-
+import { LoadFacebookUserImpl } from "../../../../src/infra/gateways/facebook/load-facebook-user-impl";
+import { mockValues } from "../../../mock/mock-values";
 import { makeHttpClientMock } from "../../mocks/http/make-http-client-mock";
 
 const makeSut = () => {
@@ -21,7 +20,7 @@ describe("LoadFacebookUserImpl", () => {
           data: {
             height: 100,
             is_silhouette: true,
-            url: faker.internet.url(),
+            url: mockValues.url,
             width: 100,
           },
         },
@@ -58,7 +57,7 @@ describe("LoadFacebookUserImpl", () => {
           data: {
             height: 100,
             is_silhouette: true,
-            url: faker.internet.url(),
+            url: mockValues.url,
             width: 100,
           },
         },
@@ -80,7 +79,7 @@ describe("LoadFacebookUserImpl", () => {
           data: {
             height: 100,
             is_silhouette: true,
-            url: faker.internet.url(),
+            url: mockValues.url,
             width: 100,
           },
         },

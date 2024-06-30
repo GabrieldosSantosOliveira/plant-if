@@ -1,13 +1,8 @@
-import { HttpStatusCode } from "@/presentation/helpers/http/http-status-code";
+import { DomainException } from "./domain-exception";
 
-import { HttpException } from "./http-exception";
-
-export class UserNotFoundException extends HttpException {
+export class UserNotFoundException extends DomainException {
   constructor() {
-    super({
-      message: "User not found",
-      statusCode: HttpStatusCode.NOT_FOUND,
-    });
+    super();
     this.name = "UserNotFoundException";
   }
 }

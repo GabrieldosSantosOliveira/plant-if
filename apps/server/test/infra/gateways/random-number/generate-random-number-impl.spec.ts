@@ -1,4 +1,4 @@
-import { GenerateRandomNumberImpl } from "@/infra/gateways/random-number/generate-random-number-impl";
+import { GenerateRandomNumberImpl } from "../../../../src/infra/gateways/random-number/generate-random-number-impl";
 
 const makeSut = () => {
   const sut = new GenerateRandomNumberImpl();

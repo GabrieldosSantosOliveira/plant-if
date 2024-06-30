@@ -1,10 +1,10 @@
-import { Land, LandProps } from "@/domain/entities/land";
-import { faker } from "@faker-js/faker";
+import { Land, LandProps } from "../../../src/domain/entities/land";
+import { mockValues } from "../../mock/mock-values";
 
 export const makeLand = (land: Partial<LandProps> = {}) => {
   return new Land({
-    name: faker.lorem.word(),
-    id: faker.string.uuid(),
+    name: mockValues.slug,
+    id: mockValues.uuid,
     ...land,
   });
 };

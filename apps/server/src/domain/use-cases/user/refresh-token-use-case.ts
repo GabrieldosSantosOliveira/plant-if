@@ -1,17 +1,13 @@
-import { Either } from "@/shared/either";
-
-import { Exception } from "../errors/exception";
-
-export interface RefreshTokenUseCaseRequestDto {
-  refreshToken: string;
-}
-export interface RefreshTokenUseCaseResponseDto {
-  accessToken: string;
-}
 export interface RefreshTokenUseCase {
-  handle({
-    refreshToken,
-  }: RefreshTokenUseCaseRequestDto): Promise<
-    Either<Exception, RefreshTokenUseCaseResponseDto>
-  >;
+  handle(
+    params: RefreshTokenUseCase.Params,
+  ): Promise<RefreshTokenUseCase.Response>;
+}
+export declare module RefreshTokenUseCase {
+  export interface Params {
+    refreshToken: string;
+  }
+  export interface Response {
+    accessToken: string;
+  }
 }

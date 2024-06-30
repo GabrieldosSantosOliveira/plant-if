@@ -1,6 +1,5 @@
-import { LoadGoogleUserImpl } from "@/infra/gateways/google/load-google-user-impl";
-import { faker } from "@faker-js/faker";
-
+import { LoadGoogleUserImpl } from "../../../../src/infra/gateways/google/load-google-user-impl";
+import { mockValues } from "../../../mock/mock-values";
 import { makeHttpClientMock } from "../../mocks/http/make-http-client-mock";
 
 const makeSut = () => {
@@ -17,9 +16,9 @@ describe("LoadGoogleUserImpl", () => {
         email: "any_email",
         email_verified: "true",
         name: "any_name",
-        picture: faker.internet.url(),
-        given_name: faker.person.firstName(),
-        family_name: faker.person.lastName(),
+        picture: mockValues.url,
+        given_name: mockValues.firstName,
+        family_name: mockValues.lastName,
       },
       statusCode: 200,
     };
@@ -49,9 +48,9 @@ describe("LoadGoogleUserImpl", () => {
         email: "any_email",
         email_verified: "true",
         name: "any_name",
-        picture: faker.internet.url(),
-        given_name: faker.person.firstName(),
-        family_name: faker.person.lastName(),
+        picture: mockValues.url,
+        given_name: mockValues.firstName,
+        family_name: mockValues.lastName,
       },
       statusCode: 200,
     };
@@ -70,7 +69,7 @@ describe("LoadGoogleUserImpl", () => {
           data: {
             height: 100,
             is_silhouette: true,
-            url: faker.internet.url(),
+            url: mockValues.url,
             width: 100,
           },
         },
@@ -78,7 +77,7 @@ describe("LoadGoogleUserImpl", () => {
       statusCode: 200,
     };
     const spyHttpClient = jest.spyOn(httpClientMock, "get");
-    const accessToken = faker.lorem.words();
+    const accessToken = mockValues.slug;
     await sut.loadUser({ accessToken });
     expect(spyHttpClient).toHaveBeenCalledWith(
       "https://www.googleapis.com/oauth2/v2/userinfo",

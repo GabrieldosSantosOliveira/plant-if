@@ -1,15 +1,21 @@
 import { Replace } from "../helpers/replace";
+export enum UserRoles {
+  STUDENT = "STUDENT",
+  TECHNICIAN = "TECHNICIAN",
+}
 export interface UserProps {
-  id: string;
+  id: number;
   email: string;
   firstName: string;
   lastName: string;
-  image?: string;
   password?: string;
   resetPasswordSecret?: string;
   createdAt: Date;
   updatedAt: Date;
+  role: UserRoles;
 }
+export interface UserModel extends UserProps {}
+
 export class User {
   private props: UserProps;
   constructor({
@@ -66,14 +72,6 @@ export class User {
 
   public set lastName(lastName: string) {
     this.props.lastName = lastName;
-  }
-
-  public get image() {
-    return this.props.image;
-  }
-
-  public set image(image: string | undefined) {
-    this.props.image = image;
   }
 
   public get createdAt() {

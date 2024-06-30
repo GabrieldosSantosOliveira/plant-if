@@ -1,4 +1,4 @@
-import { GenerateRandomNumber } from "@/domain/contracts/gateways/random-number/generate-random-number";
+import { GenerateRandomNumber } from "../../../domain/contracts/gateways/random-number/generate-random-number";
 
 export class GenerateRandomNumberImpl implements GenerateRandomNumber {
   async generate(length: number): Promise<number> {

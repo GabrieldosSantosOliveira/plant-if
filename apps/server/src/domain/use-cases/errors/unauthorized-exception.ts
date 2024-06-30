@@ -1,13 +1,8 @@
-import { HttpStatusCode } from "@/presentation/helpers/http/http-status-code";
+import { DomainException } from "./domain-exception";
 
-import { HttpException } from "./http-exception";
-
-export class UnauthorizedException extends HttpException {
+export class UnauthorizedException extends DomainException {
   constructor() {
-    super({
-      message: "Unauthorized",
-      statusCode: HttpStatusCode.UNAUTHORIZED_ERROR,
-    });
+    super();
     this.name = "UnauthorizedException";
   }
 }

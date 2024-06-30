@@ -1,13 +1,12 @@
-import { ResetPasswordUseCaseImpl } from "@/data/use-cases/user/reset-password-use-case-impl";
-import { UnauthorizedException } from "@/domain/use-cases/errors/unauthorized-exception";
-import { UserNotFoundException } from "@/domain/use-cases/errors/user-not-found-exception";
-import { ResetPasswordUseCaseRequest } from "@/domain/use-cases/user/reset-password-use-case";
-import { left } from "@/shared/either";
-import { makeUser } from "@/test/domain/factories/make-user";
-import { makeBcryptMock } from "@/test/infra/mocks/cryptography/make-bcrypt-mock";
-import { makeTimeBasedOnTimePasswordMock } from "@/test/infra/mocks/cryptography/make-time-based-one-time-password-mock";
-import { makeInMemoryUserRepository } from "@/test/infra/mocks/repositories/user/in-memory-user-repository";
-import { faker } from "@faker-js/faker";
+import { ResetPasswordUseCaseImpl } from "../../../../src/data/use-cases/user/reset-password-use-case-impl";
+import { UnauthorizedException } from "../../../../src/domain/use-cases/errors/unauthorized-exception";
+import { UserNotFoundException } from "../../../../src/domain/use-cases/errors/user-not-found-exception";
+import { ResetPasswordUseCase } from "../../../../src/domain/use-cases/user/reset-password-use-case";
+import { makeUser } from "../../../domain/factories/make-user";
+import { makeBcryptMock } from "../../../infra/mocks/cryptography/make-bcrypt-mock";
+import { makeTimeBasedOnTimePasswordMock } from "../../../infra/mocks/cryptography/make-time-based-one-time-password-mock";
+import { makeInMemoryUserRepository } from "../../../infra/mocks/repositories/user/in-memory-user-repository";
+import { mockValues } from "../../../mock/mock-values";
 
 const makeSut = async () => {
   const { inMemoryUserRepository } = makeInMemoryUserRepository();
@@ -49,43 +48,41 @@ const makeSutWithoutCreateUser = () => {
   };
 };
 const makeRequest = (
-  data: Partial<ResetPasswordUseCaseRequest> = {},
-): ResetPasswordUseCaseRequest => {
+  data: Partial<ResetPasswordUseCase.Params> = {},
+): ResetPasswordUseCase.Params => {
   return {
-    code: faker.lorem.words(),
-    email: faker.internet.email(),
-    resetPassword: faker.lorem.words(),
+    code: mockValues.slug,
+    email: mockValues.email,
+    resetPassword: mockValues.password,
     ...data,
   };
 };
 describe("ResetPasswordUseCaseImpl", () => {
-  it("should return exception user not found if user not found", async () => {
+  it("should throw exception user not found if user not found", async () => {
     const { sut } = makeSutWithoutCreateUser();
-    const exception = await sut.handle(makeRequest());
-    expect(exception).toEqual(left(new UserNotFoundException()));
+    const exception = sut.handle(makeRequest());
+    await expect(exception).rejects.toThrow(new UserNotFoundException());
   });
-  it("should return exception if no has valid code", async () => {
+  it("should throw exception if no has valid code", async () => {
     const { sut, user, inMemoryUserRepository, timeBasedOnTimePasswordMock } =
       await makeSut();
     timeBasedOnTimePasswordMock.isValid = false;
     await inMemoryUserRepository.save(user);
-    const exception = await sut.handle(makeRequest({ email: user.email }));
-    expect(exception).toEqual(left(new UnauthorizedException()));
+    const exception = sut.handle(makeRequest({ email: user.email }));
+    await expect(exception).rejects.toThrow(new UnauthorizedException());
   });
 
-  it("should return exception if user no has resetPasswordSecret", async () => {
+  it("should throw exception if user no has resetPasswordSecret", async () => {
     const { sut, user } = await makeSut();
-    const exception = await sut.handle(makeRequest({ email: user.email }));
-    expect(exception).toEqual(left(new UnauthorizedException()));
+    const exception = sut.handle(makeRequest({ email: user.email }));
+    await expect(exception).rejects.toThrow(new UnauthorizedException());
   });
   it("should save user with hash password if success", async () => {
     const { sut, user, inMemoryUserRepository, bcryptMock } = await makeSut();
-    user.resetPasswordSecret = faker.lorem.words();
+    user.resetPasswordSecret = mockValues.password;
     await inMemoryUserRepository.save(user);
 
-    await sut.handle(
-      makeRequest({ email: user.email, code: faker.lorem.words() }),
-    );
+    await sut.handle(makeRequest({ email: user.email, code: mockValues.slug }));
     const userAfterSaveInDatabase = await inMemoryUserRepository.findByEmail(
       user.email,
     );

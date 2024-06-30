@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
 export class PrismaService extends PrismaClient {
-  // eslint-disable-next-line no-use-before-define
   private static _instance: PrismaService | null = null;
   private constructor() {
     super();

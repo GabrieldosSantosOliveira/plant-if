@@ -1,7 +1,7 @@
 import {
   SendEmailData,
   SendMail,
-} from "@/domain/contracts/gateways/email/send-mail";
+} from "../../../../../src/domain/contracts/gateways/email/send-mail";
 
 export class SendMailMock implements SendMail {
   public param: SendEmailData | null = null;

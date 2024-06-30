@@ -1,10 +1,12 @@
-import { makeExpressRouterAdapter } from "@/main/adapters/express-router-adapter";
-import { makeCreateUserWithEmailController } from "@/main/factories/presentation/controllers/make-create-user-with-email-controller";
 import { Router } from "express";
-
+import { makeExpressRouterAdapter } from "../../adapters/express-router-adapter";
+import { makeGlobalHandlerException } from "../../factories/global-handler-exception/make-global-handler-exception";
+import { makeCreateUserWithEmailController } from "../../factories/presentation/controllers/make-create-user-with-email-controller";
 export default function CreateUserWithEmailRoute(router: Router) {
   router.post(
     "/user/auth/sing-up/email",
-    makeExpressRouterAdapter(makeCreateUserWithEmailController()),
+    makeExpressRouterAdapter(
+      makeGlobalHandlerException(makeCreateUserWithEmailController()),
+    ),
   );
 }

@@ -1,12 +1,11 @@
-import { Either } from "@/shared/either";
-
-import { Exception } from "../errors/exception";
-export interface ForgotPasswordUseCaseRequest {
-  email: string;
-}
-
 export interface ForgotPasswordUseCase {
   handle(
-    request: ForgotPasswordUseCaseRequest,
-  ): Promise<Either<Exception, null>>;
+    request: ForgotPasswordUseCase.Params,
+  ): Promise<ForgotPasswordUseCase.Response>;
+}
+export declare module ForgotPasswordUseCase {
+  export interface Params {
+    email: string;
+  }
+  export type Response = void;
 }

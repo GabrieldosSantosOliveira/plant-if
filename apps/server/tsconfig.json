@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["ES2023"],
-    "module": "node16",
+    "module": "CommonJS",
     "target": "ES2022",
     "strictPropertyInitialization": false,
     "strict": true,
@@ -16,34 +16,7 @@
     "outDir": "dist",
     "removeComments": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "baseUrl": ".",
-    "paths": {
-      "@/data/*": [
-        "./src/data/*"
-      ],
-      "@/domain/*": [
-        "./src/domain/*"
-      ],
-      "@/infra/*": [
-        "./src/infra/*"
-      ],
-      "@/main/*": [
-        "./src/main/*"
-      ],
-      "@/presentation/*": [
-        "./src/presentation/*"
-      ],
-      "@/shared/*": [
-        "./src/shared/*"
-      ],
-      "@/utils/*": [
-        "./src/utils/*"
-      ],
-      "@/test/*": [
-        "./test/*"
-      ]
-    }
-  }
+    "resolveJsonModule": true
+    },
+    "exclude": ["./test"]
 }

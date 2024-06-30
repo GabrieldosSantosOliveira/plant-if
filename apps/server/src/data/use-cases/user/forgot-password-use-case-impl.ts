@@ -1,14 +1,10 @@
-import { TimeBasedOnTimePassword } from "@/data/protocols/cryptography/time-based-one-time-password";
-import { SendMail } from "@/domain/contracts/gateways/email/send-mail";
-import { LoadUserByEmailRepository } from "@/domain/contracts/repositories/user/load-user-by-email-repository";
-import { UpdateUserRepository } from "@/domain/contracts/repositories/user/update-user-repository";
-import { Exception } from "@/domain/use-cases/errors/exception";
-import { UserNotFoundException } from "@/domain/use-cases/errors/user-not-found-exception";
-import {
-  ForgotPasswordUseCase,
-  ForgotPasswordUseCaseRequest,
-} from "@/domain/use-cases/user/forgot-password-use-case";
-import { Either, left, right } from "@/shared/either";
+import { SendMail } from "../../../domain/contracts/gateways/email/send-mail";
+import { LoadUserByEmailRepository } from "../../../domain/contracts/repositories/user/load-user-by-email-repository";
+import { UpdateUserRepository } from "../../../domain/contracts/repositories/user/update-user-repository";
+import { UserNotFoundException } from "../../../domain/use-cases/errors/user-not-found-exception";
+import { ForgotPasswordUseCase } from "../../../domain/use-cases/user/forgot-password-use-case";
+import { TimeBasedOnTimePassword } from "../../protocols/cryptography/time-based-one-time-password";
+
 export class ForgotPasswordUseCaseImpl implements ForgotPasswordUseCase {
   private readonly PASSWORD_DURATION_IN_SECONDS = 60;
   constructor(
@@ -19,13 +15,13 @@ export class ForgotPasswordUseCaseImpl implements ForgotPasswordUseCase {
   ) {}
 
   async handle(
-    request: ForgotPasswordUseCaseRequest,
-  ): Promise<Either<Exception, null>> {
+    request: ForgotPasswordUseCase.Params,
+  ): Promise<ForgotPasswordUseCase.Response> {
     const userExists = await this.loadUserByEmailRepository.findByEmail(
       request.email,
     );
     if (!userExists) {
-      return left(new UserNotFoundException());
+      throw new UserNotFoundException();
     }
     const secret = await this.timeBasedOnTimePassword.generateSecret();
 
@@ -44,6 +40,5 @@ export class ForgotPasswordUseCaseImpl implements ForgotPasswordUseCase {
       subject: "PlantIf: recuperação de senha, confira seu código de acesso.",
       to: userExists.email,
     });
-    return right(null);
   }
 }

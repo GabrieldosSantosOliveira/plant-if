@@ -1,15 +1,15 @@
 import {
   ForgotPasswordController,
-  type ForgotPasswordControllerRequestBody,
-} from "@/presentation/controllers/user/forgot-password-controller";
-import { HttpStatusCode } from "@/presentation/helpers/http/http-status-code";
-import { type HttpRequest } from "@/presentation/protocols/http/http-request";
+  ForgotPasswordControllerRequestBody,
+} from "../../../../src/presentation/controllers/user/forgot-password-controller";
+import { HttpStatusCode } from "../../../../src/presentation/helpers/http/http-status-code";
+import { HttpRequest } from "../../../../src/presentation/protocols/http/http-request";
 import {
   makeForgotPasswordUseCaseMock,
   makeForgotPasswordUseCaseMockWithError,
   makeForgotPasswordUseCaseMockWithException,
-} from "@/test/data/mocks/user/forgot-password-use-case-mock";
-import { faker } from "@faker-js/faker";
+} from "../../../data/mocks/user/forgot-password-use-case-mock";
+import { mockValues } from "../../../mock/mock-values";
 
 const makeSut = () => {
   const { forgotPasswordUseCaseMock } = makeForgotPasswordUseCaseMock();
@@ -35,7 +35,7 @@ const makeRequest = (
 ): HttpRequest<ForgotPasswordControllerRequestBody, unknown, unknown> => {
   return {
     body: {
-      email: faker.internet.email(),
+      email: mockValues.email,
       ...body,
     },
     params: {},
@@ -54,15 +54,13 @@ describe("CreateUserWithEmailController", () => {
     const httpResponse = await sut.handle(makeRequest());
     expect(httpResponse.statusCode).toBe(HttpStatusCode.NO_CONTENT);
   });
-  it("should return 500 if ForgotPasswordUseCase throw error", async () => {
+  it("should throw exception if ForgotPasswordUseCase throw error", async () => {
     const { sut } = makeSutWithError();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.SERVER_ERROR);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
-  it("should return 401 if ForgotPasswordUseCase return exception", async () => {
+  it("should throw exception if ForgotPasswordUseCase throw exception", async () => {
     const { sut } = makeSutWithException();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.NOT_FOUND);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
 
   it("should call ForgotPasswordUseCase with correct params", async () => {

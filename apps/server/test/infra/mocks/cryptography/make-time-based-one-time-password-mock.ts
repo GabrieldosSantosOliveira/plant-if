@@ -1,9 +1,9 @@
-import { TimeBasedOnTimePassword } from "@/data/protocols/cryptography/time-based-one-time-password";
-import { faker } from "@faker-js/faker";
+import { TimeBasedOnTimePassword } from "../../../../src/data/protocols/cryptography/time-based-one-time-password";
+import { mockValues } from "../../../mock/mock-values";
 
 export class TimeBasedOnTimePasswordMock implements TimeBasedOnTimePassword {
-  secret = faker.lorem.words();
-  password = faker.lorem.words();
+  secret = mockValues.slug;
+  password = mockValues.slug;
   isValid = true;
   async generateSecret(): Promise<string> {
     return this.secret;

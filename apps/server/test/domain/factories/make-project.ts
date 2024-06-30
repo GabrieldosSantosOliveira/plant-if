@@ -1,5 +1,5 @@
-import { Project, ProjectProps } from "@/domain/entities/project";
 import { faker } from "@faker-js/faker";
+import { Project, ProjectProps } from "../../../src/domain/entities/project";
 
 export const makeProject = (project: Partial<ProjectProps> = {}) => {
   return new Project({

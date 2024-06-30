@@ -1,21 +1,8 @@
-import { Exception } from "@/domain/use-cases/errors/exception";
-import { HttpResponse } from "@/presentation/protocols/http/http-response";
-
+import { HttpResponse } from "../../protocols/http/http-response";
 import { ServerError } from "../errors/server-error";
 import { HttpStatusCode } from "./http-status-code";
 
 export class ResponseEntity {
-  static exception(exception: Exception): HttpResponse {
-    return {
-      statusCode: exception.statusCode,
-      body: {
-        message: exception.message,
-        code: exception.code,
-        description: exception.description,
-      },
-    };
-  }
-
   static notContent(): HttpResponse {
     return {
       statusCode: HttpStatusCode.NO_CONTENT,

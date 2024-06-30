@@ -1,60 +1,56 @@
-import { RefreshTokenUseCaseImpl } from "@/data/use-cases/user/refresh-token-use-case-impl";
-import { UnauthorizedException } from "@/domain/use-cases/errors/unauthorized-exception";
-import { UserNotFoundException } from "@/domain/use-cases/errors/user-not-found-exception";
-import { RefreshTokenUseCaseRequestDto } from "@/domain/use-cases/user/refresh-token-use-case";
-import { left, right } from "@/shared/either";
-import { makeUser } from "@/test/domain/factories/make-user";
+import { RefreshTokenUseCaseImpl } from "../../../../src/data/use-cases/user/refresh-token-use-case-impl";
+import { UnauthorizedException } from "../../../../src/domain/use-cases/errors/unauthorized-exception";
+import { UserNotFoundException } from "../../../../src/domain/use-cases/errors/user-not-found-exception";
+import { RefreshTokenUseCase } from "../../../../src/domain/use-cases/user/refresh-token-use-case";
+import { makeUser } from "../../../domain/factories/make-user";
 import {
-  makeAuthServiceMock,
-  makeAuthServiceMockWithError,
-} from "@/test/infra/mocks/auth/auth-service-mock";
-import { makeInMemoryUserRepository } from "@/test/infra/mocks/repositories/user/in-memory-user-repository";
-import { faker } from "@faker-js/faker";
+  makeAuthFacadeMock,
+  makeAuthFacadeMockWithError,
+} from "../../../infra/mocks/auth/auth-facade-mock";
+import { makeInMemoryUserRepository } from "../../../infra/mocks/repositories/user/in-memory-user-repository";
+import { mockValues } from "../../../mock/mock-values";
 
 const makeSut = () => {
   const { inMemoryUserRepository } = makeInMemoryUserRepository();
-  const { authServiceMock } = makeAuthServiceMock();
+  const { authFacadeMock } = makeAuthFacadeMock();
   const sut = new RefreshTokenUseCaseImpl(
-    authServiceMock,
+    authFacadeMock,
     inMemoryUserRepository,
   );
-  return { sut, inMemoryUserRepository, authServiceMock };
+  return { sut, inMemoryUserRepository, authFacadeMock };
 };
-const makeRequest = (): RefreshTokenUseCaseRequestDto => {
+const makeRequest = (): RefreshTokenUseCase.Params => {
   return {
-    refreshToken: faker.lorem.words(),
+    refreshToken: mockValues.slug,
   };
 };
 const makeSutWithError = () => {
-  const { authServiceMockWithError } = makeAuthServiceMockWithError();
+  const { authFacadeMockWithError } = makeAuthFacadeMockWithError();
   const { inMemoryUserRepository } = makeInMemoryUserRepository();
   const sut = new RefreshTokenUseCaseImpl(
-    authServiceMockWithError,
+    authFacadeMockWithError,
     inMemoryUserRepository,
   );
-  return { sut, inMemoryUserRepository, authServiceMockWithError };
+  return { sut, inMemoryUserRepository, authFacadeMockWithError };
 };
 describe("RefreshTokenUseCaseImpl", () => {
   it("should return accessToken if success", async () => {
-    const { sut, inMemoryUserRepository, authServiceMock } = makeSut();
-    const user = makeUser();
-    await inMemoryUserRepository.create(user);
-    authServiceMock.responseDecryptRefreshToken = user.id;
+    const { sut, inMemoryUserRepository, authFacadeMock } = makeSut();
+    const user = await inMemoryUserRepository.create(makeUser());
+    authFacadeMock.responseDecryptRefreshToken = user.id;
     const response = await sut.handle(makeRequest());
-    expect(response).toEqual(
-      right({
-        accessToken: "any_access_token",
-      }),
-    );
+    expect(response).toEqual({
+      accessToken: "any_access_token",
+    });
   });
-  it("should return exception user not found if user not found", async () => {
+  it("should throw exception user not found if user not found", async () => {
     const { sut } = makeSut();
-    const response = await sut.handle(makeRequest());
-    expect(response).toEqual(left(new UserNotFoundException()));
+    const exception = sut.handle(makeRequest());
+    await expect(exception).rejects.toThrow(new UserNotFoundException());
   });
-  it("should return unauthorized exception if refreshToken is not valid", async () => {
+  it("should throw unauthorized exception if refreshToken is not valid", async () => {
     const { sut } = makeSutWithError();
-    const response = await sut.handle(makeRequest());
-    expect(response).toEqual(left(new UnauthorizedException()));
+    const exception = sut.handle(makeRequest());
+    await expect(exception).rejects.toThrow(new UnauthorizedException());
   });
 });

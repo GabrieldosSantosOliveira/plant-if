@@ -1,23 +1,16 @@
-import { Exception } from "@/domain/use-cases/errors/exception";
-import { UserAlreadyExistsException } from "@/domain/use-cases/errors/user-already-exists-exception";
-import {
-  CreateUserWithEmailUseCase,
-  CreateUserWithEmailUseCaseResponse,
-} from "@/domain/use-cases/user/create-user-with-email-use-case";
-import { Either, left, right } from "@/shared/either";
-import { makeUser } from "@/test/domain/factories/make-user";
+import { UserAlreadyExistsException } from "../../../../src/domain/use-cases/errors/user-already-exists-exception";
+import { CreateUserWithEmailUseCase } from "../../../../src/domain/use-cases/user/create-user-with-email-use-case";
+import { makeUser } from "../../../domain/factories/make-user";
 
 export class CreateUserWithEmailUseCaseMock
   implements CreateUserWithEmailUseCase
 {
-  async handle(): Promise<
-    Either<Exception, CreateUserWithEmailUseCaseResponse>
-  > {
-    return right({
+  async handle(): Promise<CreateUserWithEmailUseCase.Response> {
+    return {
       accessToken: "any_access_token",
       refreshToken: "any_refresh_token",
       user: makeUser(),
-    });
+    };
   }
 }
 export const makeCreateUserWithEmailUseCaseMock = () => {
@@ -28,9 +21,7 @@ export const makeCreateUserWithEmailUseCaseMock = () => {
 export class CreateUserWithEmailUseCaseMockWithError
   implements CreateUserWithEmailUseCase
 {
-  async handle(): Promise<
-    Either<Exception, CreateUserWithEmailUseCaseResponse>
-  > {
+  async handle(): Promise<CreateUserWithEmailUseCase.Response> {
     throw new Error();
   }
 }
@@ -42,10 +33,8 @@ export const makeCreateUserWithEmailUseCaseMockWithError = () => {
 export class CreateUserWithEmailUseCaseMockWithException
   implements CreateUserWithEmailUseCase
 {
-  async handle(): Promise<
-    Either<Exception, CreateUserWithEmailUseCaseResponse>
-  > {
-    return left(new UserAlreadyExistsException());
+  async handle(): Promise<CreateUserWithEmailUseCase.Response> {
+    throw new UserAlreadyExistsException();
   }
 }
 export const makeCreateUserWithEmailUseCaseMockWithException = () => {

@@ -4,8 +4,8 @@ jest.mock("bcryptjs", () => ({
   compare: mockCompare,
   hash: mockHash,
 }));
-import { BcryptAdapter } from "@/infra/cryptography/bcrypt-adapter";
-import { faker } from "@faker-js/faker";
+import { BcryptAdapter } from "../../../src/infra/cryptography/bcrypt-adapter";
+import { mockValues } from "../../mock/mock-values";
 
 const salt = 12;
 const makeSut = () => {
@@ -21,12 +21,12 @@ describe("BcryptAdapter", () => {
     it("should return hash if success", async () => {
       const { sut } = makeSut();
       mockHash.mockImplementation(() => "any_hash");
-      const hash = await sut.hash(faker.lorem.words());
+      const hash = await sut.hash(mockValues.slug);
       expect(hash).toBe("any_hash");
     });
     it("should call hash with correct params", async () => {
       const { sut } = makeSut();
-      const plaintext = faker.lorem.words();
+      const plaintext = mockValues.slug;
       await sut.hash(plaintext);
       expect(mockHash).toHaveBeenCalledWith(plaintext, salt);
     });
@@ -35,7 +35,7 @@ describe("BcryptAdapter", () => {
       mockHash.mockImplementation(() => {
         throw new Error();
       });
-      await expect(sut.hash(faker.lorem.words())).rejects.toThrow();
+      await expect(sut.hash(mockValues.slug)).rejects.toThrow();
     });
   });
   describe("compare", () => {

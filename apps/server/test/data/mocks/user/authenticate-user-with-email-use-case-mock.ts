@@ -1,23 +1,16 @@
-import { Exception } from "@/domain/use-cases/errors/exception";
-import { UserNotFoundException } from "@/domain/use-cases/errors/user-not-found-exception";
-import {
-  AuthenticateUserWithEmailUseCase,
-  AuthenticateUserWithEmailUseCaseResponse,
-} from "@/domain/use-cases/user/authenticate-user-with-email-use-case";
-import { Either, left, right } from "@/shared/either";
-import { makeUser } from "@/test/domain/factories/make-user";
+import { UserNotFoundException } from "../../../../src/domain/use-cases/errors/user-not-found-exception";
+import { AuthenticateUserWithEmailUseCase } from "../../../../src/domain/use-cases/user/authenticate-user-with-email-use-case";
+import { makeUser } from "../../../domain/factories/make-user";
 
 export class AuthenticateUserWithEmailUseCaseMock
   implements AuthenticateUserWithEmailUseCase
 {
-  async handle(): Promise<
-    Either<Exception, AuthenticateUserWithEmailUseCaseResponse>
-  > {
-    return right({
+  async handle(): Promise<AuthenticateUserWithEmailUseCase.Response> {
+    return {
       accessToken: "any_access_token",
       refreshToken: "any_refresh_token",
       user: makeUser(),
-    });
+    };
   }
 }
 export const makeAuthenticateUserWithEmailUseCaseMock = () => {
@@ -29,9 +22,7 @@ export const makeAuthenticateUserWithEmailUseCaseMock = () => {
 export class AuthenticateUserWithEmailUseCaseMockWithError
   implements AuthenticateUserWithEmailUseCase
 {
-  handle(): Promise<
-    Either<Exception, AuthenticateUserWithEmailUseCaseResponse>
-  > {
+  handle(): Promise<AuthenticateUserWithEmailUseCase.Response> {
     throw new Error();
   }
 }
@@ -43,10 +34,8 @@ export const makeAuthenticateUserWithEmailUseCaseMockWithError = () => {
 export class AuthenticateUserWithEmailUseCaseMockWithException
   implements AuthenticateUserWithEmailUseCase
 {
-  async handle(): Promise<
-    Either<Exception, AuthenticateUserWithEmailUseCaseResponse>
-  > {
-    return left(new UserNotFoundException());
+  async handle(): Promise<AuthenticateUserWithEmailUseCase.Response> {
+    throw new UserNotFoundException();
   }
 }
 export const makeAuthenticateUserWithEmailUseCaseMockWithException = () => {

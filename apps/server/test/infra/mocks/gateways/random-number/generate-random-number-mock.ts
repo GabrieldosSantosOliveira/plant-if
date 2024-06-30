@@ -1,4 +1,4 @@
-import { GenerateRandomNumber } from "@/domain/contracts/gateways/random-number/generate-random-number";
+import { GenerateRandomNumber } from "../../../../../src/domain/contracts/gateways/random-number/generate-random-number";
 
 export class GenerateRandomNumberMock implements GenerateRandomNumber {
   public response = 999;

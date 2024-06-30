@@ -1,11 +1,12 @@
-import { User } from "@/domain/entities/user";
+import { UserModel } from "../../domain/entities/user";
 
 export class UserViewModel {
-  static toHTTP(user: User) {
+  static toHTTP(
+    user: Omit<UserModel, "password" | "resetPasswordSecret" | "role">,
+  ) {
     return {
       id: user.id,
       lastName: user.lastName,
-      image: user.image,
       firstName: user.firstName,
       email: user.email,
       createdAt: user.createdAt,

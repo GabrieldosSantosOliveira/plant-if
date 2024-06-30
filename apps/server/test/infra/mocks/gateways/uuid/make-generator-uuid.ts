@@ -1,8 +1,9 @@
-import { GeneratorUUID } from "@/domain/contracts/gateways/uuid/generator-uuid";
-import { faker } from "@faker-js/faker";
+import { GeneratorUUID } from "../../../../../src/domain/contracts/gateways/uuid/generator-uuid";
+import { mockValues } from "../../../../mock/mock-values";
+
 export class GeneratorUUIDMock implements GeneratorUUID {
   randomUUID(): string {
-    return faker.string.uuid();
+    return mockValues.uuid;
   }
 }
 

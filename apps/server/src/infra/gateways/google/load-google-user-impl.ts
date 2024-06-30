@@ -1,9 +1,9 @@
-import { HttpClient } from "@/data/protocols/http/http-client";
+import { HttpClient } from "../../../data/protocols/http/http-client";
 import {
   LoadGoogleUser,
   LoadGoogleUserRequest,
   LoadGoogleUserResponse,
-} from "@/domain/contracts/gateways/google/load-google-user";
+} from "../../../domain/contracts/gateways/google/load-google-user";
 
 export interface GoogleResponseAccount {
   email: string;

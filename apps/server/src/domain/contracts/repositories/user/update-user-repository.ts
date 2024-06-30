@@ -1,5 +1,8 @@
-import { User } from "@/domain/entities/user";
+import { UserModel } from "../../../entities/user";
 
 export interface UpdateUserRepository {
-  save(user: User): Promise<void>;
+  save(user: UpdateUserRepository.Params): Promise<void>;
+}
+export namespace UpdateUserRepository {
+  export interface Params extends Omit<UserModel, "id"> {}
 }

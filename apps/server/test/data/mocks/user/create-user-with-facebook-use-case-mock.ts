@@ -1,28 +1,22 @@
-import { Exception } from "@/domain/use-cases/errors/exception";
-import { UnauthorizedException } from "@/domain/use-cases/errors/unauthorized-exception";
-import {
-  CreateUserWithFacebookUseCase,
-  CreateUserWithFacebookUseCaseRequest,
-  CreateUserWithFacebookUseCaseResponse,
-} from "@/domain/use-cases/user/create-user-with-facebook-use-case";
-import { Either, left, right } from "@/shared/either";
-import { makeUser } from "@/test/domain/factories/make-user";
+import { UnauthorizedException } from "../../../../src/domain/use-cases/errors/unauthorized-exception";
+import { CreateUserWithFacebookUseCase } from "../../../../src/domain/use-cases/user/create-user-with-facebook-use-case";
+import { makeUser } from "../../../domain/factories/make-user";
 
 export class CreateUserWithFacebookUseCaseMock
   implements CreateUserWithFacebookUseCase
 {
-  public request: CreateUserWithFacebookUseCaseRequest;
-  public response: CreateUserWithFacebookUseCaseResponse;
+  public request: CreateUserWithFacebookUseCase.Params;
+  public response: CreateUserWithFacebookUseCase.Response;
   async handle(
-    request: CreateUserWithFacebookUseCaseRequest,
-  ): Promise<Either<Exception, CreateUserWithFacebookUseCaseResponse>> {
+    request: CreateUserWithFacebookUseCase.Params,
+  ): Promise<CreateUserWithFacebookUseCase.Response> {
     this.request = request;
     this.response = {
       accessToken: "any_access_token",
       refreshToken: "any_refresh_token",
       user: makeUser(),
     };
-    return right(this.response);
+    return this.response;
   }
 }
 export const makeCreateUserWithFacebookUseCaseMock = () => {
@@ -33,9 +27,7 @@ export const makeCreateUserWithFacebookUseCaseMock = () => {
 export class CreateUserWithFacebookUseCaseMockWithError
   implements CreateUserWithFacebookUseCase
 {
-  async handle(): Promise<
-    Either<Exception, CreateUserWithFacebookUseCaseResponse>
-  > {
+  async handle(): Promise<CreateUserWithFacebookUseCase.Response> {
     throw new Error();
   }
 }
@@ -47,10 +39,8 @@ export const makeCreateUserWithFacebookUseCaseMockWithError = () => {
 export class CreateUserWithFacebookUseCaseMockWithException
   implements CreateUserWithFacebookUseCase
 {
-  async handle(): Promise<
-    Either<Exception, CreateUserWithFacebookUseCaseResponse>
-  > {
-    return left(new UnauthorizedException());
+  async handle(): Promise<CreateUserWithFacebookUseCase.Response> {
+    throw new UnauthorizedException();
   }
 }
 export const makeCreateUserWithFacebookUseCaseMockWithException = () => {

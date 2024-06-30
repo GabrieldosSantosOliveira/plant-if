@@ -1,58 +1,52 @@
-import { CreateUserWithFacebookUseCaseImpl } from "@/data/use-cases/user/create-user-with-facebook-use-case-impl";
-import { UnauthorizedException } from "@/domain/use-cases/errors/unauthorized-exception";
-import { makeAuthServiceMock } from "@/test/infra/mocks/auth/auth-service-mock";
+import { CreateUserWithFacebookUseCaseImpl } from "../../../../src/data/use-cases/user/create-user-with-facebook-use-case-impl";
+import { UnauthorizedException } from "../../../../src/domain/use-cases/errors/unauthorized-exception";
+import { makeUser } from "../../../domain/factories/make-user";
+import { makeAuthFacadeMock } from "../../../infra/mocks/auth/auth-facade-mock";
 import {
   makeLoadFacebookUserMock,
   makeLoadFacebookUserMockWithException,
-} from "@/test/infra/mocks/gateways/facebook/load-facebook-user-mock";
-import { makeGeneratorUUIDMock } from "@/test/infra/mocks/gateways/uuid/make-generator-uuid";
-import { faker } from "@faker-js/faker";
-
-import { makeUser } from "../../../domain/factories/make-user";
+} from "../../../infra/mocks/gateways/facebook/load-facebook-user-mock";
 import { makeInMemoryUserRepository } from "../../../infra/mocks/repositories/user/in-memory-user-repository";
+import { mockValues } from "../../../mock/mock-values";
 
 const makeSut = () => {
-  const { authServiceMock } = makeAuthServiceMock();
+  const { authFacadeMock } = makeAuthFacadeMock();
   const { loadFacebookUserMock } = makeLoadFacebookUserMock();
   const { inMemoryUserRepository } = makeInMemoryUserRepository();
-  const { generatorUUIDMock } = makeGeneratorUUIDMock();
   const sut = new CreateUserWithFacebookUseCaseImpl(
     loadFacebookUserMock,
     inMemoryUserRepository,
-    authServiceMock,
+    authFacadeMock,
     inMemoryUserRepository,
-    generatorUUIDMock,
   );
-  return { sut, loadFacebookUserMock, inMemoryUserRepository, authServiceMock };
+  return { sut, loadFacebookUserMock, inMemoryUserRepository, authFacadeMock };
 };
 const makeSutWithLoadFacebookException = () => {
-  const { authServiceMock } = makeAuthServiceMock();
+  const { authFacadeMock } = makeAuthFacadeMock();
   const { loadFacebookUserMockWithException } =
     makeLoadFacebookUserMockWithException();
   const { inMemoryUserRepository } = makeInMemoryUserRepository();
-  const { generatorUUIDMock } = makeGeneratorUUIDMock();
 
   const sut = new CreateUserWithFacebookUseCaseImpl(
     loadFacebookUserMockWithException,
     inMemoryUserRepository,
-    authServiceMock,
+    authFacadeMock,
     inMemoryUserRepository,
-    generatorUUIDMock,
   );
   return {
     sut,
     loadFacebookUserMockWithException,
     inMemoryUserRepository,
-    authServiceMock,
+    authFacadeMock,
   };
 };
 describe("CreateUserWithFacebookUseCaseImpl", () => {
   it("should return accessToken, refreshToken and user if user not exists", async () => {
     const { sut } = makeSut();
     const response = await sut.handle({ accessToken: "any_access_token" });
-    expect(response.value).toHaveProperty("accessToken");
-    expect(response.value).toHaveProperty("refreshToken");
-    expect(response.value).toHaveProperty("user");
+    expect(response).toHaveProperty("accessToken");
+    expect(response).toHaveProperty("refreshToken");
+    expect(response).toHaveProperty("user");
   });
   it("should return accessToken, refreshToken and user if user already exists", async () => {
     const { sut, inMemoryUserRepository, loadFacebookUserMock } = makeSut();
@@ -60,24 +54,26 @@ describe("CreateUserWithFacebookUseCaseImpl", () => {
     await inMemoryUserRepository.create(user);
     loadFacebookUserMock.email = user.email;
     const response = await sut.handle({ accessToken: "any_access_token" });
-    expect(response.value).toHaveProperty("accessToken");
-    expect(response.value).toHaveProperty("refreshToken");
-    expect(response.value).toHaveProperty("user");
+    expect(response).toHaveProperty("accessToken");
+    expect(response).toHaveProperty("refreshToken");
+    expect(response).toHaveProperty("user");
   });
-  it("should return exception if accessToken is not valid", async () => {
+  it("should throw if accessToken is not valid", async () => {
     const { sut, loadFacebookUserMock } = makeSut();
     loadFacebookUserMock.success = false;
-    const exception = await sut.handle({ accessToken: "any_access_token" });
-    expect(exception.value).toEqual(new UnauthorizedException());
+    await expect(
+      sut.handle({ accessToken: "any_access_token" }),
+    ).rejects.toThrow(new UnauthorizedException());
   });
   it("should throw if LoadFacebookUser throw", async () => {
     const { sut } = makeSutWithLoadFacebookException();
-    const exception = sut.handle({ accessToken: "any_access_token" });
-    await expect(exception).rejects.toThrow();
+    await expect(
+      sut.handle({ accessToken: "any_access_token" }),
+    ).rejects.toThrow();
   });
   it("should call LoadFacebookUser with correct accessToken", async () => {
     const { sut, loadFacebookUserMock } = makeSut();
-    const accessToken = faker.lorem.slug();
+    const accessToken = mockValues.slug;
     const loadFacebookUserMockSpy = jest.spyOn(
       loadFacebookUserMock,
       "loadUser",
@@ -87,7 +83,7 @@ describe("CreateUserWithFacebookUseCaseImpl", () => {
   });
   it("should call LoadUserByEmailRepository with correct email", async () => {
     const { sut, inMemoryUserRepository, loadFacebookUserMock } = makeSut();
-    const email = faker.internet.email();
+    const email = mockValues.email;
     loadFacebookUserMock.email = email;
     const inMemoryUserRepositorySpy = jest.spyOn(
       inMemoryUserRepository,
@@ -100,18 +96,18 @@ describe("CreateUserWithFacebookUseCaseImpl", () => {
     const {
       sut,
       inMemoryUserRepository,
-      authServiceMock,
+      authFacadeMock,
       loadFacebookUserMock,
     } = makeSut();
-    const email = faker.internet.email();
+    const email = mockValues.email;
     loadFacebookUserMock.email = email;
     const generateAccessTokenSpy = jest.spyOn(
-      authServiceMock,
-      "generateAccessToken",
+      authFacadeMock,
+      "signAccessToken",
     );
     const generateRefreshTokenSpy = jest.spyOn(
-      authServiceMock,
-      "generateRefreshToken",
+      authFacadeMock,
+      "signRefreshToken",
     );
     await sut.handle({ accessToken: "any_access_token" });
     const user = await inMemoryUserRepository.findByEmail(email);

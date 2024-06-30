@@ -1,17 +1,17 @@
-import { User } from "@/domain/entities/user";
-import { Either } from "@/shared/either";
+import { UserModel } from "../../entities/user";
 
-import { Exception } from "../errors/exception";
-export interface CreateUserWithFacebookUseCaseRequest {
-  accessToken: string;
-}
-export interface CreateUserWithFacebookUseCaseResponse {
-  accessToken: string;
-  refreshToken: string;
-  user: User;
-}
 export interface CreateUserWithFacebookUseCase {
   handle(
-    request: CreateUserWithFacebookUseCaseRequest,
-  ): Promise<Either<Exception, CreateUserWithFacebookUseCaseResponse>>;
+    request: CreateUserWithFacebookUseCase.Params,
+  ): Promise<CreateUserWithFacebookUseCase.Response>;
+}
+export declare module CreateUserWithFacebookUseCase {
+  export interface Params {
+    accessToken: string;
+  }
+  export interface Response {
+    accessToken: string;
+    refreshToken: string;
+    user: UserModel;
+  }
 }

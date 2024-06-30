@@ -1,9 +1,9 @@
-import { Bcrypt } from "@/data/protocols/cryptography/bcrypt";
-import { faker } from "@faker-js/faker";
+import { Bcrypt } from "../../../../src/data/protocols/cryptography/bcrypt";
+import { mockValues } from "../../../mock/mock-values";
 
 export class BcryptMock implements Bcrypt {
   public isValid = true;
-  public response = faker.lorem.words();
+  public response = mockValues.slug;
   async compare(): Promise<boolean> {
     return this.isValid;
   }

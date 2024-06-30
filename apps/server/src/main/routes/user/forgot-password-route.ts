@@ -1,10 +1,13 @@
-import { makeExpressRouterAdapter } from "@/main/adapters/express-router-adapter";
-import { makeForgotPasswordController } from "@/main/factories/presentation/controllers/make-forgot-password-controller";
 import { Router } from "express";
+import { makeExpressRouterAdapter } from "../../adapters/express-router-adapter";
+import { makeGlobalHandlerException } from "../../factories/global-handler-exception/make-global-handler-exception";
+import { makeForgotPasswordController } from "../../factories/presentation/controllers/make-forgot-password-controller";
 
 export default function ForgotPasswordRoute(router: Router) {
   router.post(
     "/user/auth/forgot-password",
-    makeExpressRouterAdapter(makeForgotPasswordController()),
+    makeExpressRouterAdapter(
+      makeGlobalHandlerException(makeForgotPasswordController()),
+    ),
   );
 }

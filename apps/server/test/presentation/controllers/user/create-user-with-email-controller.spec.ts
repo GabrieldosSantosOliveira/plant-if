@@ -1,15 +1,15 @@
 import {
   CreateUserWithEmailController,
-  type CreateUserWithEmailControllerRequest,
-} from "@/presentation/controllers/user/create-user-with-email-controller";
-import { HttpStatusCode } from "@/presentation/helpers/http/http-status-code";
-import { type HttpRequest } from "@/presentation/protocols/http/http-request";
+  CreateUserWithEmailControllerRequest,
+} from "../../../../src/presentation/controllers/user/create-user-with-email-controller";
+import { HttpStatusCode } from "../../../../src/presentation/helpers/http/http-status-code";
+import { HttpRequest } from "../../../../src/presentation/protocols/http/http-request";
 import {
   makeCreateUserWithEmailUseCaseMock,
   makeCreateUserWithEmailUseCaseMockWithError,
   makeCreateUserWithEmailUseCaseMockWithException,
-} from "@/test/data/mocks/user/create-user-with-email-use-case-mock";
-import { faker } from "@faker-js/faker";
+} from "../../../data/mocks/user/create-user-with-email-use-case-mock";
+import { mockValues } from "../../../mock/mock-values";
 
 const makeSut = () => {
   const { createUserWithEmailUseCaseMock } =
@@ -38,10 +38,10 @@ const makeRequest = (
 ): HttpRequest<CreateUserWithEmailControllerRequest, unknown, unknown> => {
   return {
     body: {
-      email: faker.internet.email(),
-      firstName: faker.person.firstName(),
-      lastName: faker.person.lastName(),
-      password: faker.lorem.words(),
+      email: mockValues.email,
+      firstName: mockValues.firstName,
+      lastName: mockValues.lastName,
+      password: mockValues.password,
       ...body,
     },
     params: {},
@@ -76,15 +76,13 @@ describe("CreateUserWithEmailController", () => {
     const httpResponse = await sut.handle(makeRequest());
     expect(httpResponse.statusCode).toBe(HttpStatusCode.CREATED);
   });
-  it("should return 500 if CreateUserWithEmailUseCase throw error", async () => {
+  it("should throw error if CreateUserWithEmailUseCase throw error", async () => {
     const { sut } = makeSutWithError();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.SERVER_ERROR);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
-  it("should return 401 if CreateUserWithEmailUseCase return exception", async () => {
+  it("should throw exception if CreateUserWithEmailUseCase throw exception", async () => {
     const { sut } = makeSutWithException();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.CONFLICT);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
 
   it("should call CreateUserWithEmailUseCase with correct params", async () => {

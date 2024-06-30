@@ -1,8 +1,8 @@
-import { CreateUserRepository } from "@/domain/contracts/repositories/user/create-user-repository";
-import { LoadUserByEmailRepository } from "@/domain/contracts/repositories/user/load-user-by-email-repository";
-import { LoadUserByIdRepository } from "@/domain/contracts/repositories/user/load-user-by-id-repository";
-import { UpdateUserRepository } from "@/domain/contracts/repositories/user/update-user-repository";
-import { User } from "@/domain/entities/user";
+import { CreateUserRepository } from "../../../../../src/domain/contracts/repositories/user/create-user-repository";
+import { LoadUserByEmailRepository } from "../../../../../src/domain/contracts/repositories/user/load-user-by-email-repository";
+import { LoadUserByIdRepository } from "../../../../../src/domain/contracts/repositories/user/load-user-by-id-repository";
+import { UpdateUserRepository } from "../../../../../src/domain/contracts/repositories/user/update-user-repository";
+import { UserModel, UserRoles } from "../../../../../src/domain/entities/user";
 
 export class InMemoryUserRepository
   implements
@@ -11,8 +11,24 @@ export class InMemoryUserRepository
     CreateUserRepository,
     UpdateUserRepository
 {
-  private users: User[] = [];
-  async findById(id: string): Promise<User | null> {
+  private users: UserModel[] = [];
+  async create(
+    user: CreateUserRepository.Params,
+  ): Promise<CreateUserRepository.Response> {
+    const rawUser: UserModel = {
+      id: this.users.length + 1,
+      email: user.email,
+      lastName: user.lastName,
+      firstName: user.firstName,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      role: UserRoles.STUDENT,
+      password: user.password,
+    };
+    this.users.push(rawUser);
+    return rawUser;
+  }
+  async findById(id: number): Promise<LoadUserByIdRepository.Response | null> {
     const userExists = this.users.find((user) => user.id === id);
     if (!userExists) {
       return null;
@@ -20,7 +36,9 @@ export class InMemoryUserRepository
     return userExists;
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(
+    email: string,
+  ): Promise<LoadUserByEmailRepository.Response | null> {
     const userExists = this.users.find((user) => user.email === email);
     if (!userExists) {
       return null;
@@ -28,12 +46,8 @@ export class InMemoryUserRepository
     return userExists;
   }
 
-  async create(user: User): Promise<void> {
-    this.users.push(user);
-  }
-
-  async save(user: User): Promise<void> {
-    const userIndex = this.users.findIndex(({ id }) => id === user.id);
+  async save(user: UserModel): Promise<void> {
+    const userIndex = this.users.findIndex(({ email }) => email === user.email);
     if (userIndex >= 0) {
       this.users[userIndex] = user;
     }

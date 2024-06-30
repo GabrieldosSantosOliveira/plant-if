@@ -1,13 +1,8 @@
-import { HttpStatusCode } from "@/presentation/helpers/http/http-status-code";
+import { DomainException } from "./domain-exception";
 
-import { HttpException } from "./http-exception";
-
-export class UserAlreadyExistsException extends HttpException {
+export class UserAlreadyExistsException extends DomainException {
   constructor() {
-    super({
-      message: "User already exists",
-      statusCode: HttpStatusCode.CONFLICT,
-    });
+    super();
     this.name = "UserAlreadyExistsException";
   }
 }

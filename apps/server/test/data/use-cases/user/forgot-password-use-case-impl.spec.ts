@@ -1,13 +1,12 @@
-import { ForgotPasswordUseCaseImpl } from "@/data/use-cases/user/forgot-password-use-case-impl";
-import { UserNotFoundException } from "@/domain/use-cases/errors/user-not-found-exception";
-import { ForgotPasswordUseCaseRequest } from "@/domain/use-cases/user/forgot-password-use-case";
-import { left } from "@/shared/either";
-import { makeUser } from "@/test/domain/factories/make-user";
-import { makeTimeBasedOnTimePasswordMock } from "@/test/infra/mocks/cryptography/make-time-based-one-time-password-mock";
-import { makeSendMailMock } from "@/test/infra/mocks/gateways/email/send-mail";
-import { makeGenerateRandomNumberMock } from "@/test/infra/mocks/gateways/random-number/generate-random-number-mock";
-import { makeInMemoryUserRepository } from "@/test/infra/mocks/repositories/user/in-memory-user-repository";
-import { faker } from "@faker-js/faker";
+import { ForgotPasswordUseCaseImpl } from "../../../../src/data/use-cases/user/forgot-password-use-case-impl";
+import { UserNotFoundException } from "../../../../src/domain/use-cases/errors/user-not-found-exception";
+import { ForgotPasswordUseCase } from "../../../../src/domain/use-cases/user/forgot-password-use-case";
+import { makeUser } from "../../../domain/factories/make-user";
+import { makeTimeBasedOnTimePasswordMock } from "../../../infra/mocks/cryptography/make-time-based-one-time-password-mock";
+import { makeSendMailMock } from "../../../infra/mocks/gateways/email/send-mail";
+import { makeGenerateRandomNumberMock } from "../../../infra/mocks/gateways/random-number/generate-random-number-mock";
+import { makeInMemoryUserRepository } from "../../../infra/mocks/repositories/user/in-memory-user-repository";
+import { mockValues } from "../../../mock/mock-values";
 
 const makeSut = async () => {
   const { inMemoryUserRepository } = makeInMemoryUserRepository();
@@ -48,18 +47,18 @@ const makeSutWithoutCreateUser = () => {
   };
 };
 const makeRequest = (
-  request: Partial<ForgotPasswordUseCaseRequest> = {},
-): ForgotPasswordUseCaseRequest => {
+  request: Partial<ForgotPasswordUseCase.Params> = {},
+): ForgotPasswordUseCase.Params => {
   return {
-    email: faker.internet.email(),
+    email: mockValues.email,
     ...request,
   };
 };
 describe("ForgotPasswordUseCaseImpl", () => {
-  it("should return exception if user not found", async () => {
+  it("should throw exception if user not found", async () => {
     const { sut } = makeSutWithoutCreateUser();
-    const response = await sut.handle(makeRequest());
-    expect(response).toEqual(left(new UserNotFoundException()));
+    const exception = sut.handle(makeRequest());
+    await expect(exception).rejects.toThrow(new UserNotFoundException());
   });
   it("should save user with resetPasswordSecret", async () => {
     const { sut, inMemoryUserRepository, user } = await makeSut();

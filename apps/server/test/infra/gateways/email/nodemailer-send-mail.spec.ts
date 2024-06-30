@@ -6,7 +6,7 @@ jest.mock("nodemailer", () => {
     }),
   };
 });
-import { NodemalierSendMail } from "@/infra/gateways/email/nodemalier-send-mail";
+import { NodemalierSendMail } from "../../../../src/infra/gateways/email/nodemalier-send-mail";
 
 const makeSut = () => {
   const sut = new NodemalierSendMail();

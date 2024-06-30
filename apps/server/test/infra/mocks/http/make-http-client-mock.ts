@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import {
   HttpClient,
   HttpClientResponse,
-} from "@/data/protocols/http/http-client";
+} from "../../../../src/data/protocols/http/http-client";
 
 export class HttpClientMock implements HttpClient {
   public responseGet: HttpClientResponse<any>;

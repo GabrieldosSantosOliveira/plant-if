@@ -1,10 +1,10 @@
 import {
-  type FacebookAccount,
-  type LoadFacebookUser,
-  type LoadFacebookUserRequest,
-  type LoadFacebookUserResponse,
-} from "@/domain/contracts/gateways/facebook/load-facebook-user";
-import { faker } from "@faker-js/faker";
+  FacebookAccount,
+  LoadFacebookUser,
+  LoadFacebookUserRequest,
+  LoadFacebookUserResponse,
+} from "../../../../../src/domain/contracts/gateways/facebook/load-facebook-user";
+import { mockValues } from "../../../../mock/mock-values";
 
 export class LoadFacebookUserMock implements LoadFacebookUser {
   public accessToken: string;
@@ -16,11 +16,11 @@ export class LoadFacebookUserMock implements LoadFacebookUser {
   }: LoadFacebookUserRequest): Promise<LoadFacebookUserResponse> {
     this.accessToken = accessToken;
     this.user = {
-      email: this.email || faker.internet.email(),
-      lastName: faker.person.lastName(),
-      firstName: faker.person.firstName(),
-      id: faker.string.uuid(),
-      picture: faker.internet.url(),
+      email: this.email || mockValues.email,
+      lastName: mockValues.lastName,
+      firstName: mockValues.firstName,
+      id: mockValues.uuid,
+      picture: mockValues.url,
     };
     return {
       success: this.success,

@@ -1,15 +1,15 @@
 import {
   AuthenticateUserWithEmailController,
-  type AuthenticateUserWithEmailUseCaseRequestBody,
-} from "@/presentation/controllers/user/authenticate-user-with-email-controller";
-import { HttpStatusCode } from "@/presentation/helpers/http/http-status-code";
-import { type HttpRequest } from "@/presentation/protocols/http/http-request";
+  AuthenticateUserWithEmailUseCaseRequestBody,
+} from "../../../../src/presentation/controllers/user/authenticate-user-with-email-controller";
+import { HttpStatusCode } from "../../../../src/presentation/helpers/http/http-status-code";
+import { HttpRequest } from "../../../../src/presentation/protocols/http/http-request";
 import {
   makeAuthenticateUserWithEmailUseCaseMock,
   makeAuthenticateUserWithEmailUseCaseMockWithError,
   makeAuthenticateUserWithEmailUseCaseMockWithException,
-} from "@/test/data/mocks/user/authenticate-user-with-email-use-case-mock";
-import { faker } from "@faker-js/faker";
+} from "../../../data/mocks/user/authenticate-user-with-email-use-case-mock";
+import { mockValues } from "../../../mock/mock-values";
 
 const makeSut = () => {
   const { authenticateUserWithEmailUseCaseMock } =
@@ -44,8 +44,8 @@ const makeRequest = (
 > => {
   return {
     body: {
-      email: faker.internet.email(),
-      password: faker.lorem.words(),
+      email: mockValues.email,
+      password: mockValues.password,
       ...body,
     },
     params: {},
@@ -68,15 +68,13 @@ describe("AuthenticateUserWithEmailController", () => {
     const httpResponse = await sut.handle(makeRequest());
     expect(httpResponse.statusCode).toBe(HttpStatusCode.OK);
   });
-  it("should return 500 if AuthenticateUserWithEmailUseCase throw error", async () => {
+  it("should throw error if AuthenticateUserWithEmailUseCase throw error", async () => {
     const { sut } = makeSutWithError();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.SERVER_ERROR);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
-  it("should return 404 if AuthenticateUserWithEmailUseCase return exception", async () => {
+  it("should throw exception if AuthenticateUserWithEmailUseCase throw exception", async () => {
     const { sut } = makeSutWithException();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.NOT_FOUND);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
 
   it("should call AuthenticateUserWithEmailUseCase with correct params", async () => {

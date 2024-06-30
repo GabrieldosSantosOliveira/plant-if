@@ -1,10 +1,10 @@
 import {
-  type GoogleAccount,
-  type LoadGoogleUser,
-  type LoadGoogleUserRequest,
-  type LoadGoogleUserResponse,
-} from "@/domain/contracts/gateways/google/load-google-user";
-import { faker } from "@faker-js/faker";
+  GoogleAccount,
+  LoadGoogleUser,
+  LoadGoogleUserRequest,
+  LoadGoogleUserResponse,
+} from "../../../../../src/domain/contracts/gateways/google/load-google-user";
+import { mockValues } from "../../../../mock/mock-values";
 
 export class LoadGoogleUserMock implements LoadGoogleUser {
   public accessToken: string;
@@ -16,11 +16,11 @@ export class LoadGoogleUserMock implements LoadGoogleUser {
   }: LoadGoogleUserRequest): Promise<LoadGoogleUserResponse> {
     this.accessToken = accessToken;
     this.user = {
-      email: this.email || faker.internet.email(),
-      family_name: faker.person.lastName(),
-      given_name: faker.person.firstName(),
-      id: faker.string.uuid(),
-      picture: faker.internet.url(),
+      email: this.email || mockValues.email,
+      family_name: mockValues.lastName,
+      given_name: mockValues.firstName,
+      id: mockValues.uuid,
+      picture: mockValues.url,
     };
     return {
       success: this.success,

@@ -1,15 +1,15 @@
 import {
   CreateUserWithGoogleController,
-  type CreateUserWithGoogleControllerRequest,
-} from "@/presentation/controllers/user/create-user-with-google-controller";
-import { HttpStatusCode } from "@/presentation/helpers/http/http-status-code";
-import { type HttpRequest } from "@/presentation/protocols/http/http-request";
+  CreateUserWithGoogleControllerRequest,
+} from "../../../../src/presentation/controllers/user/create-user-with-google-controller";
+import { HttpStatusCode } from "../../../../src/presentation/helpers/http/http-status-code";
+import { HttpRequest } from "../../../../src/presentation/protocols/http/http-request";
 import {
   makeCreateUserWithGoogleUseCaseMock,
   makeCreateUserWithGoogleUseCaseMockWithError,
   makeCreateUserWithGoogleUseCaseMockWithException,
-} from "@/test/data/mocks/user/create-user-with-google-use-case-mock";
-import { faker } from "@faker-js/faker";
+} from "../../../data/mocks/user/create-user-with-google-use-case-mock";
+import { mockValues } from "../../../mock/mock-values";
 
 const makeSut = () => {
   const { createUserWithGoogleUseCaseMock } =
@@ -60,19 +60,17 @@ describe("CreateUserWithGoogleController", () => {
     const httpResponse = await sut.handle(makeRequest());
     expect(httpResponse.statusCode).toBe(HttpStatusCode.OK);
   });
-  it("should return 500 if CreateUserWithGoogleUseCase throw error", async () => {
+  it("should throw error if CreateUserWithGoogleUseCase throw error", async () => {
     const { sut } = makeSutWithError();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.SERVER_ERROR);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
-  it("should return 401 if CreateUserWithGoogleUseCase return exception", async () => {
+  it("should throw exception if CreateUserWithGoogleUseCase throw exception", async () => {
     const { sut } = makeSutWithException();
-    const httpResponse = await sut.handle(makeRequest());
-    expect(httpResponse.statusCode).toBe(HttpStatusCode.UNAUTHORIZED_ERROR);
+    await expect(sut.handle(makeRequest())).rejects.toThrow();
   });
   it("should call CreateUserWithGoogleUseCase with correct params", async () => {
     const { sut, createUserWithGoogleUseCaseMock } = makeSut();
-    const accessToken = faker.lorem.slug();
+    const accessToken = mockValues.slug;
     const createUserWithGoogleUseCaseMockSpy = jest.spyOn(
       createUserWithGoogleUseCaseMock,
       "handle",

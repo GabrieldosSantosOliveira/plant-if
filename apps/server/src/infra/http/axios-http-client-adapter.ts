@@ -1,9 +1,9 @@
+import axios, { isAxiosError } from "axios";
 import {
   HttpClient,
   HttpClientOptions,
   HttpClientResponse,
-} from "@/data/protocols/http/http-client";
-import axios, { isAxiosError } from "axios";
+} from "../../data/protocols/http/http-client";
 
 export class AxiosHttpClientAdapter implements HttpClient {
   async post<T = unknown>(
