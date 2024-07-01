@@ -7,7 +7,7 @@
     "build": "rimraf ./dist && tsc",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "jest --passWithNoTests --verbose --colors",
+    "test": "jest --passWithNoTests --verbose --colors --runInBand",
     "test:watch": "npm run test -- --watch",
     "test:staged": "npm run test -- --bail=0 --findRelatedTests",
     "test:ci": "npm run test -- --coverage",
